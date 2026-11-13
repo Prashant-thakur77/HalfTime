@@ -23,6 +23,8 @@ export interface ClaudeReaderOptions {
   cache?: ResponseCache;
   /** Effort for extraction calls. */
   effort?: "low" | "medium" | "high";
+  /** Added to cache keys so repeat eval runs call the model again instead of reading the cache. */
+  cacheSalt?: string;
 }
 
 function cost(model: string, inTok: number, outTok: number): number {
@@ -49,8 +51,10 @@ export class ClaudeReader {
   private client: Anthropic;
   private cache: ResponseCache;
   private effort: "low" | "medium" | "high";
+  private salt: string;
 
   constructor(opts: ClaudeReaderOptions = {}) {
+    this.salt = opts.cacheSalt ?? "";
     this.client = new Anthropic(opts.apiKey ? { apiKey: opts.apiKey } : {});
     this.cache = opts.cache ?? new MemoryCache();
     this.effort = opts.effort ?? "medium";
@@ -70,7 +74,7 @@ export class ClaudeReader {
   /** Read one document into facts with verbatim quotes. */
   async extract(text: string): Promise<{ value: Extraction; meta: CallMeta }> {
     const model = MODELS.extract;
-    const key = await hashKey("extract", model, PROMPT_VERSION, this.effort, text);
+    const key = await hashKey("extract", model, PROMPT_VERSION, this.effort, this.salt, text);
     return this.cached(key, async () => {
       const t0 = Date.now();
       const msg = await this.client.beta.messages.parse({
@@ -95,7 +99,7 @@ export class ClaudeReader {
   async selfCheck(text: string, found: Extraction["sections"]): Promise<{ value: Extraction["sections"]; meta: CallMeta }> {
     const model = MODELS.extract;
     const list = found.map((s) => `${s.act} ${s.section}`).join(", ") || "(none)";
-    const key = await hashKey("selfcheck", model, PROMPT_VERSION, text, list);
+    const key = await hashKey("selfcheck", model, PROMPT_VERSION, this.salt, text, list);
     return this.cached(key, async () => {
       const t0 = Date.now();
       const msg = await this.client.beta.messages.parse({

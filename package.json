@@ -10,6 +10,14 @@
     "test": "pnpm -r --if-present test",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "pnpm -r --if-present lint",
-    "build": "pnpm --filter web build"
+    "build": "pnpm --filter web build",
+    "facts": "tsx scripts/build-facts.ts",
+    "eval": "tsx eval/run-eval.ts",
+    "samples:run": "tsx scripts/build-sample-runs.ts"
+  },
+  "devDependencies": {
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "@types/node": "22"
   }
 }
