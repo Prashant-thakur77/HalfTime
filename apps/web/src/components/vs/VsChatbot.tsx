@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { evaluate, humanDate, parseIsoDate, type Verdict } from "@halftime/law";
 import { decide, type BaselineAnswer } from "@halftime/reader";
 import { VerdictTag } from "@/components/VerdictTag";
 import { RUNS, SAMPLES } from "@/lib/cases";
+import { useToday } from "@/lib/today";
 
 const PAST = new Set<Verdict>(["PAST_THE_LINE", "PAST_FLAGGED"]);
 
@@ -30,7 +31,7 @@ export function VsChatbot() {
   const [live, setLive] = useState<Record<string, BaselineAnswer>>({});
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
-  const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
+  const today = useToday();
 
   const s = SAMPLES.find((x) => x.id === id);
   const run = RUNS[id];

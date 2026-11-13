@@ -30,14 +30,14 @@ export function TabNav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50">
-      <nav aria-label="Main" className="relative mx-auto flex max-w-[var(--max)] items-start justify-between px-[var(--gutter)]">
+    <header className="sticky top-0 z-50 border-b border-ink bg-paper">
+      <nav aria-label="Main" className="relative mx-auto flex h-12 max-w-[var(--max)] items-start justify-between px-[var(--gutter)]">
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
           aria-controls="index-panel"
-          className="flex h-11 min-w-[44px] items-center gap-2.5 rounded-b-[10px] border border-t-0 border-ink bg-paper-2 px-4 text-ink shadow-[0_1px_0_var(--ink)] transition-colors duration-[var(--ui)] hover:bg-mark"
+          className="flex h-11 min-w-[44px] items-center gap-2.5 rounded-b-[10px] border border-t-0 border-ink bg-paper-2 px-4 text-ink transition-colors duration-[var(--ui)] hover:bg-mark"
         >
           <span aria-hidden className="flex flex-col gap-[3px]">
             <span className={`block h-[2px] w-4 bg-ink transition-transform duration-[var(--ui)] ${open ? "translate-y-[5px] rotate-45" : ""}`} />
@@ -47,7 +47,7 @@ export function TabNav() {
           <span className="caps">{open ? t("nav.close") : t("nav.index")}</span>
         </button>
 
-        <Link href="/" className="mt-2 text-[1.35rem] text-ink" aria-label="HalfTime home">
+        <Link href="/" className="mt-2.5 text-[1.25rem] text-ink" aria-label="HalfTime home">
           <Wordmark />
         </Link>
 

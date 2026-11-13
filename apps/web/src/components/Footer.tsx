@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { facts } from "@/lib/facts";
+import { BigWordmark } from "./Wordmark";
 
 export function Footer() {
   return (
@@ -35,12 +36,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <svg aria-hidden="true" focusable="false" viewBox="0 0 1000 150" className="block w-full translate-y-[14%] px-[var(--gutter)]" preserveAspectRatio="xMidYMax meet">
-        <text x="0" y="140" textLength="1000" lengthAdjust="spacingAndGlyphs" className="font-sans" style={{ fontWeight: 850, fontSize: 168, fontStretch: "125%", letterSpacing: "-0.04em" }}>
-          <tspan fill="rgba(241,236,224,0.12)">HALF</tspan>
-          <tspan fill="rgba(194,54,43,0.7)">TIME</tspan>
-        </text>
-      </svg>
+      <BigWordmark variant="outline" className="translate-y-[14%] px-[var(--gutter)]" />
     </footer>
   );
 }

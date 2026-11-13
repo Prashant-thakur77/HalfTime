@@ -27,6 +27,7 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   transpilePackages: ["@halftime/law", "@halftime/reader"],
   poweredByHeader: false,
+  env: { BUILD_DATE: new Date().toISOString().slice(0, 10) },
   webpack(config) {
     // Workspace packages use ESM-style ".js" specifiers for their ".ts" sources.
     config.resolve.extensionAlias = { ".js": [".ts", ".tsx", ".js"], ".mjs": [".mts", ".mjs"] };

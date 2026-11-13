@@ -109,14 +109,18 @@ export function LedgerOfDays({ c }: { c: LedgerCase }) {
               <p lang="hi" className="mt-2 line-clamp-[9] font-serif text-[1rem] leading-[1.75rem]">
                 {c.excerpt}
               </p>
-              {/* The half-line sweeping across the paper with the count. */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -inset-x-10 top-0 h-full origin-left"
-                style={{ transform: `translateX(calc((var(--p) * 100%) - 100%))` }}
-              >
-                <div className="absolute top-0 right-0 h-full w-[3px] skew-x-[-14deg] bg-stamp shadow-[0_0_0_6px_rgba(194,54,43,0.12)]" />
-                <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(243,220,107,0.18))]" />
+              {/* The line: where half (or one-third) of the maximum falls. */}
+              <div aria-hidden className="pointer-events-none absolute inset-x-0" style={{ top: `${8 + lineAt * 84}%` }}>
+                <div className="border-t-2 border-dashed border-stamp" />
+                <span className="absolute -top-5 right-3 bg-paper px-1 font-mono text-[0.68rem] text-stamp-text">the line · day {lineDays}</span>
+              </div>
+              {/* Days served: a ruled line moving down the order as the count climbs. */}
+              <div aria-hidden className="pointer-events-none absolute inset-x-0 transition-[top] duration-[var(--tick)]" style={{ top: `calc(8% + var(--p) * 84%)` }}>
+                <div className="h-[3px] bg-carbon" />
+                <div className="h-6 bg-gradient-to-b from-carbon/15 to-transparent" />
+              </div>
+              <div ref={stamp} className={`absolute right-4 bottom-4 ${crossed ? "" : "opacity-0"}`} aria-live="polite">
+                {crossed && <Stamp className="text-[clamp(0.85rem,1.8vw,1.2rem)]" />}
               </div>
             </div>
 
@@ -132,11 +136,8 @@ export function LedgerOfDays({ c }: { c: LedgerCase }) {
               <span>today</span>
             </div>
 
-            <div ref={stamp} className={`absolute -top-6 right-2 md:-right-6 ${crossed ? "" : "opacity-0"}`} aria-live="polite">
-              {crossed && <Stamp tone="onInk" className="text-[clamp(1rem,2.4vw,1.5rem)]" />}
-            </div>
             {crossed && (
-              <p className="mt-6 max-w-md text-[0.95rem] text-paper/90">
+              <p className="mt-6 max-w-md font-serif text-[1.05rem] leading-snug text-paper/90">
                 Past the line. Under Sec 479(3) the jail superintendent must now apply to the court. HalfTime drafts that application for a
                 legal-aid lawyer to check and sign.{" "}
                 <Link href={`/case/${c.id}`} className="underline decoration-mark underline-offset-4 hover:text-mark">

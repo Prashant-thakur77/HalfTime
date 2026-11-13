@@ -169,3 +169,8 @@ body {
   header, footer, [role="region"], .skip-link { display: none !important; }
   html, body { background: #fff; }
 }
+
+@keyframes flap {
+  from { transform: rotateX(0deg); }
+  to { transform: rotateX(-90deg); }
+}

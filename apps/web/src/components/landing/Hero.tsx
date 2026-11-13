@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { daysBetween, humanDate, parseIsoDate } from "@halftime/law";
 import { SplitFlap } from "@/components/SplitFlap";
+import { BigWordmark } from "@/components/Wordmark";
 
 export interface HeroCase {
   id: string;
@@ -29,7 +30,7 @@ export function Hero({ c }: { c: HeroCase }) {
   const served = useDaysSince(c.custodyStart);
   const past = useDaysSince(c.lineDate);
   return (
-    <section aria-labelledby="hero-h" className="relative isolate -mt-11 overflow-hidden pt-11">
+    <section aria-labelledby="hero-h" className="relative isolate overflow-hidden">
       {/* The half-line: a hard diagonal splitting paper (time served) from ink (time owed). */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-ink [clip-path:polygon(64%_0,100%_0,100%_100%,38%_100%)] max-md:[clip-path:polygon(100%_52%,100%_100%,0_100%,0_78%)]" />
       <div aria-hidden className="absolute inset-0 -z-10 register opacity-60 [clip-path:polygon(0_0,64%_0,38%_100%,0_100%)]" />
@@ -79,10 +80,7 @@ export function Hero({ c }: { c: HeroCase }) {
         </div>
       </div>
 
-      <div aria-hidden className="relative select-none overflow-hidden px-[var(--gutter)] leading-[0.8] font-[850] tracking-[-0.045em] [font-stretch:125%] text-[length:var(--step-6)]">
-        <div className="text-carbon [clip-path:polygon(0_0,52%_0,46%_100%,0_100%)] max-md:[clip-path:none]">HALFTIME</div>
-        <div className="absolute inset-0 px-[var(--gutter)] text-stamp [clip-path:polygon(52%_0,100%_0,100%_100%,46%_100%)] max-md:hidden">HALFTIME</div>
-      </div>
+      <BigWordmark className="relative px-[var(--gutter)] pb-1" />
     </section>
   );
 }

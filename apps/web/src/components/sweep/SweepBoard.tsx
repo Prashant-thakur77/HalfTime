@@ -11,6 +11,7 @@ import { RUNS, SAMPLES } from "@/lib/cases";
 import { download, toCsv } from "@/lib/csv";
 import { useLang } from "@/lib/i18n";
 import { edits, uploads, type UploadedCase } from "@/lib/store";
+import { useToday } from "@/lib/today";
 import { LANES, VERDICT_STYLE } from "@/lib/verdict";
 import { UploadPanel } from "./UploadPanel";
 
@@ -34,7 +35,7 @@ function build(id: string, text: string, ex: Extraction, today: string) {
 
 export function SweepBoard() {
   const { t } = useLang();
-  const realToday = useMemo(() => format(new Date(), "yyyy-MM-dd"), []);
+  const realToday = useToday();
   const [offset, setOffset] = useState(0);
   const today = useMemo(() => format(addDays(parseISO(realToday), offset), "yyyy-MM-dd"), [realToday, offset]);
   const [swept, setSwept] = useState<string[]>([]);
@@ -129,7 +130,7 @@ export function SweepBoard() {
             type="button"
             onClick={runSweep}
             disabled={running}
-            className="h-12 border border-ink bg-ink px-5 text-paper transition-colors duration-[var(--ui)] hover:bg-stamp disabled:opacity-60"
+            className="h-12 border border-ink bg-ink px-5 text-paper transition-colors duration-[var(--ui)] enabled:hover:bg-stamp disabled:cursor-progress disabled:bg-ink-2"
           >
             <span className="caps">{swept.length ? t("sweep.rerun") : t("sweep.run")}</span>
           </button>

@@ -170,8 +170,9 @@ export default function Home() {
       {/* Proof */}
       <section aria-labelledby="proof-h" className="mx-auto max-w-[var(--max)] px-[var(--gutter)] py-24">
         <div className="grid gap-6 md:grid-cols-12">
-          <h2 id="proof-h" className="font-sans text-[length:var(--step-4)] leading-[0.92] font-[780] tracking-[-0.02em] [font-stretch:82%] md:col-span-6">
-            Measured, with the misses.
+          <h2 id="proof-h" className="font-mono text-[length:var(--step-3)] leading-tight font-[500] tracking-[-0.01em] text-stamp-text md:col-span-6">
+            <span className="block text-[0.45em] tracking-[0.12em] text-ink-3">EXHIBIT A · EVALUATION</span>
+            Measured, with the misses_<span aria-hidden className="inline-block w-[0.55em] [animation:caret_1s_steps(1)_infinite]">▍</span>
           </h2>
           <p className="font-serif text-[length:var(--step-1)] leading-snug text-ink-2 md:col-span-5 md:col-start-8">
             The number that matters most: how often it says someone is past the line when they are not. That error sends a lawyer chasing a
@@ -235,10 +236,11 @@ export default function Home() {
       {/* Limits */}
       <section aria-labelledby="limits-h" className="mx-auto max-w-[var(--max)] px-[var(--gutter)] py-24">
         <div className="grid gap-10 md:grid-cols-12">
-          <h2 id="limits-h" className="font-sans text-[length:var(--step-3)] leading-none font-[750] [font-stretch:88%] md:col-span-4">
-            What it can&apos;t do
+          <h2 id="limits-h" className="self-start border-2 border-ink px-4 py-3 font-mono text-[1rem] leading-snug md:col-span-4">
+            <span className="block font-[600] tracking-[0.12em]">NOTE:</span>
+            What it can&apos;t do, stated plainly before anyone relies on it.
           </h2>
-          <ul className="space-y-4 font-serif text-[1.1rem] leading-snug md:col-span-7 md:col-start-6">
+          <ul className="list-[lower-roman] space-y-4 pl-6 font-serif text-[1.1rem] leading-snug md:col-span-7 md:col-start-6">
             <li>It doesn&apos;t release anyone. It finds people and drafts paperwork; a court decides.</li>
             <li>It reads only what the papers say. Days lost to adjournments sought by the accused must be entered by a person.</li>
             <li>Sec 479(2) is read differently by different courts. Multi-offence cases are flagged for a lawyer, never decided.</li>

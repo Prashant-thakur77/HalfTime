@@ -2,13 +2,13 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * A split-flap number. Each digit flips through to its target with a short
- * mechanical stagger; with reduced motion it just shows the number.
+ * A split-flap number. Each digit sits in its own tile with a hinge line; when
+ * it changes, the top half folds down (about 80 ms). Reduced motion: no fold.
  */
 export function SplitFlap({ value, digits, className = "", label }: { value: number; digits?: number; className?: string; label?: string }) {
   const text = String(Math.max(0, Math.round(value))).padStart(digits ?? 0, "0");
   return (
-    <span className={`inline-flex gap-[0.08em] font-mono tabular ${className}`} role="img" aria-label={label ?? text}>
+    <span className={`inline-flex gap-[0.07em] font-mono tabular ${className}`} role="img" aria-label={label ?? text}>
       {text.split("").map((d, i) => (
         <Flap key={`${text.length}-${i}`} digit={d} />
       ))}
@@ -18,22 +18,28 @@ export function SplitFlap({ value, digits, className = "", label }: { value: num
 
 function Flap({ digit }: { digit: string }) {
   const [shown, setShown] = useState(digit);
+  const [prev, setPrev] = useState(digit);
   const [flipping, setFlipping] = useState(false);
-  const prev = useRef(digit);
+  const last = useRef(digit);
   useEffect(() => {
-    if (digit === prev.current) return;
-    prev.current = digit;
+    if (digit === last.current) return;
+    setPrev(last.current);
+    last.current = digit;
     setFlipping(true);
-    const id = setTimeout(() => {
-      setShown(digit);
-      setFlipping(false);
-    }, 90);
+    setShown(digit);
+    const id = setTimeout(() => setFlipping(false), 80);
     return () => clearTimeout(id);
   }, [digit]);
   return (
-    <span aria-hidden className="relative inline-block min-w-[0.68em] overflow-hidden rounded-[3px] bg-ink px-[0.06em] text-center leading-[1.08] text-paper shadow-[inset_0_-0.5em_0_rgba(255,255,255,0.04)]">
-      <span className={`block transition-transform duration-[90ms] ease-in ${flipping ? "[transform:rotateX(70deg)]" : ""}`}>{shown}</span>
-      <span className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-paper/25" />
+    <span aria-hidden className="relative inline-block h-[1.18em] w-[0.74em] overflow-hidden rounded-[0.08em] bg-[#24262b] text-paper shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] [perspective:3em]">
+      <span className="absolute inset-0 flex items-center justify-center leading-none">{shown}</span>
+      {flipping && (
+        <span className="absolute inset-x-0 top-0 h-1/2 origin-bottom overflow-hidden bg-[#24262b] [animation:flap_80ms_ease-in_forwards] motion-reduce:hidden">
+          <span className="absolute inset-x-0 top-0 flex h-[1.18em] items-center justify-center leading-none">{prev}</span>
+        </span>
+      )}
+      <span className="pointer-events-none absolute inset-x-0 top-1/2 h-[0.035em] min-h-px -translate-y-1/2 bg-paper/30" />
+      <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/[0.05]" />
     </span>
   );
 }

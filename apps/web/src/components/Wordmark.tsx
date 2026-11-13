@@ -8,3 +8,26 @@ export function Wordmark({ className = "" }: { className?: string }) {
     </span>
   );
 }
+
+/** The giant wordmark, drawn as SVG so it always fits its width exactly. */
+export function BigWordmark({ variant = "solid", className = "" }: { variant?: "solid" | "outline"; className?: string }) {
+  const outline = variant === "outline";
+  return (
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 1000 146" className={`block w-full ${className}`} preserveAspectRatio="xMidYMax meet">
+      <text
+        x="0"
+        y="138"
+        textLength="1000"
+        lengthAdjust="spacingAndGlyphs"
+        style={{ fontFamily: "var(--font-archivo)", fontWeight: 850, fontSize: 176, fontStretch: "125%", letterSpacing: "-0.04em" }}
+      >
+        <tspan fill={outline ? "none" : "var(--carbon)"} stroke={outline ? "rgba(241,236,224,0.28)" : "none"} strokeWidth={outline ? 1.5 : 0}>
+          HALF
+        </tspan>
+        <tspan fill={outline ? "none" : "var(--stamp)"} stroke={outline ? "rgba(240,122,110,0.55)" : "none"} strokeWidth={outline ? 1.5 : 0}>
+          TIME
+        </tspan>
+      </text>
+    </svg>
+  );
+}
