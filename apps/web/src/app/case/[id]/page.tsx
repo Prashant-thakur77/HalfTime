@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { CaseView } from "@/components/case/CaseView";
 import { SAMPLES } from "@/lib/cases";
 
-export const metadata: Metadata = { title: "Case", robots: { index: false } };
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const s = SAMPLES.find((x) => x.id === id);
+  return s
+    ? { title: `${s.title} · constructed sample`, description: s.gloss }
+    : { title: "Case", robots: { index: false } };
+}
 
 export function generateStaticParams() {
   return SAMPLES.map((s) => ({ id: s.id }));
@@ -11,9 +16,5 @@ export function generateStaticParams() {
 
 export default async function CasePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  return (
-    <Suspense fallback={<p className="px-[var(--gutter)] py-20 font-mono">Opening the file…</p>}>
-      <CaseView id={id} />
-    </Suspense>
-  );
+  return <CaseView id={id} />;
 }

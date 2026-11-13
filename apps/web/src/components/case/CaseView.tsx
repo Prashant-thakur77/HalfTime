@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { describeMonths, evaluate, humanDate, parseIsoDate, sectionLabel, type CaseInput, type Tri } from "@halftime/law";
 import { decide, type Extraction } from "@halftime/reader";
@@ -10,6 +9,7 @@ import { applicationDocx } from "@/lib/application";
 import { RUNS, getSample } from "@/lib/cases";
 import { download } from "@/lib/csv";
 import { edits as editStore, uploads } from "@/lib/store";
+import { useTodayParam } from "@/lib/today";
 import { VERDICT_STYLE } from "@/lib/verdict";
 import { DocumentView } from "./DocumentView";
 import { TypedTrace } from "./TypedTrace";
@@ -24,18 +24,20 @@ interface Loaded {
   gold?: CaseInput;
 }
 
+function fromSample(id: string): Loaded | undefined {
+  const s = getSample(id);
+  const run = RUNS[id];
+  return s && run ? { id, title: s.title, gloss: s.gloss, text: s.text, extraction: run.extraction, constructed: true, gold: s.gold } : undefined;
+}
+
 export function CaseView({ id }: { id: string }) {
-  const params = useSearchParams();
-  const today = params.get("today") && parseIsoDate(params.get("today")) ? params.get("today")! : new Date().toISOString().slice(0, 10);
-  const [loaded, setLoaded] = useState<Loaded | null | undefined>(undefined);
+  const today = useTodayParam();
+  const [loaded, setLoaded] = useState<Loaded | null | undefined>(() => fromSample(id));
   const [edits, setEdits] = useState<Partial<CaseInput>>({});
   const [active, setActive] = useState<number | null>(null);
 
   useEffect(() => {
-    const s = getSample(id);
-    const run = RUNS[id];
-    if (s && run) setLoaded({ id, title: s.title, gloss: s.gloss, text: s.text, extraction: run.extraction, constructed: true, gold: s.gold });
-    else {
+    if (!fromSample(id)) {
       const u = uploads.get(id);
       setLoaded(u ? { id, title: u.name, gloss: u.extraction.english_gloss, text: u.text, extraction: u.extraction, constructed: false } : null);
     }

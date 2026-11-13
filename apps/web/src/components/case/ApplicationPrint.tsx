@@ -1,32 +1,30 @@
 "use client";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { parseIsoDate } from "@halftime/law";
 import { decide, type Extraction } from "@halftime/reader";
 import { applicationParagraphs } from "@/lib/application";
 import { RUNS, getSample } from "@/lib/cases";
 import { edits as editStore, uploads } from "@/lib/store";
+import { useTodayParam } from "@/lib/today";
 
 /** Print view of the 479(3) draft. "Save as PDF" from the print dialog keeps Devanagari shaping intact. */
 export function ApplicationPrint({ id }: { id: string }) {
-  const params = useSearchParams();
-  const today = params.get("today") && parseIsoDate(params.get("today")) ? params.get("today")! : new Date().toISOString().slice(0, 10);
+  const today = useTodayParam();
   const [lang, setLang] = useState<"en" | "hi">("en");
-  const [src, setSrc] = useState<{ text: string; extraction: Extraction } | null>(null);
+  const [src, setSrc] = useState<{ text: string; extraction: Extraction } | null>(() => {
+    const s = getSample(id);
+    return s && RUNS[id] ? { text: s.text, extraction: RUNS[id]!.extraction } : null;
+  });
 
   useEffect(() => {
-    const s = getSample(id);
-    if (s && RUNS[id]) setSrc({ text: s.text, extraction: RUNS[id]!.extraction });
-    else {
-      const u = uploads.get(id);
-      if (u) setSrc({ text: u.text, extraction: u.extraction });
-    }
+    if (getSample(id)) return;
+    const u = uploads.get(id);
+    if (u) setSrc({ text: u.text, extraction: u.extraction });
   }, [id]);
 
   const doc = useMemo(() => {
     if (!src) return null;
-    const r = decide(src.text, src.extraction, today, editStore.get(id));
+    const r = decide(src.text, src.extraction, today, typeof window === "undefined" ? {} : editStore.get(id));
     const quotes = r.facts.spans.map((s) => ({ label: s.label, text: r.text.slice(s.start, s.end) }));
     return applicationParagraphs({ lang, court: src.extraction.court, caseNo: src.extraction.case_no, accused: src.extraction.accused_name_masked, today, evaluation: r.evaluation, quotes });
   }, [src, lang, today, id]);
