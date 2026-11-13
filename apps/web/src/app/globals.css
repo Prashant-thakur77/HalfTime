@@ -11,7 +11,8 @@
   --carbon-soft: #8fa2cf;
   --stamp: #c2362b;
   --stamp-text: #a82a20;
-  --flag: #8a5a12;
+  --stamp-on-ink: #f07a6e;
+  --flag: #7a4f10;
   --flag-bg: #f2e2bf;
   --mark: #f3dc6b;
   --ok: #2f6b4f;
@@ -54,6 +55,7 @@
   --color-carbon-soft: var(--carbon-soft);
   --color-stamp: var(--stamp);
   --color-stamp-text: var(--stamp-text);
+  --color-stamp-on-ink: var(--stamp-on-ink);
   --color-flag: var(--flag);
   --color-flag-bg: var(--flag-bg);
   --color-mark: var(--mark);

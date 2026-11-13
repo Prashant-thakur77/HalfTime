@@ -20,11 +20,11 @@ Section 479 is a line drawn through a person's time in custody. The whole site i
 | `--carbon-soft` | `#8FA2CF` | ruled lines, secondary |
 | `--stamp` | `#C2362B` | the 479(3) stamp graphic, large display only |
 | `--stamp-text` | `#A82A20` | past-the-line text |
-| `--flag` | `#8A5A12` | flagged / lawyer decides |
+| `--flag` | `#7A4F10` | flagged / lawyer decides |
 | `--mark` | `#F3DC6B` | highlighted source spans |
 | `--ok` | `#2F6B4F` | verified checks |
 
-Contrast (measured): ink on paper 15.8:1, carbon 10.4:1, stamp-text 5.9:1, flag 5.0:1, ok 5.3:1, ink on mark 13.5:1. `--stamp` (4.6:1) and `--carbon-soft` (2.2:1) are for graphics and large display only, never body text.
+Contrast (measured): ink on paper 15.8:1, carbon 10.4:1, stamp-text 5.9:1, flag 5.4:1 on paper-2, ok 5.3:1, ink on mark 13.5:1. `--stamp` (4.6:1) and `--carbon-soft` (2.2:1) are for graphics and large display only, never body text.
 
 Type: **Archivo** (variable wdth 62–125, wght 100–900; OFL) for display and UI, **Tiro Devanagari Hindi** (OFL) for editorial and Hindi text, **IBM Plex Mono** (OFL) for dates, section numbers and the counter. Fluid scale: `--step--1` … `--step-6` via clamp.
 

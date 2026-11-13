@@ -35,10 +35,12 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div aria-hidden className="pointer-events-none select-none px-[var(--gutter)] leading-[0.78] font-[800] tracking-[-0.04em] [font-stretch:125%] text-[length:var(--step-6)] translate-y-[18%]">
-        <span className="text-paper/[0.12]">HALF</span>
-        <span className="text-stamp/70">TIME</span>
-      </div>
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 1000 150" className="block w-full translate-y-[14%] px-[var(--gutter)]" preserveAspectRatio="xMidYMax meet">
+        <text x="0" y="140" textLength="1000" lengthAdjust="spacingAndGlyphs" className="font-sans" style={{ fontWeight: 850, fontSize: 168, fontStretch: "125%", letterSpacing: "-0.04em" }}>
+          <tspan fill="rgba(241,236,224,0.12)">HALF</tspan>
+          <tspan fill="rgba(194,54,43,0.7)">TIME</tspan>
+        </text>
+      </svg>
     </footer>
   );
 }

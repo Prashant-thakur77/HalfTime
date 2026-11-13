@@ -5,6 +5,14 @@ import { ENGLISH_ORDER, HINDI_ORDER } from "./fixtures.js";
 
 const doc = new DocIndex(HINDI_ORDER);
 
+describe("DocIndex.text", () => {
+  it("keeps the papers as written: dashes, danda and Devanagari digits", () => {
+    const d = new DocIndex("र— कु— जेल में है। दिनांक १२.०३.२०२३");
+    expect(d.text).toBe("र— कु— जेल में है। दिनांक १२.०३.२०२३");
+    expect(d.find("र- कु- जेल में है| दिनांक 12.03.2023")).toEqual({ start: 0, end: d.text.length });
+  });
+});
+
 describe("DocIndex.find", () => {
   it("finds an exact quote and maps the span", () => {
     const q = "अभियुक्त का कोई आपराधिक इतिहास नहीं है";

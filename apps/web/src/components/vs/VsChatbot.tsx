@@ -95,7 +95,7 @@ export function VsChatbot() {
             </button>
           </div>
           <p className="mt-3 font-mono text-[0.75rem] text-paper/60">Prompt: “Read this court order. Is the accused eligible for release under Section 479 of the BNSS? If yes, from what date? Answer in one paragraph.”</p>
-          <div className="mt-4 max-h-[60vh] overflow-auto font-serif text-[1.02rem] leading-relaxed whitespace-pre-wrap text-paper/90">{answer?.text}</div>
+          <div tabIndex={0} aria-label="Chatbot answer" className="mt-4 max-h-[60vh] overflow-auto font-serif text-[1.02rem] leading-relaxed whitespace-pre-wrap text-paper/90">{answer?.text}</div>
           {err && <p className="mt-3 text-mark">{err}</p>}
           <p className="mt-4 text-[0.78rem] text-paper/55">No quotes. No checks. Nothing a lawyer can verify line by line.</p>
         </section>

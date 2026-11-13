@@ -76,11 +76,13 @@ export default function Home() {
             { v: inr(facts.applications_479_2024.value), l: "applications actually filed", s: "table74" }
           ].map((x) => (
             <div key={x.l} className="bg-paper p-6">
-              <dt className="order-2 mt-2 text-[0.95rem] text-ink-2">{x.l}</dt>
-              <dd className="font-mono text-[clamp(2.4rem,5vw,4.2rem)] leading-none tabular">{x.v}</dd>
-              <a className="mt-3 block text-[0.75rem] text-ink-3 underline" href={facts.sources[x.s]!.url} rel="noopener noreferrer" target="_blank">
-                {facts.sources[x.s]!.label}
-              </a>
+              <dt className="text-[0.95rem] text-ink-2">{x.l}</dt>
+              <dd className="mt-2">
+                <span className="block font-mono text-[clamp(2.4rem,5vw,4.2rem)] leading-none tabular">{x.v}</span>
+                <a className="mt-3 block text-[0.75rem] text-ink-3 underline" href={facts.sources[x.s]!.url} rel="noopener noreferrer" target="_blank">
+                  {facts.sources[x.s]!.label}
+                </a>
+              </dd>
             </div>
           ))}
         </dl>

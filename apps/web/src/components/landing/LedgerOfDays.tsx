@@ -133,7 +133,7 @@ export function LedgerOfDays({ c }: { c: LedgerCase }) {
             </div>
 
             <div ref={stamp} className={`absolute -top-6 right-2 md:-right-6 ${crossed ? "" : "opacity-0"}`} aria-live="polite">
-              {crossed && <Stamp className="text-[clamp(1rem,2.4vw,1.5rem)]" />}
+              {crossed && <Stamp tone="onInk" className="text-[clamp(1rem,2.4vw,1.5rem)]" />}
             </div>
             {crossed && (
               <p className="mt-6 max-w-md text-[0.95rem] text-paper/90">

@@ -2,6 +2,11 @@ import { asciiDigits } from "@halftime/law";
 
 const ZERO_WIDTH = /[​-‍⁠﻿­]/g;
 
+/** What the reader shows: the papers as written, minus invisible characters and Windows line endings. */
+export function displayText(s: string): string {
+  return s.normalize("NFC").replace(ZERO_WIDTH, "").replace(/\r\n?/g, "\n");
+}
+
 /** Text normalisation shared by the verifier and the date parser. */
 export function normalizeText(s: string): string {
   return asciiDigits(s.normalize("NFC"))

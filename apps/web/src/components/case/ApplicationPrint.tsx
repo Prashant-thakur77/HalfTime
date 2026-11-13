@@ -45,7 +45,7 @@ export function ApplicationPrint({ id }: { id: string }) {
           <span className="caps">Print or save as PDF</span>
         </button>
       </div>
-      <article lang={lang} className="relative border border-ink bg-white p-8 font-serif text-[1rem] leading-relaxed text-ink print:border-0 print:p-0 md:p-14">
+      <article lang={lang} className="relative overflow-hidden border border-ink bg-white p-8 font-serif text-[1rem] leading-relaxed text-ink print:border-0 print:p-0 md:p-14">
         <p aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden text-center font-sans text-[3.2rem] font-[900] uppercase leading-none tracking-[0.1em] text-stamp/[0.09] [transform:rotate(-28deg)]">
           {doc.t.watermark}
         </p>

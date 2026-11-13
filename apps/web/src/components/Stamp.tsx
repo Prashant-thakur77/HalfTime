@@ -10,12 +10,13 @@ export function Stamp({
   main?: string;
   bottom?: string;
   className?: string;
-  tone?: "stamp" | "flag" | "ink";
+  tone?: "stamp" | "flag" | "ink" | "onInk";
 }) {
-  const color = tone === "stamp" ? "text-stamp border-stamp" : tone === "flag" ? "text-flag border-flag" : "text-ink border-ink";
+  const color =
+    tone === "stamp" ? "text-stamp border-stamp" : tone === "onInk" ? "text-stamp-on-ink border-stamp-on-ink" : tone === "flag" ? "text-flag border-flag" : "text-ink border-ink";
   return (
     <div
-      className={`relative inline-flex select-none flex-col items-center justify-center rounded-[14px] border-[3px] px-5 py-2.5 font-sans uppercase mix-blend-multiply ${color} ${className}`}
+      className={`relative inline-flex select-none flex-col items-center justify-center rounded-[14px] border-[3px] px-5 py-2.5 font-sans uppercase ${tone === "onInk" ? "" : "mix-blend-multiply"} ${color} ${className}`}
       style={{ maskImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='.7' numOctaves='2'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -1.6 1.35'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")" }}
     >
       <span className="text-[0.68em] font-[700] tracking-[0.18em]">{top}</span>

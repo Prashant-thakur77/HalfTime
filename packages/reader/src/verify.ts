@@ -1,5 +1,5 @@
 import { asciiDigits, canonicalSection } from "@halftime/law";
-import { findDates, normalizeText } from "./normalize.js";
+import { displayText, findDates, normalizeText } from "./normalize.js";
 
 export interface Span {
   start: number;
@@ -10,7 +10,8 @@ const PUNCT_EQUIV: Record<string, string> = { "|": ".", "।": ".", ";": ",", ":
 const MIN_KEY = 6;
 
 /** Matching key: lower-case, no whitespace, a few punctuation marks unified. */
-function keyChar(ch: string): string {
+function keyChar(raw: string): string {
+  const ch = normalizeText(raw);
   if (/\s/.test(ch)) return "";
   const lower = ch.toLowerCase();
   return PUNCT_EQUIV[lower] ?? (lower.length === 1 ? lower : ch);
@@ -18,7 +19,7 @@ function keyChar(ch: string): string {
 
 export function matchKey(s: string): string {
   let k = "";
-  for (const ch of normalizeText(s)) k += keyChar(ch);
+  for (const ch of displayText(s)) k += keyChar(ch);
   return k;
 }
 
@@ -32,7 +33,7 @@ export class DocIndex {
   private map: number[] = [];
 
   constructor(source: string) {
-    this.text = normalizeText(source);
+    this.text = displayText(source);
     for (let i = 0; i < this.text.length; i++) {
       const k = keyChar(this.text[i]!);
       for (let j = 0; j < k.length; j++) {
