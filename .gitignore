@@ -1,0 +1,36 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+.next/
+out/
+dist/
+build/
+.open-next/
+.wrangler/
+coverage/
+*.tsbuildinfo
+playwright-report/
+test-results/
+.lighthouseci/
+
+# env and secrets
+.env*
+!.env.example
+.dev.vars
+
+# local caches and working files
+.cache/
+.design-refs/
+LICENSES_LEDGER.md
+eval/raw/
+video/out/
+__pycache__/
+.venv/
+*.pyc
+
+# os / editor
+.DS_Store
+.vscode/
+.idea/
