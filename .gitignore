@@ -34,3 +34,6 @@ __pycache__/
 .DS_Store
 .vscode/
 .idea/
+
+# local helper scripts
+apps/web/.*.mjs
