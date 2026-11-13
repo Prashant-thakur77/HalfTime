@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f1ece0;
+  --paper-2: #e6dfce;
+  --paper-3: #d9d0ba;
+  --ink: #121315;
+  --ink-2: #2a2c30;
+  --ink-3: #5b5d63;
+  --carbon: #23306b;
+  --carbon-soft: #8fa2cf;
+  --stamp: #c2362b;
+  --stamp-text: #a82a20;
+  --flag: #8a5a12;
+  --flag-bg: #f2e2bf;
+  --mark: #f3dc6b;
+  --ok: #2f6b4f;
+  --rule: rgba(35, 48, 107, 0.18);
+
+  --step--2: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.92rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
+  --step-1: clamp(1.2rem, 1.1rem + 0.45vw, 1.45rem);
+  --step-2: clamp(1.45rem, 1.25rem + 0.9vw, 2rem);
+  --step-3: clamp(1.8rem, 1.4rem + 1.8vw, 3rem);
+  --step-4: clamp(2.3rem, 1.6rem + 3.4vw, 4.6rem);
+  --step-5: clamp(3rem, 1.6rem + 6vw, 7.5rem);
+  --step-6: clamp(4.2rem, 1rem + 14vw, 16rem);
+
+  --tick: 180ms;
+  --ui: 240ms;
+  --story: 900ms;
+  --snap: cubic-bezier(0.2, 0.9, 0.1, 1);
+  --paper-ease: cubic-bezier(0.65, 0, 0.15, 1);
+
+  --gutter: 16px;
+  --max: 1440px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 24px;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-carbon: var(--carbon);
+  --color-carbon-soft: var(--carbon-soft);
+  --color-stamp: var(--stamp);
+  --color-stamp-text: var(--stamp-text);
+  --color-flag: var(--flag);
+  --color-flag-bg: var(--flag-bg);
+  --color-mark: var(--mark);
+  --color-ok: var(--ok);
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-tiro), "Noto Serif Devanagari", Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.5;
+  background: var(--paper);
+  overflow-x: clip;
+}
+
+/* Court-paper grain: a tiny SVG noise, no network request. */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Ruled court paper with a red-ink margin. */
+.ruled {
+  background-image:
+    linear-gradient(to right, transparent 2.6rem, rgba(194, 54, 43, 0.35) 2.6rem, rgba(194, 54, 43, 0.35) calc(2.6rem + 1px), transparent calc(2.6rem + 1px)),
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(1.75rem - 1px), var(--rule) calc(1.75rem - 1px), var(--rule) 1.75rem);
+}
+
+/* The jail register grid. */
+.register {
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--carbon);
+  outline-offset: 3px;
+}
+
+.on-ink :focus-visible {
+  outline-color: var(--mark);
+}
+
+::selection {
+  background: var(--mark);
+  color: var(--ink);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: var(--step--2);
+  font-weight: 600;
+}
+
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 14px;
+}
+.skip-link:focus {
+  top: 8px;
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes caret {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  body.grain::after { display: none; }
+  header, footer, [role="region"], .skip-link { display: none !important; }
+  html, body { background: #fff; }
+}
