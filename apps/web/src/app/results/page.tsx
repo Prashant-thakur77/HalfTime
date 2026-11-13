@@ -113,7 +113,7 @@ export default function ResultsPage() {
 
       <section aria-labelledby="table-h" className="mt-16">
         <h2 id="table-h" className="font-sans text-[length:var(--step-3)] font-[750] [font-stretch:88%]">Every number</h2>
-        <div className="mt-4 overflow-x-auto border border-ink">
+        <div tabIndex={0} role="region" aria-label="All measures table" className="mt-4 overflow-x-auto border border-ink">
           <table className="w-full min-w-[720px] border-collapse text-[0.9rem]">
             <thead className="bg-ink text-left text-paper">
               <tr>
@@ -159,7 +159,7 @@ export default function ResultsPage() {
 
       <section aria-labelledby="traps-h" className="mt-16">
         <h2 id="traps-h" className="font-sans text-[length:var(--step-3)] font-[750] [font-stretch:88%]">Traps</h2>
-        <div className="mt-4 overflow-x-auto border border-ink">
+        <div tabIndex={0} role="region" aria-label="Traps table" className="mt-4 overflow-x-auto border border-ink">
           <table className="w-full min-w-[620px] border-collapse text-[0.9rem]">
             <thead className="bg-paper-2 text-left">
               <tr>
@@ -191,7 +191,7 @@ export default function ResultsPage() {
         {r.misses.length === 0 ? (
           <p className="mt-4 font-mono">No misses in run 1.</p>
         ) : (
-          <div className="mt-4 overflow-x-auto border border-ink">
+          <div tabIndex={0} role="region" aria-label="Misses table" className="mt-4 overflow-x-auto border border-ink">
             <table className="w-full min-w-[760px] border-collapse text-[0.88rem]">
               <thead className="bg-paper-2 text-left">
                 <tr>

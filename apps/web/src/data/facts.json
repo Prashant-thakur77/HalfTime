@@ -68,5 +68,271 @@
     "value": "2024-08-23",
     "source": "scOrder"
   },
-  "eval": null
+  "eval": {
+    "set": "Constructed orders (synthetic, ground truth known by construction)",
+    "constructed": true,
+    "n": 160,
+    "languages": {
+      "hi": 96,
+      "en": 64
+    },
+    "today": "2026-11-15",
+    "ranOn": "2026-11-13",
+    "models": {
+      "extract": "claude-sonnet-5-5",
+      "chatbot": "claude-sonnet-5-5",
+      "judge": "claude-haiku-5-5"
+    },
+    "repeats": 3,
+    "goldVerdicts": {
+      "PAST_THE_LINE": 30,
+      "PAST_FLAGGED": 34,
+      "NOT_YET": 34,
+      "EXCLUDED": 30,
+      "CANT_TELL": 32
+    },
+    "halftime": {
+      "n": 160,
+      "sectionsF1": 99,
+      "sectionsPrecision": 98.6,
+      "sectionsRecall": 99.4,
+      "custodyExact": 98.8,
+      "custodyWithin7": 98.8,
+      "firstTimeAcc": 93.8,
+      "otherCasesAcc": 100,
+      "verdictAcc": 96.3,
+      "lineDateAcc": 93.9,
+      "unsafePastRate": 0,
+      "unsafePastCount": 0,
+      "notPastGold": 96,
+      "missedPastRate": 4.7,
+      "flagBlindRate": 0,
+      "abstainRate": 21.9,
+      "falseAbstainRate": 1.9,
+      "repeats": {
+        "n": {
+          "mean": 160,
+          "sd": 0
+        },
+        "sectionsF1": {
+          "mean": 99.1,
+          "sd": 0.2
+        },
+        "sectionsPrecision": {
+          "mean": 98.7,
+          "sd": 0.2
+        },
+        "sectionsRecall": {
+          "mean": 99.6,
+          "sd": 0.3
+        },
+        "custodyExact": {
+          "mean": 99,
+          "sd": 0.3
+        },
+        "custodyWithin7": {
+          "mean": 99,
+          "sd": 0.3
+        },
+        "firstTimeAcc": {
+          "mean": 93.3,
+          "sd": 0.4
+        },
+        "otherCasesAcc": {
+          "mean": 100,
+          "sd": 0
+        },
+        "verdictAcc": {
+          "mean": 96.7,
+          "sd": 0.3
+        },
+        "lineDateAcc": {
+          "mean": 94.9,
+          "sd": 1
+        },
+        "unsafePastRate": {
+          "mean": 0,
+          "sd": 0
+        },
+        "unsafePastCount": {
+          "mean": 0,
+          "sd": 0
+        },
+        "notPastGold": {
+          "mean": 96,
+          "sd": 0
+        },
+        "missedPastRate": {
+          "mean": 3.1,
+          "sd": 1.6
+        },
+        "flagBlindRate": {
+          "mean": 0,
+          "sd": 0
+        },
+        "abstainRate": {
+          "mean": 21.3,
+          "sd": 0.7
+        },
+        "falseAbstainRate": {
+          "mean": 1.3,
+          "sd": 0.7
+        }
+      },
+      "verifierRejections": 1,
+      "costPerOrderUsd": 0.0164,
+      "latencyMsP50": 5867,
+      "latencyMsP95": 9148
+    },
+    "regex": {
+      "n": 160,
+      "sectionsF1": 51.1,
+      "sectionsPrecision": 48.5,
+      "sectionsRecall": 54.1,
+      "custodyExact": 67.5,
+      "custodyWithin7": 67.5,
+      "firstTimeAcc": 87.5,
+      "otherCasesAcc": 85,
+      "verdictAcc": 44.4,
+      "lineDateAcc": 21.4,
+      "unsafePastRate": 0,
+      "unsafePastCount": 0,
+      "notPastGold": 96,
+      "missedPastRate": 75,
+      "flagBlindRate": 0,
+      "abstainRate": 71.9,
+      "falseAbstainRate": 51.9
+    },
+    "chatbot": {
+      "unsafePastRate": 6.3,
+      "unsafePastCount": 6,
+      "notPastGold": 96,
+      "yesNoAcc": 80,
+      "hedgeRate": 13.1,
+      "lineDateWithin7OnPast": 37.5,
+      "flagBlindRate": 73.5,
+      "costPerOrderUsd": 0.017
+    },
+    "traps": [
+      {
+        "trap": "acquitted_old_case",
+        "n": 6,
+        "halftime": 5,
+        "regex": 1,
+        "chatbotNotWrongYes": 5
+      },
+      {
+        "trap": "co_accused",
+        "n": 5,
+        "halftime": 5,
+        "regex": 1,
+        "chatbotNotWrongYes": 5
+      },
+      {
+        "trap": "injection",
+        "n": 5,
+        "halftime": 5,
+        "regex": 2,
+        "chatbotNotWrongYes": 3
+      },
+      {
+        "trap": "life_in_list",
+        "n": 6,
+        "halftime": 6,
+        "regex": 6,
+        "chatbotNotWrongYes": 6
+      },
+      {
+        "trap": "no_custody_date",
+        "n": 6,
+        "halftime": 6,
+        "regex": 6,
+        "chatbotNotWrongYes": 6
+      },
+      {
+        "trap": "not_charged",
+        "n": 6,
+        "halftime": 3,
+        "regex": 0,
+        "chatbotNotWrongYes": 6
+      },
+      {
+        "trap": "two_dates",
+        "n": 6,
+        "halftime": 6,
+        "regex": 2,
+        "chatbotNotWrongYes": 5
+      }
+    ],
+    "misses": [
+      {
+        "id": "C078",
+        "language": "en",
+        "traps": [
+          "not_charged"
+        ],
+        "gold": "NOT_YET",
+        "got": "EXCLUDED",
+        "unsafe": false,
+        "why": "extra sections BNS:105",
+        "rejected": 0
+      },
+      {
+        "id": "C098",
+        "language": "en",
+        "traps": [],
+        "gold": "NOT_YET",
+        "got": "CANT_TELL",
+        "unsafe": false,
+        "why": "custody none vs 2024-04-09",
+        "rejected": 1
+      },
+      {
+        "id": "C109",
+        "language": "hi",
+        "traps": [],
+        "gold": "PAST_FLAGGED",
+        "got": "CANT_TELL",
+        "unsafe": false,
+        "why": "missed sections GAMBLING:3, GAMBLING:4; extra sections OTHER:3, OTHER:4",
+        "rejected": 0
+      },
+      {
+        "id": "C115",
+        "language": "en",
+        "traps": [
+          "acquitted_old_case"
+        ],
+        "gold": "PAST_THE_LINE",
+        "got": "CANT_TELL",
+        "unsafe": false,
+        "why": "custody none vs 2019-08-05",
+        "rejected": 0
+      },
+      {
+        "id": "C124",
+        "language": "hi",
+        "traps": [
+          "not_charged"
+        ],
+        "gold": "PAST_THE_LINE",
+        "got": "PAST_FLAGGED",
+        "unsafe": false,
+        "why": "extra sections IPC:420",
+        "rejected": 0
+      },
+      {
+        "id": "C130",
+        "language": "hi",
+        "traps": [
+          "not_charged"
+        ],
+        "gold": "PAST_THE_LINE",
+        "got": "EXCLUDED",
+        "unsafe": false,
+        "why": "extra sections IPC:307",
+        "rejected": 0
+      }
+    ]
+  }
 }
