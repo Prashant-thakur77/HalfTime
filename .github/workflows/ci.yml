@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Typecheck, lint and unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r typecheck
+      - run: pnpm --filter web lint
+      - name: Law engine (100% branch coverage enforced)
+        run: pnpm --filter @halftime/law test:coverage
+      - name: Reader (normalizer, verifier, baselines)
+        run: pnpm --filter @halftime/reader test
+
+  e2e:
+    name: End-to-end and accessibility
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter web build
+      - run: pnpm --filter web exec playwright install --with-deps chromium firefox webkit
+      - run: pnpm --filter web exec playwright test
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: apps/web/playwright-report
+          retention-days: 7
+
+  secrets:
+    name: No secrets in the client bundle
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter web build
+      - name: Grep the build for key patterns
+        run: |
+          if grep -rEl "sk-ant-[a-z]{3}-|hf_[A-Za-z0-9]{20}|ANTHROPIC_API_KEY=" apps/web/.next/static; then
+            echo "Secret-like string found in the client bundle"; exit 1
+          fi
