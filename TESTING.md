@@ -10,6 +10,7 @@ Results recorded on 2026-11-14. Every command below is run from the repo root un
 | Accessibility | axe-core (WCAG 2.1 AA) + keyboard | All 7 page types: zero serious or critical issues; skip link and tab path to the main action with a visible focus ring; no horizontal scroll at 360 px | passing |
 | Performance | Lighthouse 12, mobile | Landing 90–92, sweep 92, case 89, results 97; accessibility 100 on every page; CLS 0 | see below |
 | Security | build grep + headers | No key-like string in the client bundle or the Worker bundle; CSP, HSTS, X-Frame-Options DENY, Referrer-Policy, Permissions-Policy on every response; request size and type validated with zod before any model call; per-IP rate limit and daily spend cap in KV | passing |
+| Load | autocannon, 50 concurrent connections × 20 s per page, against production | `/`: 4,049 requests, `/sweep`: 5,079, `/case/S01`: 4,983; **0 errors**, p97.5 438–504 ms. (An earlier run found 500s under concurrency from the default OpenNext cache; prerendered pages are now served from static assets.) | passing |
 | Evaluation | `pnpm eval` | 160 constructed orders, 3 HalfTime runs, regex and chatbot baselines, 7 trap types | see `eval/report.md` |
 
 ## Commands
@@ -36,4 +37,4 @@ npx tsx scripts/check-samples.ts               # sample tray vs its answer key (
 
 - WebKit runs in CI (`playwright install --with-deps`); this laptop is missing WebKit's system libraries.
 - The eval regression check calls the model, so it runs locally rather than on every push.
-- Load testing (k6) and a 12-hour soak against production have not been run yet.
+- A 12-hour soak against production has not been run yet.
