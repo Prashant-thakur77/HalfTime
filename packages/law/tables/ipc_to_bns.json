@@ -1,0 +1,968 @@
+[
+  {
+    "ipc": "34",
+    "bns": [
+      "3(5)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "107",
+    "bns": [
+      "45"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "109",
+    "bns": [
+      "49"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "114",
+    "bns": [
+      "54"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "120A",
+    "bns": [
+      "61(1)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "120B",
+    "bns": [
+      "61(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "143",
+    "bns": [
+      "189(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "144",
+    "bns": [
+      "189(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "145",
+    "bns": [
+      "189(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "147",
+    "bns": [
+      "191(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "148",
+    "bns": [
+      "191(3)"
+    ],
+    "relation": "one-to-one",
+    "note": "BNS raises the maximum from 3 to 5 years."
+  },
+  {
+    "ipc": "149",
+    "bns": [
+      "190"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "153A",
+    "bns": [
+      "196"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "171E",
+    "bns": [
+      "173"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "186",
+    "bns": [
+      "221"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "188",
+    "bns": [
+      "223"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "193",
+    "bns": [
+      "229"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "201",
+    "bns": [
+      "238"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "212",
+    "bns": [
+      "249"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "224",
+    "bns": [
+      "262"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "279",
+    "bns": [
+      "281"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "294",
+    "bns": [
+      "296"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "302",
+    "bns": [
+      "103(1)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "304",
+    "bns": [
+      "105"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "304A",
+    "bns": [
+      "106(1)",
+      "106(2)"
+    ],
+    "relation": "split",
+    "note": "BNS raises the maximum to 5 years and adds a hit-and-run limb of 10 years."
+  },
+  {
+    "ipc": "304B",
+    "bns": [
+      "80"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "306",
+    "bns": [
+      "108"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "307",
+    "bns": [
+      "109(1)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "308",
+    "bns": [
+      "110"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "309",
+    "bns": [],
+    "relation": "dropped",
+    "note": "Attempt to suicide is not an offence under BNS."
+  },
+  {
+    "ipc": "312",
+    "bns": [
+      "88"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "313",
+    "bns": [
+      "89"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "323",
+    "bns": [
+      "115(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "324",
+    "bns": [
+      "118(1)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "325",
+    "bns": [
+      "117(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "326",
+    "bns": [
+      "118(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "326A",
+    "bns": [
+      "124(1)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "326B",
+    "bns": [
+      "124(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "327",
+    "bns": [
+      "119(1)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "332",
+    "bns": [
+      "121(1)"
+    ],
+    "relation": "one-to-one",
+    "note": "BNS raises the maximum from 3 to 5 years."
+  },
+  {
+    "ipc": "333",
+    "bns": [
+      "121(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "336",
+    "bns": [
+      "125"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "337",
+    "bns": [
+      "125(a)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "338",
+    "bns": [
+      "125(b)"
+    ],
+    "relation": "one-to-one",
+    "note": "BNS raises the maximum from 2 to 3 years."
+  },
+  {
+    "ipc": "341",
+    "bns": [
+      "126(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "342",
+    "bns": [
+      "127(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "343",
+    "bns": [
+      "127(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "344",
+    "bns": [
+      "127(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "352",
+    "bns": [
+      "131"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "353",
+    "bns": [
+      "132"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "354",
+    "bns": [
+      "74"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "354A",
+    "bns": [
+      "75"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "354B",
+    "bns": [
+      "76"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "354C",
+    "bns": [
+      "77"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "354D",
+    "bns": [
+      "78"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "363",
+    "bns": [
+      "137(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "364",
+    "bns": [
+      "140(1)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "364A",
+    "bns": [
+      "140(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "365",
+    "bns": [
+      "140(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "366",
+    "bns": [
+      "87"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "366A",
+    "bns": [
+      "96"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "370",
+    "bns": [
+      "143"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "376",
+    "bns": [
+      "64"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "376A",
+    "bns": [
+      "66"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "376AB",
+    "bns": [
+      "65(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "376D",
+    "bns": [
+      "70(1)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "377",
+    "bns": [],
+    "relation": "dropped",
+    "note": "No direct BNS counterpart."
+  },
+  {
+    "ipc": "379",
+    "bns": [
+      "303(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "380",
+    "bns": [
+      "305"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "381",
+    "bns": [
+      "306"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "382",
+    "bns": [
+      "307"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "384",
+    "bns": [
+      "308(2)"
+    ],
+    "relation": "one-to-one",
+    "note": "BNS raises the maximum from 3 to 7 years."
+  },
+  {
+    "ipc": "385",
+    "bns": [
+      "308(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "386",
+    "bns": [
+      "308(5)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "387",
+    "bns": [
+      "308(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "392",
+    "bns": [
+      "309(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "393",
+    "bns": [
+      "309(5)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "394",
+    "bns": [
+      "309(6)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "395",
+    "bns": [
+      "310(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "396",
+    "bns": [
+      "310(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "397",
+    "bns": [
+      "311"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "398",
+    "bns": [
+      "312"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "399",
+    "bns": [
+      "310(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "400",
+    "bns": [
+      "310(6)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "401",
+    "bns": [
+      "313"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "402",
+    "bns": [
+      "310(5)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "403",
+    "bns": [
+      "314"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "404",
+    "bns": [
+      "315"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "406",
+    "bns": [
+      "316(2)"
+    ],
+    "relation": "one-to-one",
+    "note": "BNS raises the maximum from 3 to 5 years."
+  },
+  {
+    "ipc": "407",
+    "bns": [
+      "316(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "408",
+    "bns": [
+      "316(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "409",
+    "bns": [
+      "316(5)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "411",
+    "bns": [
+      "317(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "412",
+    "bns": [
+      "317(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "413",
+    "bns": [
+      "317(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "414",
+    "bns": [
+      "317(5)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "417",
+    "bns": [
+      "318(2)"
+    ],
+    "relation": "one-to-one",
+    "note": "BNS raises the maximum from 1 to 3 years."
+  },
+  {
+    "ipc": "418",
+    "bns": [
+      "318(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "419",
+    "bns": [
+      "319(2)"
+    ],
+    "relation": "one-to-one",
+    "note": "BNS raises the maximum from 3 to 5 years."
+  },
+  {
+    "ipc": "420",
+    "bns": [
+      "318(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "426",
+    "bns": [
+      "324(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "427",
+    "bns": [
+      "324(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "428",
+    "bns": [
+      "325"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "429",
+    "bns": [
+      "325"
+    ],
+    "relation": "merged"
+  },
+  {
+    "ipc": "435",
+    "bns": [
+      "326(f)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "436",
+    "bns": [
+      "326(g)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "447",
+    "bns": [
+      "329(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "448",
+    "bns": [
+      "329(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "449",
+    "bns": [
+      "332(a)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "450",
+    "bns": [
+      "332(b)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "451",
+    "bns": [
+      "332(c)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "452",
+    "bns": [
+      "333"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "454",
+    "bns": [
+      "331(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "456",
+    "bns": [
+      "331(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "457",
+    "bns": [
+      "331(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "458",
+    "bns": [
+      "331(6)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "465",
+    "bns": [
+      "336(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "466",
+    "bns": [
+      "337"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "467",
+    "bns": [
+      "338"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "468",
+    "bns": [
+      "336(3)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "469",
+    "bns": [
+      "336(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "471",
+    "bns": [
+      "340(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "489A",
+    "bns": [
+      "178"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "489B",
+    "bns": [
+      "179"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "489C",
+    "bns": [
+      "180"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "493",
+    "bns": [
+      "81"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "494",
+    "bns": [
+      "82(1)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "495",
+    "bns": [
+      "82(2)"
+    ],
+    "relation": "merged"
+  },
+  {
+    "ipc": "497",
+    "bns": [],
+    "relation": "dropped",
+    "note": "Struck down in 2018; not carried into BNS."
+  },
+  {
+    "ipc": "498",
+    "bns": [
+      "84"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "498A",
+    "bns": [
+      "85"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "500",
+    "bns": [
+      "356(2)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "504",
+    "bns": [
+      "352"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "506",
+    "bns": [
+      "351(2)",
+      "351(3)"
+    ],
+    "relation": "split"
+  },
+  {
+    "ipc": "507",
+    "bns": [
+      "351(4)"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "509",
+    "bns": [
+      "79"
+    ],
+    "relation": "one-to-one"
+  },
+  {
+    "ipc": "511",
+    "bns": [
+      "62"
+    ],
+    "relation": "one-to-one"
+  }
+]

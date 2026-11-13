@@ -1,0 +1,12 @@
+{
+  "name": "halftime",
+  "private": true,
+  "packageManager": "pnpm@10.14.0",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "pnpm -r --if-present test",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "pnpm -r --if-present lint",
+    "build": "pnpm --filter web build"
+  }
+}

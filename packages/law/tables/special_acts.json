@@ -1,0 +1,501 @@
+{
+  "NDPS": [
+    {
+      "section": "8",
+      "title": "Prohibition of certain operations",
+      "max": "modifier",
+      "source": "NDPS Act 1985 s.8",
+      "note": "Prohibition read with the penal section (e.g. 8/20)."
+    },
+    {
+      "section": "15",
+      "title": "Punishment for contravention in relation to poppy straw",
+      "max": "quantity",
+      "source": "NDPS Act 1985 s.15"
+    },
+    {
+      "section": "17",
+      "title": "Punishment for contravention in relation to prepared opium",
+      "max": "quantity",
+      "source": "NDPS Act 1985 s.17"
+    },
+    {
+      "section": "18",
+      "title": "Punishment for contravention in relation to opium poppy and opium",
+      "max": "quantity",
+      "source": "NDPS Act 1985 s.18"
+    },
+    {
+      "section": "20",
+      "title": "Punishment for contravention in relation to cannabis plant and cannabis",
+      "max": "quantity",
+      "source": "NDPS Act 1985 s.20"
+    },
+    {
+      "section": "21",
+      "title": "Punishment for contravention in relation to manufactured drugs and preparations",
+      "max": "quantity",
+      "source": "NDPS Act 1985 s.21"
+    },
+    {
+      "section": "22",
+      "title": "Punishment for contravention in relation to psychotropic substances",
+      "max": "quantity",
+      "source": "NDPS Act 1985 s.22"
+    },
+    {
+      "section": "27",
+      "title": "Punishment for consumption of any narcotic drug or psychotropic substance",
+      "max": {
+        "months": 12
+      },
+      "source": "NDPS Act 1985 s.27"
+    },
+    {
+      "section": "29",
+      "title": "Punishment for abetment and criminal conspiracy",
+      "max": "derivative",
+      "source": "NDPS Act 1985 s.29",
+      "note": "Punished as the offence abetted."
+    }
+  ],
+  "ARMS": [
+    {
+      "section": "3",
+      "title": "Licence for acquisition and possession of firearms and ammunition",
+      "max": "modifier",
+      "source": "Arms Act 1959 s.3",
+      "note": "Prohibition read with s.25."
+    },
+    {
+      "section": "4",
+      "title": "Licence for acquisition and possession of arms of specified description",
+      "max": "modifier",
+      "source": "Arms Act 1959 s.4",
+      "note": "Prohibition read with s.25."
+    },
+    {
+      "section": "5",
+      "title": "Licence for manufacture, sale, etc., of arms and ammunition",
+      "max": "modifier",
+      "source": "Arms Act 1959 s.5",
+      "note": "Prohibition read with s.25."
+    },
+    {
+      "section": "7",
+      "title": "Prohibition of acquisition or possession of prohibited arms",
+      "max": "modifier",
+      "source": "Arms Act 1959 s.7",
+      "note": "Prohibition read with s.25."
+    },
+    {
+      "section": "25",
+      "title": "Punishment for certain offences",
+      "max": "detail",
+      "source": "Arms Act 1959 s.25",
+      "note": "s.25 has limbs from 2 years up to life (as amended in 2019); the subsection decides."
+    },
+    {
+      "section": "25(1)",
+      "title": "Manufacture, sale, transfer, etc. in contravention of s.5",
+      "max": "life",
+      "source": "Arms Act 1959 s.25(1)"
+    },
+    {
+      "section": "25(1)(a)",
+      "title": "Manufacture, sale, transfer, etc. in contravention of s.5",
+      "max": "life",
+      "source": "Arms Act 1959 s.25(1)(a)"
+    },
+    {
+      "section": "25(1)(b)",
+      "title": "Shortening a firearm barrel or converting a firearm in contravention of s.6",
+      "max": "life",
+      "source": "Arms Act 1959 s.25(1)(b)"
+    },
+    {
+      "section": "25(1A)",
+      "title": "Acquisition or possession of prohibited arms in contravention of s.7",
+      "max": {
+        "months": 168
+      },
+      "source": "Arms Act 1959 s.25(1A)"
+    },
+    {
+      "section": "25(1AA)",
+      "title": "Manufacture, sale or possession of prohibited arms in contravention of s.7",
+      "max": "life",
+      "source": "Arms Act 1959 s.25(1AA)"
+    },
+    {
+      "section": "25(1AB)",
+      "title": "Snatching firearms from police or armed forces",
+      "max": "life",
+      "source": "Arms Act 1959 s.25(1AB)"
+    },
+    {
+      "section": "25(1B)",
+      "title": "Acquisition or possession of firearm without licence in contravention of s.3",
+      "max": {
+        "months": 60
+      },
+      "source": "Arms Act 1959 s.25(1B)"
+    },
+    {
+      "section": "25(1B)(a)",
+      "title": "Acquisition or possession of firearm without licence in contravention of s.3",
+      "max": {
+        "months": 60
+      },
+      "source": "Arms Act 1959 s.25(1B)(a)"
+    },
+    {
+      "section": "25(1B)(b)",
+      "title": "Possession of arms in contravention of s.4",
+      "max": {
+        "months": 60
+      },
+      "source": "Arms Act 1959 s.25(1B)(b)"
+    },
+    {
+      "section": "25(6)",
+      "title": "Organised crime syndicate possessing arms",
+      "max": "life",
+      "source": "Arms Act 1959 s.25(6)"
+    },
+    {
+      "section": "25(7)",
+      "title": "Illicit trafficking of firearms",
+      "max": "life",
+      "source": "Arms Act 1959 s.25(7)"
+    },
+    {
+      "section": "25(8)",
+      "title": "Illicit manufacture of firearms",
+      "max": "life",
+      "source": "Arms Act 1959 s.25(8)"
+    },
+    {
+      "section": "25(9)",
+      "title": "Celebratory gunfire endangering life",
+      "max": {
+        "months": 24
+      },
+      "source": "Arms Act 1959 s.25(9)"
+    },
+    {
+      "section": "27",
+      "title": "Punishment for using arms",
+      "max": "detail",
+      "source": "Arms Act 1959 s.27",
+      "note": "s.27 ranges from 7 years to death depending on the arm."
+    },
+    {
+      "section": "27(1)",
+      "title": "Using arms in contravention of s.5",
+      "max": {
+        "months": 84
+      },
+      "source": "Arms Act 1959 s.27(1)"
+    },
+    {
+      "section": "27(2)",
+      "title": "Using prohibited arms in contravention of s.7",
+      "max": "life",
+      "source": "Arms Act 1959 s.27(2)"
+    },
+    {
+      "section": "27(3)",
+      "title": "Using prohibited arms resulting in death",
+      "max": "death",
+      "source": "Arms Act 1959 s.27(3)"
+    }
+  ],
+  "POCSO": [
+    {
+      "section": "3",
+      "title": "Penetrative sexual assault (definition)",
+      "max": "modifier",
+      "source": "POCSO Act 2012 s.3",
+      "note": "Definition read with s.4."
+    },
+    {
+      "section": "4",
+      "title": "Punishment for penetrative sexual assault",
+      "max": "life",
+      "source": "POCSO Act 2012 s.4"
+    },
+    {
+      "section": "5",
+      "title": "Aggravated penetrative sexual assault (definition)",
+      "max": "modifier",
+      "source": "POCSO Act 2012 s.5",
+      "note": "Definition read with s.6."
+    },
+    {
+      "section": "6",
+      "title": "Punishment for aggravated penetrative sexual assault",
+      "max": "death",
+      "source": "POCSO Act 2012 s.6"
+    },
+    {
+      "section": "7",
+      "title": "Sexual assault (definition)",
+      "max": "modifier",
+      "source": "POCSO Act 2012 s.7",
+      "note": "Definition read with s.8."
+    },
+    {
+      "section": "8",
+      "title": "Punishment for sexual assault",
+      "max": {
+        "months": 60
+      },
+      "source": "POCSO Act 2012 s.8"
+    },
+    {
+      "section": "9",
+      "title": "Aggravated sexual assault (definition)",
+      "max": "modifier",
+      "source": "POCSO Act 2012 s.9",
+      "note": "Definition read with s.10."
+    },
+    {
+      "section": "10",
+      "title": "Punishment for aggravated sexual assault",
+      "max": {
+        "months": 84
+      },
+      "source": "POCSO Act 2012 s.10"
+    },
+    {
+      "section": "11",
+      "title": "Sexual harassment (definition)",
+      "max": "modifier",
+      "source": "POCSO Act 2012 s.11",
+      "note": "Definition read with s.12."
+    },
+    {
+      "section": "12",
+      "title": "Punishment for sexual harassment",
+      "max": {
+        "months": 36
+      },
+      "source": "POCSO Act 2012 s.12"
+    },
+    {
+      "section": "17",
+      "title": "Punishment for abetment",
+      "max": "derivative",
+      "source": "POCSO Act 2012 s.17",
+      "note": "Punished as the offence abetted."
+    },
+    {
+      "section": "18",
+      "title": "Punishment for attempt to commit an offence",
+      "max": "companion",
+      "source": "POCSO Act 2012 s.18",
+      "note": "Up to half the longest term of the offence attempted."
+    }
+  ],
+  "SCST": [
+    {
+      "section": "3(1)",
+      "title": "Punishments for offences of atrocities",
+      "max": {
+        "months": 60
+      },
+      "source": "SC/ST (PoA) Act 1989 s.3(1)"
+    },
+    {
+      "section": "3(1)(r)",
+      "title": "Intentional insult or intimidation with intent to humiliate in public view",
+      "max": {
+        "months": 60
+      },
+      "source": "SC/ST (PoA) Act 1989 s.3(1)(r)"
+    },
+    {
+      "section": "3(1)(s)",
+      "title": "Abusing by caste name in public view",
+      "max": {
+        "months": 60
+      },
+      "source": "SC/ST (PoA) Act 1989 s.3(1)(s)"
+    },
+    {
+      "section": "3(2)",
+      "title": "Punishments for offences of atrocities (aggravated)",
+      "max": "detail",
+      "source": "SC/ST (PoA) Act 1989 s.3(2)",
+      "note": "s.3(2) limbs range from 6 months to death."
+    },
+    {
+      "section": "3(2)(v)",
+      "title": "IPC offence punishable with 10 years or more against SC/ST member",
+      "max": "life",
+      "source": "SC/ST (PoA) Act 1989 s.3(2)(v)"
+    },
+    {
+      "section": "3(2)(va)",
+      "title": "Scheduled IPC offence against SC/ST member",
+      "max": "derivative",
+      "source": "SC/ST (PoA) Act 1989 s.3(2)(va)",
+      "note": "Punished as the IPC offence."
+    }
+  ],
+  "DOWRY": [
+    {
+      "section": "3",
+      "title": "Penalty for giving or taking dowry",
+      "max": "detail",
+      "source": "Dowry Prohibition Act 1961 s.3",
+      "note": "Sets a minimum of 5 years and writes no maximum."
+    },
+    {
+      "section": "4",
+      "title": "Penalty for demanding dowry",
+      "max": {
+        "months": 24
+      },
+      "source": "Dowry Prohibition Act 1961 s.4"
+    }
+  ],
+  "GAMBLING": [
+    {
+      "section": "3",
+      "title": "Penalty for owning or keeping, or having charge of a gaming-house",
+      "max": {
+        "months": 3
+      },
+      "source": "Public Gambling Act 1867 s.3"
+    },
+    {
+      "section": "4",
+      "title": "Penalty for being found in gaming-house",
+      "max": {
+        "months": 1
+      },
+      "source": "Public Gambling Act 1867 s.4"
+    },
+    {
+      "section": "13",
+      "title": "Gaming and setting birds and animals to fight in public streets",
+      "max": {
+        "months": 1
+      },
+      "source": "Public Gambling Act 1867 s.13"
+    }
+  ],
+  "IT": [
+    {
+      "section": "66",
+      "title": "Computer related offences",
+      "max": {
+        "months": 36
+      },
+      "source": "IT Act 2000 s.66"
+    },
+    {
+      "section": "66A",
+      "title": "Sending offensive messages through communication service",
+      "max": "struck",
+      "source": "IT Act 2000 s.66A",
+      "note": "Struck down by the Supreme Court in 2015 (Shreya Singhal v. Union of India)."
+    },
+    {
+      "section": "66C",
+      "title": "Punishment for identity theft",
+      "max": {
+        "months": 36
+      },
+      "source": "IT Act 2000 s.66C"
+    },
+    {
+      "section": "66D",
+      "title": "Punishment for cheating by personation by using computer resource",
+      "max": {
+        "months": 36
+      },
+      "source": "IT Act 2000 s.66D"
+    },
+    {
+      "section": "66E",
+      "title": "Punishment for violation of privacy",
+      "max": {
+        "months": 36
+      },
+      "source": "IT Act 2000 s.66E"
+    },
+    {
+      "section": "67",
+      "title": "Punishment for publishing or transmitting obscene material in electronic form",
+      "max": {
+        "months": 60
+      },
+      "source": "IT Act 2000 s.67"
+    },
+    {
+      "section": "67A",
+      "title": "Publishing or transmitting material containing sexually explicit act",
+      "max": {
+        "months": 84
+      },
+      "source": "IT Act 2000 s.67A"
+    },
+    {
+      "section": "67B",
+      "title": "Publishing or transmitting material depicting children in sexually explicit act",
+      "max": {
+        "months": 84
+      },
+      "source": "IT Act 2000 s.67B"
+    }
+  ],
+  "EXCISE": [
+    {
+      "section": "60",
+      "title": "Penalty for unlawful import, export, transport, manufacture, possession, sale, etc.",
+      "max": "detail",
+      "source": "State Excise Act s.60",
+      "note": "State excise terms vary by state and amendment; enter the maximum by hand."
+    },
+    {
+      "section": "60A",
+      "title": "Penalty for adulterated or spurious liquor",
+      "max": "detail",
+      "source": "State Excise Act s.60A",
+      "note": "State excise terms vary by state and amendment; enter the maximum by hand."
+    },
+    {
+      "section": "63",
+      "title": "Penalty for misconduct by licensee",
+      "max": "detail",
+      "source": "State Excise Act s.63",
+      "note": "State excise terms vary by state and amendment; enter the maximum by hand."
+    }
+  ],
+  "GANGSTERS": [
+    {
+      "section": "2",
+      "title": "Definitions",
+      "max": "modifier",
+      "source": "UP Gangsters Act 1986 s.2",
+      "note": "Definition read with s.3."
+    },
+    {
+      "section": "3",
+      "title": "Penalty",
+      "max": "detail",
+      "source": "UP Gangsters Act 1986 s.3",
+      "note": "2 to 10 years, or up to life where the offence is against a public servant."
+    },
+    {
+      "section": "3(1)",
+      "title": "Penalty",
+      "max": "detail",
+      "source": "UP Gangsters Act 1986 s.3(1)",
+      "note": "2 to 10 years, or up to life where the offence is against a public servant."
+    }
+  ]
+}

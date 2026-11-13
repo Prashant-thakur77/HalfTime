@@ -1,0 +1,1071 @@
+[
+  {
+    "section": "3(5)",
+    "title": "Acts done by several persons in furtherance of common intention",
+    "max": "modifier",
+    "source": "BNS 2023 s.3(5)",
+    "note": "Common intention: liability rule, not a separate offence."
+  },
+  {
+    "section": "49",
+    "title": "Punishment of abetment if the act abetted is committed in consequence",
+    "max": "derivative",
+    "source": "BNS 2023 s.49",
+    "note": "Punished as the offence abetted."
+  },
+  {
+    "section": "61(2)",
+    "title": "Punishment of criminal conspiracy",
+    "max": "derivative",
+    "source": "BNS 2023 s.61(2)",
+    "note": "Punished as abetment of the offence conspired."
+  },
+  {
+    "section": "62",
+    "title": "Punishment for attempting to commit offences punishable with imprisonment",
+    "max": "companion",
+    "source": "BNS 2023 s.62",
+    "note": "Up to half the longest term of the offence attempted."
+  },
+  {
+    "section": "64",
+    "title": "Punishment for rape",
+    "max": "life",
+    "source": "BNS 2023 s.64"
+  },
+  {
+    "section": "65",
+    "title": "Punishment for rape in certain cases (woman under sixteen/twelve)",
+    "max": "death",
+    "source": "BNS 2023 s.65"
+  },
+  {
+    "section": "70(1)",
+    "title": "Gang rape",
+    "max": "life",
+    "source": "BNS 2023 s.70(1)"
+  },
+  {
+    "section": "74",
+    "title": "Assault or criminal force to woman with intent to outrage her modesty",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.74"
+  },
+  {
+    "section": "75",
+    "title": "Sexual harassment",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.75"
+  },
+  {
+    "section": "76",
+    "title": "Assault or use of criminal force to woman with intent to disrobe",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.76"
+  },
+  {
+    "section": "77",
+    "title": "Voyeurism",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.77"
+  },
+  {
+    "section": "78",
+    "title": "Stalking",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.78"
+  },
+  {
+    "section": "79",
+    "title": "Word, gesture or act intended to insult modesty of a woman",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.79"
+  },
+  {
+    "section": "80",
+    "title": "Dowry death",
+    "max": "life",
+    "source": "BNS 2023 s.80"
+  },
+  {
+    "section": "85",
+    "title": "Husband or relative of husband of a woman subjecting her to cruelty",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.85"
+  },
+  {
+    "section": "87",
+    "title": "Kidnapping, abducting or inducing woman to compel her marriage",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.87"
+  },
+  {
+    "section": "103(1)",
+    "title": "Punishment for murder",
+    "max": "death",
+    "source": "BNS 2023 s.103(1)"
+  },
+  {
+    "section": "105",
+    "title": "Punishment for culpable homicide not amounting to murder",
+    "max": "life",
+    "source": "BNS 2023 s.105"
+  },
+  {
+    "section": "106(1)",
+    "title": "Causing death by negligence",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.106(1)"
+  },
+  {
+    "section": "106(2)",
+    "title": "Causing death by rash and negligent driving and escaping",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.106(2)",
+    "note": "This limb was held in abeyance when BNS came into force; check the current notification."
+  },
+  {
+    "section": "108",
+    "title": "Abetment of suicide",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.108"
+  },
+  {
+    "section": "109(1)",
+    "title": "Attempt to murder",
+    "max": "life",
+    "source": "BNS 2023 s.109(1)"
+  },
+  {
+    "section": "110",
+    "title": "Attempt to commit culpable homicide",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.110"
+  },
+  {
+    "section": "111",
+    "title": "Organised crime",
+    "max": "death",
+    "source": "BNS 2023 s.111"
+  },
+  {
+    "section": "115(2)",
+    "title": "Voluntarily causing hurt",
+    "max": {
+      "months": 12
+    },
+    "source": "BNS 2023 s.115(2)"
+  },
+  {
+    "section": "117(2)",
+    "title": "Voluntarily causing grievous hurt",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.117(2)"
+  },
+  {
+    "section": "118(1)",
+    "title": "Voluntarily causing hurt by dangerous weapons or means",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.118(1)"
+  },
+  {
+    "section": "118(2)",
+    "title": "Voluntarily causing grievous hurt by dangerous weapons or means",
+    "max": "life",
+    "source": "BNS 2023 s.118(2)"
+  },
+  {
+    "section": "121(1)",
+    "title": "Voluntarily causing hurt to deter public servant from his duty",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.121(1)"
+  },
+  {
+    "section": "121(2)",
+    "title": "Voluntarily causing grievous hurt to deter public servant from his duty",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.121(2)"
+  },
+  {
+    "section": "125",
+    "title": "Act endangering life or personal safety of others",
+    "max": {
+      "months": 3
+    },
+    "source": "BNS 2023 s.125"
+  },
+  {
+    "section": "125(a)",
+    "title": "Act endangering life causing hurt",
+    "max": {
+      "months": 6
+    },
+    "source": "BNS 2023 s.125(a)"
+  },
+  {
+    "section": "125(b)",
+    "title": "Act endangering life causing grievous hurt",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.125(b)"
+  },
+  {
+    "section": "126(2)",
+    "title": "Wrongful restraint",
+    "max": {
+      "months": 1
+    },
+    "source": "BNS 2023 s.126(2)"
+  },
+  {
+    "section": "127(2)",
+    "title": "Wrongful confinement",
+    "max": {
+      "months": 12
+    },
+    "source": "BNS 2023 s.127(2)"
+  },
+  {
+    "section": "131",
+    "title": "Punishment for assault or criminal force otherwise than on grave provocation",
+    "max": {
+      "months": 3
+    },
+    "source": "BNS 2023 s.131"
+  },
+  {
+    "section": "132",
+    "title": "Assault or criminal force to deter public servant from discharge of his duty",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.132"
+  },
+  {
+    "section": "137(2)",
+    "title": "Punishment for kidnapping",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.137(2)"
+  },
+  {
+    "section": "140(1)",
+    "title": "Kidnapping or abducting in order to murder",
+    "max": "life",
+    "source": "BNS 2023 s.140(1)"
+  },
+  {
+    "section": "140(2)",
+    "title": "Kidnapping for ransom",
+    "max": "death",
+    "source": "BNS 2023 s.140(2)"
+  },
+  {
+    "section": "140(3)",
+    "title": "Kidnapping or abducting with intent secretly and wrongfully to confine person",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.140(3)"
+  },
+  {
+    "section": "189(2)",
+    "title": "Unlawful assembly",
+    "max": {
+      "months": 6
+    },
+    "source": "BNS 2023 s.189(2)"
+  },
+  {
+    "section": "189(4)",
+    "title": "Joining unlawful assembly armed with deadly weapon",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.189(4)"
+  },
+  {
+    "section": "190",
+    "title": "Every member of unlawful assembly guilty of offence committed in prosecution of common object",
+    "max": "modifier",
+    "source": "BNS 2023 s.190",
+    "note": "Constructive liability, not a separate offence."
+  },
+  {
+    "section": "191(2)",
+    "title": "Rioting",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.191(2)"
+  },
+  {
+    "section": "191(3)",
+    "title": "Rioting, armed with deadly weapon",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.191(3)"
+  },
+  {
+    "section": "221",
+    "title": "Obstructing public servant in discharge of public functions",
+    "max": {
+      "months": 3
+    },
+    "source": "BNS 2023 s.221"
+  },
+  {
+    "section": "223",
+    "title": "Disobedience to order duly promulgated by public servant",
+    "max": {
+      "months": 12
+    },
+    "source": "BNS 2023 s.223"
+  },
+  {
+    "section": "238",
+    "title": "Causing disappearance of evidence of offence",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.238"
+  },
+  {
+    "section": "281",
+    "title": "Rash driving or riding on a public way",
+    "max": {
+      "months": 6
+    },
+    "source": "BNS 2023 s.281"
+  },
+  {
+    "section": "296",
+    "title": "Obscene acts and songs",
+    "max": {
+      "months": 3
+    },
+    "source": "BNS 2023 s.296"
+  },
+  {
+    "section": "303(2)",
+    "title": "Punishment for theft",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.303(2)"
+  },
+  {
+    "section": "304(2)",
+    "title": "Snatching",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.304(2)"
+  },
+  {
+    "section": "305",
+    "title": "Theft in a dwelling house, or means of transportation or place of worship",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.305"
+  },
+  {
+    "section": "306",
+    "title": "Theft by clerk or servant of property in possession of master",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.306"
+  },
+  {
+    "section": "307",
+    "title": "Theft after preparation made for causing death, hurt or restraint",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.307"
+  },
+  {
+    "section": "308(2)",
+    "title": "Punishment for extortion",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.308(2)"
+  },
+  {
+    "section": "309(4)",
+    "title": "Punishment for robbery",
+    "max": {
+      "months": 168
+    },
+    "source": "BNS 2023 s.309(4)",
+    "note": "Up to 14 years if committed on the highway between sunset and sunrise."
+  },
+  {
+    "section": "309(5)",
+    "title": "Attempt to commit robbery",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.309(5)"
+  },
+  {
+    "section": "309(6)",
+    "title": "Voluntarily causing hurt in committing robbery",
+    "max": "life",
+    "source": "BNS 2023 s.309(6)"
+  },
+  {
+    "section": "310(2)",
+    "title": "Punishment for dacoity",
+    "max": "life",
+    "source": "BNS 2023 s.310(2)"
+  },
+  {
+    "section": "310(3)",
+    "title": "Dacoity with murder",
+    "max": "death",
+    "source": "BNS 2023 s.310(3)"
+  },
+  {
+    "section": "310(4)",
+    "title": "Making preparation to commit dacoity",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.310(4)"
+  },
+  {
+    "section": "310(5)",
+    "title": "Assembling for purpose of committing dacoity",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.310(5)"
+  },
+  {
+    "section": "311",
+    "title": "Robbery or dacoity, with attempt to cause death or grievous hurt",
+    "max": "companion",
+    "source": "BNS 2023 s.311",
+    "note": "Sets a minimum of 7 years on the robbery or dacoity charged with it."
+  },
+  {
+    "section": "314",
+    "title": "Dishonest misappropriation of property",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.314"
+  },
+  {
+    "section": "316(2)",
+    "title": "Punishment for criminal breach of trust",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.316(2)"
+  },
+  {
+    "section": "316(5)",
+    "title": "Criminal breach of trust by public servant, or by banker, merchant or agent",
+    "max": "life",
+    "source": "BNS 2023 s.316(5)"
+  },
+  {
+    "section": "317(2)",
+    "title": "Dishonestly receiving stolen property",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.317(2)"
+  },
+  {
+    "section": "317(3)",
+    "title": "Dishonestly receiving property stolen in the commission of a dacoity",
+    "max": "life",
+    "source": "BNS 2023 s.317(3)"
+  },
+  {
+    "section": "317(4)",
+    "title": "Habitually dealing in stolen property",
+    "max": "life",
+    "source": "BNS 2023 s.317(4)"
+  },
+  {
+    "section": "317(5)",
+    "title": "Assisting in concealment of stolen property",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.317(5)"
+  },
+  {
+    "section": "318(2)",
+    "title": "Punishment for cheating",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.318(2)"
+  },
+  {
+    "section": "318(4)",
+    "title": "Cheating and dishonestly inducing delivery of property",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.318(4)"
+  },
+  {
+    "section": "319(2)",
+    "title": "Punishment for cheating by personation",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.319(2)"
+  },
+  {
+    "section": "324(2)",
+    "title": "Punishment for mischief",
+    "max": {
+      "months": 6
+    },
+    "source": "BNS 2023 s.324(2)"
+  },
+  {
+    "section": "329(3)",
+    "title": "Punishment for criminal trespass",
+    "max": {
+      "months": 3
+    },
+    "source": "BNS 2023 s.329(3)"
+  },
+  {
+    "section": "329(4)",
+    "title": "Punishment for house-trespass",
+    "max": {
+      "months": 12
+    },
+    "source": "BNS 2023 s.329(4)"
+  },
+  {
+    "section": "331(4)",
+    "title": "House-trespass or house-breaking by night to commit offence punishable with imprisonment",
+    "max": {
+      "months": 168
+    },
+    "source": "BNS 2023 s.331(4)"
+  },
+  {
+    "section": "333",
+    "title": "House-trespass after preparation for hurt, assault or wrongful restraint",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.333"
+  },
+  {
+    "section": "336(2)",
+    "title": "Punishment for forgery",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.336(2)"
+  },
+  {
+    "section": "336(3)",
+    "title": "Forgery for purpose of cheating",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.336(3)"
+  },
+  {
+    "section": "338",
+    "title": "Forgery of valuable security, will, etc.",
+    "max": "life",
+    "source": "BNS 2023 s.338"
+  },
+  {
+    "section": "340(2)",
+    "title": "Using as genuine a forged document or electronic record",
+    "max": "derivative",
+    "source": "BNS 2023 s.340(2)",
+    "note": "Punished as if the person had forged the document."
+  },
+  {
+    "section": "351(2)",
+    "title": "Punishment for criminal intimidation",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.351(2)"
+  },
+  {
+    "section": "351(3)",
+    "title": "Criminal intimidation by threat to cause death or grievous hurt",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.351(3)"
+  },
+  {
+    "section": "352",
+    "title": "Intentional insult with intent to provoke breach of peace",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.352"
+  },
+  {
+    "section": "356(2)",
+    "title": "Punishment for defamation",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.356(2)"
+  },
+  {
+    "section": "45",
+    "title": "Abettor (definition)",
+    "max": "modifier",
+    "source": "BNS 2023 s.45",
+    "note": "Definition of abettor."
+  },
+  {
+    "section": "54",
+    "title": "Abettor present when offence is committed",
+    "max": "modifier",
+    "source": "BNS 2023 s.54",
+    "note": "Deemed to have committed the offence."
+  },
+  {
+    "section": "61(1)",
+    "title": "Definition of criminal conspiracy",
+    "max": "modifier",
+    "source": "BNS 2023 s.61(1)"
+  },
+  {
+    "section": "66",
+    "title": "Punishment for causing death or resulting in persistent vegetative state of victim",
+    "max": "death",
+    "source": "BNS 2023 s.66"
+  },
+  {
+    "section": "65(2)",
+    "title": "Punishment for rape on woman under twelve years of age",
+    "max": "death",
+    "source": "BNS 2023 s.65(2)"
+  },
+  {
+    "section": "81",
+    "title": "Cohabitation caused by a man deceitfully inducing a belief of lawful marriage",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.81"
+  },
+  {
+    "section": "82(1)",
+    "title": "Marrying again during lifetime of husband or wife",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.82(1)"
+  },
+  {
+    "section": "82(2)",
+    "title": "Marrying again with concealment of former marriage",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.82(2)"
+  },
+  {
+    "section": "84",
+    "title": "Enticing or taking away or detaining with criminal intent a married woman",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.84"
+  },
+  {
+    "section": "88",
+    "title": "Causing miscarriage",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.88"
+  },
+  {
+    "section": "89",
+    "title": "Causing miscarriage without woman's consent",
+    "max": "life",
+    "source": "BNS 2023 s.89"
+  },
+  {
+    "section": "96",
+    "title": "Procuration of child",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.96"
+  },
+  {
+    "section": "119(1)",
+    "title": "Voluntarily causing hurt to extort property",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.119(1)"
+  },
+  {
+    "section": "124(1)",
+    "title": "Voluntarily causing grievous hurt by use of acid",
+    "max": "life",
+    "source": "BNS 2023 s.124(1)"
+  },
+  {
+    "section": "124(2)",
+    "title": "Voluntarily throwing or attempting to throw acid",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.124(2)"
+  },
+  {
+    "section": "127(3)",
+    "title": "Wrongful confinement for three or more days",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.127(3)"
+  },
+  {
+    "section": "127(4)",
+    "title": "Wrongful confinement for ten or more days",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.127(4)"
+  },
+  {
+    "section": "143",
+    "title": "Trafficking of person",
+    "max": "life",
+    "source": "BNS 2023 s.143"
+  },
+  {
+    "section": "173",
+    "title": "Punishment for bribery (elections)",
+    "max": {
+      "months": 12
+    },
+    "source": "BNS 2023 s.173"
+  },
+  {
+    "section": "178",
+    "title": "Counterfeiting coin, government stamps, currency-notes or bank-notes",
+    "max": "life",
+    "source": "BNS 2023 s.178"
+  },
+  {
+    "section": "179",
+    "title": "Using as genuine, forged or counterfeit coin, currency-notes or bank-notes",
+    "max": "life",
+    "source": "BNS 2023 s.179"
+  },
+  {
+    "section": "180",
+    "title": "Possession of forged or counterfeit coin, currency-notes or bank-notes",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.180"
+  },
+  {
+    "section": "189(3)",
+    "title": "Joining unlawful assembly commanded to disperse",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.189(3)"
+  },
+  {
+    "section": "196",
+    "title": "Promoting enmity between groups",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.196"
+  },
+  {
+    "section": "229",
+    "title": "Punishment for false evidence",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.229"
+  },
+  {
+    "section": "249",
+    "title": "Harbouring offender",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.249"
+  },
+  {
+    "section": "262",
+    "title": "Resistance or obstruction by a person to his lawful apprehension",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.262"
+  },
+  {
+    "section": "308(3)",
+    "title": "Putting person in fear of injury in order to commit extortion",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.308(3)"
+  },
+  {
+    "section": "308(5)",
+    "title": "Extortion by putting a person in fear of death or grievous hurt",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.308(5)"
+  },
+  {
+    "section": "308(4)",
+    "title": "Putting person in fear of death or grievous hurt in order to commit extortion",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.308(4)"
+  },
+  {
+    "section": "308(6)",
+    "title": "Putting person in fear of accusation in order to commit extortion",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.308(6)"
+  },
+  {
+    "section": "310(6)",
+    "title": "Punishment for belonging to gang of dacoits",
+    "max": "life",
+    "source": "BNS 2023 s.310(6)"
+  },
+  {
+    "section": "312",
+    "title": "Attempt to commit robbery or dacoity when armed with deadly weapon",
+    "max": "companion",
+    "source": "BNS 2023 s.312",
+    "note": "Sets a minimum of 7 years on the attempt charged with it."
+  },
+  {
+    "section": "313",
+    "title": "Punishment for belonging to gang of robbers, etc.",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.313"
+  },
+  {
+    "section": "315",
+    "title": "Dishonest misappropriation of property possessed by deceased person at the time of his death",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.315"
+  },
+  {
+    "section": "316(3)",
+    "title": "Criminal breach of trust by carrier, etc.",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.316(3)"
+  },
+  {
+    "section": "316(4)",
+    "title": "Criminal breach of trust by clerk or servant",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.316(4)"
+  },
+  {
+    "section": "318(3)",
+    "title": "Cheating with knowledge that wrongful loss may ensue to person whose interest offender is bound to protect",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.318(3)"
+  },
+  {
+    "section": "324(3)",
+    "title": "Mischief causing loss or damage to property",
+    "max": {
+      "months": 12
+    },
+    "source": "BNS 2023 s.324(3)"
+  },
+  {
+    "section": "324(4)",
+    "title": "Mischief causing loss of twenty thousand rupees and more but less than one lakh rupees",
+    "max": {
+      "months": 24
+    },
+    "source": "BNS 2023 s.324(4)"
+  },
+  {
+    "section": "324(5)",
+    "title": "Mischief causing loss of one lakh rupees or more",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.324(5)"
+  },
+  {
+    "section": "324(6)",
+    "title": "Mischief after preparation for causing death, hurt or restraint",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.324(6)"
+  },
+  {
+    "section": "325",
+    "title": "Mischief by killing or maiming animal",
+    "max": {
+      "months": 60
+    },
+    "source": "BNS 2023 s.325"
+  },
+  {
+    "section": "326(f)",
+    "title": "Mischief by fire or explosive substance with intent to cause damage",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.326(f)"
+  },
+  {
+    "section": "326(g)",
+    "title": "Mischief by fire or explosive substance with intent to destroy house, etc.",
+    "max": "life",
+    "source": "BNS 2023 s.326(g)"
+  },
+  {
+    "section": "331(2)",
+    "title": "Lurking house-trespass or house-breaking after sunset and before sunrise",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.331(2)"
+  },
+  {
+    "section": "331(3)",
+    "title": "House-trespass or house-breaking to commit offence punishable with imprisonment",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.331(3)"
+  },
+  {
+    "section": "331(6)",
+    "title": "House-trespass or house-breaking after sunset after preparation for hurt",
+    "max": {
+      "months": 168
+    },
+    "source": "BNS 2023 s.331(6)"
+  },
+  {
+    "section": "332(a)",
+    "title": "House-trespass in order to commit offence punishable with death",
+    "max": "life",
+    "source": "BNS 2023 s.332(a)"
+  },
+  {
+    "section": "332(b)",
+    "title": "House-trespass in order to commit offence punishable with imprisonment for life",
+    "max": {
+      "months": 120
+    },
+    "source": "BNS 2023 s.332(b)"
+  },
+  {
+    "section": "332(c)",
+    "title": "House-trespass in order to commit offence punishable with imprisonment",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.332(c)"
+  },
+  {
+    "section": "336(4)",
+    "title": "Forgery for purpose of harming reputation",
+    "max": {
+      "months": 36
+    },
+    "source": "BNS 2023 s.336(4)"
+  },
+  {
+    "section": "337",
+    "title": "Forgery of record of Court or of public register, etc.",
+    "max": {
+      "months": 84
+    },
+    "source": "BNS 2023 s.337"
+  },
+  {
+    "section": "351(4)",
+    "title": "Criminal intimidation by an anonymous communication",
+    "max": "detail",
+    "source": "BNS 2023 s.351(4)",
+    "note": "Adds up to 2 years on top of s.351(2)/(3)."
+  }
+]
