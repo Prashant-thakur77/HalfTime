@@ -196,6 +196,20 @@ See [TESTING.md](TESTING.md), [ARCHITECTURE.md](ARCHITECTURE.md) and [SECURITY.m
 - State excise laws, the UP Gangsters Act and some special-act limbs need a lawyer to enter the maximum term.
 - The headline evaluation uses constructed orders. The real-judgment benchmark covers the deterministic parts only; the end-to-end run on real Hindi bail orders is wired up and waiting on dataset access.
 
+## AI tools used
+
+I built HalfTime with Claude Code (Anthropic's coding assistant, running Claude Opus 5.5). I chose the problem, wrote the plan, decided the approach and the design, and guided the work step by step. Claude Code wrote most of the code, tests and documentation under that direction. I checked what it produced: I read the changes, ran the tests and the evaluation, verified the legal facts and every source, tried the site and the MCP server myself, and sent work back when something was wrong or didn't match the plan.
+
+The product itself also uses AI at runtime: Claude Sonnet 5.5 reads court orders and must quote the sentence behind every fact, Claude Opus 5.5 transcribes scanned pages, and Claude Haiku 5.5 scores the plain-chatbot baseline in the evaluation. Whether someone is past the line is decided by plain, tested code, not by a model.
+
+## Credits
+
+- **AI:** Claude Code and the Claude API (Anthropic).
+- **Data:** InLegalNER (OpenNyAI, MIT licence, via Hugging Face) for the real-judgment benchmark. Statistics from NCRB, Prison Statistics India 2024. Legal sources and news reports are listed under [Sources](#sources) and cited on the site.
+- **Open-source libraries:** Next.js, React, Tailwind CSS, GSAP, pdf.js, docx, Zod, date-fns, the Model Context Protocol TypeScript SDK, OpenNext for Cloudflare, Wrangler, Vitest, fast-check, Playwright, axe-core, TypeScript, tsx, ESLint.
+- **Fonts:** Archivo, IBM Plex Mono and Tiro Devanagari Hindi (SIL Open Font License, via Google Fonts).
+- **Hosting:** Cloudflare Workers and KV.
+
 ## Licence
 
 MIT, see [LICENSE](LICENSE). The datasets used for evaluation keep their own licences and are not redistributed here.
