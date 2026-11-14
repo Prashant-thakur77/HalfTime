@@ -10,6 +10,7 @@ const DICT = {
   "nav.vs": { en: "Chatbot vs HalfTime", hi: "चैटबॉट बनाम हाफ़टाइम" },
   "nav.results": { en: "Proof", hi: "प्रमाण" },
   "nav.law": { en: "The law", hi: "क़ानून" },
+  "nav.connect": { en: "Use it from Claude", hi: "Claude से उपयोग करें" },
   "nav.close": { en: "Close", hi: "बंद करें" },
   "lang.toggle": { en: "हिन्दी", hi: "English" },
   "lane.past": { en: "Past the line", hi: "रेखा पार" },

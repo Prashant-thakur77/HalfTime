@@ -230,6 +230,13 @@ export default function Home() {
             The model never decides who is eligible. If it is wrong about a fact, the quote check usually catches it; if it is missing a fact, the case
             goes to “can&apos;t tell” for a person to look at.
           </p>
+          <p className="mt-3 max-w-3xl text-[0.95rem] text-ink-2">
+            The same checks run as an MCP server, so the Claude you already use can do the reading:{" "}
+            <Link className="font-mono underline" href="/connect">
+              halftime.prashantthakur.dev/mcp
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

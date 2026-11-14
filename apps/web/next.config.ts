@@ -25,7 +25,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@halftime/law", "@halftime/reader"],
+  transpilePackages: ["@halftime/law", "@halftime/reader", "@halftime/mcp"],
   poweredByHeader: false,
   env: { BUILD_DATE: new Date().toISOString().slice(0, 10) },
   webpack(config) {

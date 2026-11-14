@@ -142,6 +142,34 @@ test.describe("api", () => {
     expect((await request.post("/api/ocr", { data: { image: "x", mediaType: "image/gif" } })).status()).toBe(400);
   });
 
+  test("remote MCP endpoint lists tools and checks an order", async ({ request }) => {
+    const headers = { "content-type": "application/json", accept: "application/json, text/event-stream" };
+    const init = await request.post("/mcp", {
+      headers,
+      data: { jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "e2e", version: "1" } } }
+    });
+    expect(init.status()).toBe(200);
+    expect((await init.json()).result.serverInfo.name).toBe("halftime");
+    const list = await request.post("/mcp", { headers, data: { jsonrpc: "2.0", id: 2, method: "tools/list", params: {} } });
+    const names = (await list.json()).result.tools.map((t: { name: string }) => t.name);
+    expect(names).toEqual(expect.arrayContaining(["check_order", "sweep_jail", "draft_application"]));
+    const call = await request.post("/mcp", {
+      headers,
+      data: {
+        jsonrpc: "2.0",
+        id: 3,
+        method: "tools/call",
+        params: { name: "apply_section_479", arguments: { sections: [{ act: "IPC", section: "379" }], custody_start: "2023-03-12", first_time_offender: "false", other_pending_cases: "false", today: "2026-11-15" } }
+      }
+    });
+    expect((await call.json()).result.content[0].text).toContain("PAST THE LINE");
+  });
+
+  test("connect page gives the connector URL", async ({ page }) => {
+    await page.goto("/connect");
+    await expect(page.getByText("https://halftime.prashantthakur.dev/mcp").first()).toBeVisible();
+  });
+
   test("facts carry their sources", async ({ request }) => {
     const f = await (await request.get("/api/facts")).json();
     expect(f.undertrials_2024.value).toBe(371440);

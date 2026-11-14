@@ -21,6 +21,7 @@ export function Footer() {
             <li><Link className="hover:text-mark" href="/vs-chatbot">Chatbot vs HalfTime</Link></li>
             <li><Link className="hover:text-mark" href="/results">Proof and misses</Link></li>
             <li><Link className="hover:text-mark" href="/law">Section 479, plainly</Link></li>
+            <li><Link className="hover:text-mark" href="/connect">Use it from Claude (MCP)</Link></li>
           </ul>
         </nav>
         <div className="text-[0.8rem] text-paper/70 md:col-span-3">

@@ -10,6 +10,7 @@ const LINKS = [
   { href: "/sweep", key: "nav.sweep" },
   { href: "/vs-chatbot", key: "nav.vs" },
   { href: "/results", key: "nav.results" },
+  { href: "/connect", key: "nav.connect" },
   { href: "/law", key: "nav.law" }
 ] as const;
 

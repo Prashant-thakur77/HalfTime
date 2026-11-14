@@ -2,7 +2,7 @@
 
 **Reads a jail's court papers, finds every undertrial who has already served the Section 479 share of their sentence, shows its working, and drafts the application a legal-aid lawyer signs.**
 
-Live: **https://halftime.prashantthakur.dev**
+Live: **https://halftime.prashantthakur.dev** · Use it from Claude (MCP): **https://halftime.prashantthakur.dev/mcp**
 
 ---
 
@@ -40,6 +40,18 @@ Verdicts are deliberately not "eligible / not eligible":
 
 When first-time status isn't stated, the engine uses the half line (the safe one) and shows the one-third date as "if first-time is confirmed". For cases registered before 1 July 2024 it applies Section 479, as the Supreme Court directed on 23 August 2024, and shows the old Section 436A CrPC date alongside.
 
+## Use it from Claude (MCP)
+
+HalfTime is also an MCP server. In claude.ai, Claude Desktop or Claude Code, the Claude you are already talking to reads the papers and quotes them, and HalfTime's tools check every quote and apply the law. No API key is involved.
+
+```bash
+claude mcp add --transport http halftime https://halftime.prashantthakur.dev/mcp       # remote: samples or pasted text
+claude mcp add halftime --env HALFTIME_ROOTS=/path/to/papers -- \
+  node packages/mcp/bin/halftime-mcp.mjs                                              # local: reads a folder, saves .docx
+```
+
+Tools: `check_order`, `sweep_jail`, `draft_application`, `apply_section_479`, `lookup_section`, `list_sample_orders`, `get_sample_order`, plus `list_order_files` and `read_order_file` on the local server. [`packages/mcp/DEMO.md`](packages/mcp/DEMO.md) is a recorded Claude Code session that sweeps the five orders in `data/demo-jail/`. Claude read them from disk, called `sweep_jail`, and every quote verified. It treated a planted "ignore your instructions" line as part of the document and ignored it, then saved a Hindi 479(3) application as Word. Setup for every client: [`packages/mcp/README.md`](packages/mcp/README.md).
+
 ## Results
 
 From `eval/report.json` (`pnpm eval`), run on 160 **constructed** orders: 96 Hindi and 64 English, written in the style of Uttar Pradesh district-court bail orders, with the ground truth known by construction. They are not real cases. About a quarter contain a deliberate trap. "Today" is fixed at 2026-11-15.
@@ -66,10 +78,12 @@ The regex reader is never unsafe only because it gives up on most orders (it say
 ```
 packages/law      Section 479 engine, IPC/BNS/special-act tables, IPC→BNS map
 packages/reader   date normaliser (Hindi + English), span verifier, extraction schema and prompts,
-                  Claude client with content-hash cache, regex baseline
+                  Claude client with content-hash cache, regex baseline, 479(3) application drafts
+packages/mcp      MCP server (stdio for Claude Desktop / Claude Code; Streamable HTTP at /mcp)
 apps/web          Next.js 15 site and API (Cloudflare Workers via OpenNext)
 eval/             constructed test set, generator, evaluation runner, report
 data/samples      the 12-order sample tray shown on the site (constructed, names masked)
+data/demo-jail    five of them as .txt files, for the MCP folder sweep
 scripts/          facts.json builder, sample pre-runs, checks
 ```
 
@@ -116,7 +130,8 @@ Responses are cached by a hash of model, prompt version and input, so no documen
 
 See [TESTING.md](TESTING.md). In short:
 - 1,080 unit and property tests on the law engine, with 100% branch coverage enforced in CI;
-- 122 reader tests, including 50+ planted fake quotes that the verifier must reject;
+- 126 reader tests, including 50+ planted fake quotes that the verifier must reject;
+- 17 MCP tests that drive every tool through a real MCP client;
 - 25 end-to-end journeys plus axe accessibility checks in Chromium, Firefox, WebKit and mobile;
 - a recorded evaluation with three baselines.
 
