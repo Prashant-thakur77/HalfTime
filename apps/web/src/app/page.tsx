@@ -4,6 +4,7 @@ import { DocIndex, checkQuote, decide } from "@halftime/reader";
 import { CaseTray } from "@/components/landing/CaseTray";
 import { FragmentBurst } from "@/components/landing/FragmentBurst";
 import { HowPanels } from "@/components/landing/HowPanels";
+import { Impact } from "@/components/landing/Impact";
 import { Odometer } from "@/components/landing/Odometer";
 import { ScrambleStatement } from "@/components/landing/ScrambleStatement";
 import { TileRegister } from "@/components/landing/TileRegister";
@@ -283,6 +284,15 @@ export default function Home() {
       </section>
 
       <HowPanels d={howData()} />
+
+      <Impact
+        over2y={facts.held_over_2y_2024.value}
+        over5y={facts.held_over_5y_2024.value}
+        costPerOrder={(facts.eval as unknown as { halftime: { costPerOrderUsd: number } }).halftime.costPerOrderUsd}
+        msPerOrder={(facts.eval as unknown as { halftime: { latencyMsP50: number } }).halftime.latencyMsP50}
+        sourceLabel={facts.sources.table74!.label}
+        sourceUrl={facts.sources.table74!.url}
+      />
 
       <section aria-label="Use it from Claude" className="on-ink bg-ink py-16 text-paper">
         <div className="mx-auto flex max-w-[var(--max)] flex-col gap-6 px-[var(--gutter)] md:flex-row md:items-center md:justify-between">
