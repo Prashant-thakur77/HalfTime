@@ -192,3 +192,22 @@ test.describe("api", () => {
     expect(f.sources.ncrb.url).toMatch(/^https:/);
   });
 });
+
+test.describe("shipped basics", () => {
+  test("a missing page gets the 404 in the site's own words", async ({ page }) => {
+    const r = await page.goto("/no-such-page");
+    expect(r?.status()).toBe(404);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("This file isn't in the papers.");
+    await expect(page.getByRole("link", { name: /Back to the start/i })).toBeVisible();
+  });
+  test("health, sitemap, robots, manifest and security.txt are served", async ({ request }) => {
+    const h = await request.get("/api/health");
+    expect(h.status()).toBe(200);
+    expect((await h.json()).status).toBe("ok");
+    expect(await (await request.get("/sitemap.xml")).text()).toContain("/case/S01");
+    expect(await (await request.get("/robots.txt")).text()).toContain("Sitemap:");
+    expect((await (await request.get("/manifest.webmanifest")).json()).name).toBe("HalfTime");
+    expect(await (await request.get("/.well-known/security.txt")).text()).toContain("Contact:");
+  });
+});
+

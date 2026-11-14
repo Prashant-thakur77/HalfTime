@@ -1,0 +1,37 @@
+name: Production check
+
+# Every 30 minutes: the live site, its self-test and the public MCP endpoint must answer correctly.
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  live:
+    name: halftime.prashantthakur.dev
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BASE: https://halftime.prashantthakur.dev
+    steps:
+      - name: Every page answers 200
+        run: |
+          for p in / /sweep /playground /vs-chatbot /results /law /story /connect /case/S01 /case/S01/application; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$BASE$p")
+            echo "$code $p"; [ "$code" = 200 ] || exit 1
+          done
+      - name: Health self-test (law engine + verifier)
+        run: curl -sf "$BASE/api/health" | tee /dev/stderr | grep -q '"status":"ok"'
+      - name: MCP endpoint lists its tools and applies the law
+        run: |
+          curl -sf "$BASE/mcp" -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' \
+            -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | grep -q '"sweep_jail"'
+          curl -sf "$BASE/mcp" -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' \
+            -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"lookup_section","arguments":{"act":"IPC","section":"379"}}}' \
+            | grep -q 'up to 3 years'
+      - name: Security headers are present
+        run: |
+          h=$(curl -sI "$BASE/")
+          for k in content-security-policy strict-transport-security x-frame-options x-content-type-options referrer-policy; do
+            echo "$h" | grep -qi "^$k:" || { echo "missing $k"; exit 1; }
+          done

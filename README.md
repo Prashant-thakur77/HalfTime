@@ -5,6 +5,7 @@
 Live: **https://halftime.prashantthakur.dev** · Use it from Claude (MCP): **https://halftime.prashantthakur.dev/mcp**
 
 [![CI](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/ci.yml/badge.svg)](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/ci.yml)
+[![Production check](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/prod-check.yml/badge.svg)](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/prod-check.yml)
 ![unit tests](https://img.shields.io/badge/unit%20tests-1%2C265%20passing-2f6b4f)
 ![law engine coverage](https://img.shields.io/badge/law%20engine%20coverage-100%25-2f6b4f)
 ![unsafe calls](https://img.shields.io/badge/unsafe%20%22past%20the%20line%22-0%2F96-c2362b)

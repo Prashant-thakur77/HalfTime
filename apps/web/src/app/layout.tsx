@@ -20,8 +20,11 @@ export const metadata: Metadata = {
     description: "Reads the court papers. Code applies Section 479. A lawyer signs.",
     url: "https://halftime.prashantthakur.dev",
     siteName: "HalfTime",
-    type: "website"
+    type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "HalfTime: a split-flap day counter past the red half-line, stamped Past the line" }]
   },
+  twitter: { card: "summary_large_image", title: "HalfTime", description: "Reads the court papers. Code applies Section 479. A lawyer signs.", images: ["/og.png"] },
+  icons: { icon: "/favicon.ico", apple: "/icon-192.png" },
   robots: { index: true, follow: true }
 };
 
