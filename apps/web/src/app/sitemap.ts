@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { SAMPLES } from "@/lib/cases";
 
 const BASE = "https://halftime.prashantthakur.dev";
-const PAGES = ["/", "/sweep", "/playground", "/vs-chatbot", "/results", "/law", "/story", "/connect"];
+const PAGES = ["/", "/sweep", "/agent", "/playground", "/vs-chatbot", "/results", "/law", "/story", "/connect"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

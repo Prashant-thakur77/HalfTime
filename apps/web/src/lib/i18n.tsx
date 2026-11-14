@@ -12,6 +12,7 @@ const DICT = {
   "nav.law": { en: "The law", hi: "क़ानून" },
   "nav.connect": { en: "Use it from Claude", hi: "Claude से उपयोग करें" },
   "nav.playground": { en: "Try it yourself", hi: "ख़ुद जाँचें" },
+  "nav.agent": { en: "The docket agent", hi: "डॉकेट एजेंट" },
   "nav.story": { en: "Why it exists", hi: "यह क्यों है" },
   "nav.close": { en: "Close", hi: "बंद करें" },
   "lang.toggle": { en: "हिन्दी", hi: "English" },

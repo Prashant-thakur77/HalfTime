@@ -27,12 +27,36 @@ flowchart TB
   O --> D[application.ts<br/>479(3) draft, English / Hindi, DOCX]
 ```
 
+## The docket agent (`packages/reader/src/agent.ts`)
+
+```mermaid
+sequenceDiagram
+  participant M as Claude Sonnet 5.5
+  participant T as Tools (code)
+  participant V as Verifier + engine
+  M->>T: list_files / read_file(id)
+  M->>T: submit_facts(id, facts + quotes)
+  T->>V: decide(text, facts)
+  V-->>T: verdict, accepted facts, rejected claims + reasons
+  T-->>M: result (verdict is read-only)
+  alt a quote was rejected and retries remain
+    M->>T: submit_facts(id, corrected quotes)
+  end
+  M->>T: request_record(id, what) / draft_application(id, lang)
+  T-->>M: refused unless the code verdict allows it
+  M->>T: finish()
+  T-->>T: build the docket in priority order (code)
+```
+
+The model chooses the order of work; code owns every decision. Caps: steps, retries per file (2) and spend. Responses are
+cached by a hash of the full request, so the recorded run on the site replays exactly.
+
 ## Packages
 
 | Package | Responsibility | Depends on | Network |
 |---|---|---|---|
 | `packages/law` | Section 479 arithmetic, statute tables with a source per row, IPC→BNS map, the typed trace | nothing | never |
-| `packages/reader` | Text normalisation, the span verifier, the extraction schema and prompts, `decide()`, the regex baseline, application drafts. `./claude` is the only module that talks to a model | `law` | only `./claude` |
+| `packages/reader` | Text normalisation, the span verifier, the extraction schema and prompts, `decide()`, the regex baseline, application drafts (`./application`), the Know your line notice (`./notice`), the docket agent (`./agent`). `./claude` and the agent's model adapter are the only modules that talk to a model | `law` | only `./claude` and `./agent` |
 | `packages/mcp` | The same tools over MCP: `check_order`, `sweep_jail`, `apply_section_479`, `lookup_section`, `draft_application`, samples; local file tools behind `HALFTIME_ROOTS` | `law`, `reader` | never (the client's own model does the reading) |
 | `apps/web` | Next.js 15 on Cloudflare Workers (OpenNext). Pages, the bring-your-own-key reader in the browser, `/api/*` for self-hosting with a server key, `/mcp` | all three | browser → `api.anthropic.com` only |
 

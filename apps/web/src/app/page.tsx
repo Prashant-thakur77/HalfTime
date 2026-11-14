@@ -294,6 +294,26 @@ export default function Home() {
         sourceUrl={facts.sources.table74!.url}
       />
 
+      <section aria-labelledby="agent-h" className="border-b border-ink bg-paper py-20">
+        <div className="mx-auto grid max-w-[var(--max)] gap-8 px-[var(--gutter)] md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <p className="caps text-ink-3">Agentic sweep</p>
+            <h2 id="agent-h" className="mt-3 font-sans text-[length:var(--step-4)] leading-[0.92] font-[780] tracking-[-0.02em] [font-stretch:82%]">
+              Or let the docket agent work the whole jail.
+            </h2>
+            <p className="mt-5 max-w-2xl font-serif text-[length:var(--step-1)] leading-snug text-ink-2">
+              It reads every file and submits facts with quotes. A quote the verifier rejects goes back with the reason; it requests the records that are
+              missing and drafts the applications the law allows. Code builds the docket in priority order.
+            </p>
+          </div>
+          <div className="flex md:col-span-4 md:col-start-9 md:justify-end">
+            <Link href="/agent" className="flex h-12 items-center border border-ink bg-ink px-5 text-paper hover:bg-stamp">
+              <span className="caps">Watch the recorded run</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section aria-label="Use it from Claude" className="on-ink bg-ink py-16 text-paper">
         <div className="mx-auto flex max-w-[var(--max)] flex-col gap-6 px-[var(--gutter)] md:flex-row md:items-center md:justify-between">
           <p className="max-w-2xl font-serif text-[length:var(--step-1)] leading-snug">

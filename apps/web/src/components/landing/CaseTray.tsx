@@ -61,14 +61,14 @@ export function CaseTray({ cases }: { cases: TrayCase[] }) {
         tabIndex={0}
         role="region"
         aria-label="Sample case files, scroll sideways"
-        className="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-[max(var(--gutter),calc((100vw-var(--max))/2+var(--gutter)))] pt-6 pb-8 [scrollbar-width:thin] motion-reduce:scroll-auto"
+        className="mt-10 flex gap-6 overflow-x-auto scroll-smooth px-[max(var(--gutter),calc((100vw-var(--max))/2+var(--gutter)))] pt-6 pb-8 [scrollbar-width:thin] motion-reduce:scroll-auto"
       >
         {cases.map((c, i) => (
           <Link
             key={c.id}
             data-card
             href={`/case/${c.id}`}
-            className={`group relative w-[min(78vw,340px)] shrink-0 snap-start transition-transform duration-[var(--ui)] hover:rotate-0 hover:-translate-y-1 focus-visible:rotate-0 ${i % 3 === 0 ? "rotate-[-1.5deg]" : i % 3 === 1 ? "rotate-[1deg]" : "rotate-[-0.5deg]"}`}
+            className={`group relative w-[min(78vw,340px)] shrink-0 transition-transform duration-[var(--ui)] hover:rotate-0 hover:-translate-y-1 focus-visible:rotate-0 ${i % 3 === 0 ? "rotate-[-1.5deg]" : i % 3 === 1 ? "rotate-[1deg]" : "rotate-[-0.5deg]"}`}
           >
             <span aria-hidden className="absolute -top-5 left-4 h-6 w-28 rounded-t-[6px] border border-b-0 border-ink bg-[#d9b979]" />
             <span className="relative block border border-ink bg-[#e3c78d] p-5 shadow-[5px_5px_0_var(--ink)]">

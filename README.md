@@ -6,7 +6,7 @@ Live: **https://halftime.prashantthakur.dev** · Use it from Claude (MCP): **htt
 
 [![CI](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/ci.yml/badge.svg)](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/ci.yml)
 [![Production check](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/prod-check.yml/badge.svg)](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/prod-check.yml)
-![unit tests](https://img.shields.io/badge/unit%20tests-1%2C265%20passing-2f6b4f)
+![unit tests](https://img.shields.io/badge/unit%20tests-1%2C301%20passing-2f6b4f)
 ![law engine coverage](https://img.shields.io/badge/law%20engine%20coverage-100%25-2f6b4f)
 ![unsafe calls](https://img.shields.io/badge/unsafe%20%22past%20the%20line%22-0%2F96-c2362b)
 ![licence](https://img.shields.io/badge/licence-MIT-23306b)
@@ -52,6 +52,22 @@ Verdicts are deliberately not "eligible / not eligible":
 
 When first-time status isn't stated, the engine uses the half line (the safe one) and shows the one-third date as "if first-time is confirmed". For cases registered before 1 July 2024 it applies Section 479, as the Supreme Court directed on 23 August 2024, and shows the old Section 436A CrPC date alongside.
 
+## The docket agent
+
+For a whole jail, HalfTime runs as an agent (`packages/reader/src/agent.ts`, page [/agent](https://halftime.prashantthakur.dev/agent)). Claude Sonnet 5.5 works through the files with seven tools: `list_files`, `read_file`, `submit_facts`, `lookup_section`, `request_record`, `draft_application`, `finish`. The guard rails are code, and each one is tested:
+
+- `submit_facts` runs the real verifier and law engine. A rejected quote goes back to the agent **with the verifier's reason**, and it gets two retries to find the exact sentence; after that the fact stays unknown. Extra fields (such as a "verdict") are stripped: verdicts only come from the engine.
+- `request_record` (custody certificate, charge-sheet copy, NDPS quantity report…) and `draft_application` are refused unless the code's verdict allows them. Request letters come from a fixed template.
+- Steps, retries and spend are capped; unknown files and tools are refused; document text is data, never instructions.
+- Code, not the model, builds the final docket in priority order.
+
+The recorded run on the 12 sample orders: 37 tool calls, 1 claim rejected by the verifier and fixed on retry, 4 records requested, 6 applications drafted, all 12 verdicts matching, US$0.20, 50 s. The page replays it step by step; visitors can run the same agent on their own papers with their own key.
+
+## For the people who use it
+
+- **Jail pack** (on [/sweep](https://halftime.prashantthakur.dev/sweep)): one ZIP for a review meeting — the docket in priority order (CSV and a printable report), every 479(3) draft in English and Hindi, a records-request letter for every "can't tell" case, and a notice for every person.
+- **Know your line** (on every case page): a one-page notice in plain Hindi or English that a paralegal can read to the undertrial or their family — when custody began, where the line falls, how many days they have been inside, and what to ask for. Built by code from verified facts only; marked "not legal advice".
+
 ## Use it from Claude (MCP)
 
 HalfTime is also an MCP server. In claude.ai, Claude Desktop or Claude Code, the Claude you are already talking to reads the papers and quotes them, and HalfTime's tools check every quote and apply the law. No API key is involved.
@@ -89,7 +105,7 @@ The regex reader is never unsafe only because it gives up on most orders (it say
 
 ```bash
 pnpm install
-pnpm test               # 1,265 unit tests: law engine, reader, MCP server, web routes
+pnpm test               # 1,301 unit tests: law engine, reader, agent, MCP server, web routes
 pnpm eval:offline       # replays the recorded model responses (eval/cache/responses.jsonl.gz, 1,400 of them)
                         # and checks the result equals eval/report.json: no key, no network, no cost
 pnpm eval:inlegalner    # the deterministic parts on 4,501 real judgments (needs the dataset, see below)
@@ -116,8 +132,9 @@ This benchmark found five parsing gaps (dates written `dt.15.9.1989`, `u/s 302`,
 | Page | What it does |
 |---|---|
 | [`/`](https://halftime.prashantthakur.dev) | The problem, the register of 3,71,440, the Ledger of Days, the twelve sample files, how it works |
-| [`/sweep`](https://halftime.prashantthakur.dev/sweep) | Sweep the sample jail or your own papers into the four lanes; CSV export; "what if today is…" slider |
-| [`/case/S01`](https://halftime.prashantthakur.dev/case/S01) | One person: the order with every quote marked, editable facts, the rule trace, the 479(3) draft (DOCX in English or Hindi, print/PDF) |
+| [`/sweep`](https://halftime.prashantthakur.dev/sweep) | Sweep the sample jail or your own papers into the four lanes; CSV and the jail pack (.zip); "what if today is…" slider |
+| [`/agent`](https://halftime.prashantthakur.dev/agent) | The docket agent: the recorded run replayed step by step, the priority docket, and a run on your own papers |
+| [`/case/S01`](https://halftime.prashantthakur.dev/case/S01) | One person: the order with every quote marked, editable facts, the rule trace, the 479(3) draft and the Know your line notice (DOCX in English or Hindi, print/PDF) |
 | [`/playground`](https://halftime.prashantthakur.dev/playground) | Try the verifier on any quote, and the law engine on any facts, in the browser |
 | [`/vs-chatbot`](https://halftime.prashantthakur.dev/vs-chatbot) | The same model asked plainly, beside HalfTime, on every sample |
 | [`/results`](https://halftime.prashantthakur.dev/results) | The evaluation, every miss, and the real-judgment benchmark |
@@ -183,10 +200,11 @@ Responses are cached by a hash of model, prompt version and input, so no documen
 
 See [TESTING.md](TESTING.md), [ARCHITECTURE.md](ARCHITECTURE.md) and [SECURITY.md](SECURITY.md). In short:
 - 1,101 unit and property tests on the law engine, with 100% statement, branch, function and line coverage enforced in CI;
-- 131 reader tests, including 50+ planted fake quotes that the verifier must reject;
+- 157 reader tests, including 50+ planted fake quotes the verifier must reject, 12 agent tests with a scripted model (retries, refusals, stripped verdicts, injection, step cap) and the notice in both languages;
 - 17 MCP tests that drive every tool through a real MCP client;
-- 16 web route tests: input validation, rate limits, the spend cap, body-size limits and the public /mcp endpoint;
-- 49 end-to-end tests with axe accessibility checks, run in Chromium, mobile Chrome, Firefox and WebKit;
+- 26 web tests: input validation, rate limits, the spend cap, body-size limits, the public /mcp endpoint, the health self-test and the jail pack;
+- end-to-end tests with axe accessibility checks on every page, run in Chromium, mobile Chrome, Firefox and WebKit;
+- a production check every 30 minutes: every page, the health self-test, the MCP endpoint and the security headers;
 - the evaluation replayed offline in CI, and a 4,501-row real-judgment benchmark.
 
 ## Limits

@@ -8,6 +8,7 @@ import { Wordmark } from "./Wordmark";
 const LINKS = [
   { href: "/", key: "nav.home" },
   { href: "/sweep", key: "nav.sweep" },
+  { href: "/agent", key: "nav.agent" },
   { href: "/playground", key: "nav.playground" },
   { href: "/vs-chatbot", key: "nav.vs" },
   { href: "/results", key: "nav.results" },

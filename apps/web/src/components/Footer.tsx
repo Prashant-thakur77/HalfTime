@@ -30,6 +30,7 @@ export function Footer() {
         <nav aria-label="Footer" className="md:col-span-3 md:col-start-7">
           <ul className="space-y-1 font-serif text-[1.35rem]">
             <li><Link className="hover:text-mark" href="/sweep">Run a jail sweep</Link></li>
+            <li><Link className="hover:text-mark" href="/agent">The docket agent</Link></li>
             <li><Link className="hover:text-mark" href="/playground">Try the verifier and the law</Link></li>
             <li><Link className="hover:text-mark" href="/vs-chatbot">Chatbot vs HalfTime</Link></li>
             <li><Link className="hover:text-mark" href="/results">Proof and misses</Link></li>
