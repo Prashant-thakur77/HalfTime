@@ -1,0 +1,381 @@
+{
+  "dataset": "InLegalNER test split (English Indian judgments, MIT licence)",
+  "rows": 4501,
+  "rowsByKind": {
+    "judgement": 4060,
+    "preamble": 441
+  },
+  "goldEntities": {
+    "DATE": 1112,
+    "PROVISION": 1220,
+    "STATUTE": 975
+  },
+  "seed": 7,
+  "dateFinding": {
+    "scope": "judgement rows (preamble rows carry no DATE labels)",
+    "rows": 4060,
+    "rowsWhereNormalisationShiftsOffsets": 55,
+    "recallAllGoldDates": {
+      "n": 1112,
+      "hit": 1090,
+      "pct": 98
+    },
+    "recallFullGoldDates": {
+      "n": 1086,
+      "hit": 1084,
+      "pct": 99.8
+    },
+    "precision": {
+      "n": 1099,
+      "hit": 1090,
+      "pct": 99.2
+    },
+    "parse": {
+      "goldDates": 1112,
+      "fullDates": 1086,
+      "byShape": {
+        "numeric d.m.y": {
+          "n": 864,
+          "parsed": 863,
+          "correct": 863
+        },
+        "day month year": {
+          "n": 184,
+          "parsed": 184,
+          "correct": 184
+        },
+        "month day year": {
+          "n": 38,
+          "parsed": 37,
+          "correct": 37
+        },
+        "not a full date": {
+          "n": 25,
+          "parsed": 5,
+          "correct": 0
+        },
+        "invalid calendar date": {
+          "n": 1,
+          "parsed": 0,
+          "correct": 0
+        }
+      },
+      "parsedFull": {
+        "n": 1086,
+        "hit": 1084,
+        "pct": 99.8
+      },
+      "correctFull": {
+        "n": 1086,
+        "hit": 1084,
+        "pct": 99.8
+      }
+    }
+  },
+  "verifier": {
+    "recall": {
+      "entityDATE": {
+        "n": 1111,
+        "hit": 1111,
+        "pct": 100
+      },
+      "entityPROVISION": {
+        "n": 1189,
+        "hit": 1189,
+        "pct": 100
+      },
+      "shortEntitiesRefusedByDesign": {
+        "DATE": {
+          "n": 1,
+          "accepted": 0
+        },
+        "PROVISION": {
+          "n": 31,
+          "accepted": 0
+        }
+      },
+      "enclosingSentence": {
+        "n": 2332,
+        "hit": 2332,
+        "pct": 100
+      },
+      "returnedSpanMatchesQuote": {
+        "n": 2300,
+        "hit": 2300,
+        "pct": 100
+      }
+    },
+    "rejection": {
+      "DATE": {
+        "digit changed in entity (entity quote)": {
+          "n": 1111,
+          "hit": 1111,
+          "pct": 100,
+          "skippedPresent": 1
+        },
+        "digit changed in entity (sentence quote)": {
+          "n": 1112,
+          "hit": 1112,
+          "pct": 100,
+          "skippedPresent": 0
+        },
+        "word swapped (sentence quote)": {
+          "n": 1108,
+          "hit": 1108,
+          "pct": 100,
+          "skippedPresent": 0
+        },
+        "sentence from another judgment": {
+          "n": 1112,
+          "hit": 1112,
+          "pct": 100,
+          "skippedPresent": 0
+        }
+      },
+      "PROVISION": {
+        "digit changed in entity (entity quote)": {
+          "n": 1171,
+          "hit": 1171,
+          "pct": 100,
+          "skippedPresent": 13
+        },
+        "digit changed in entity (sentence quote)": {
+          "n": 1184,
+          "hit": 1184,
+          "pct": 100,
+          "skippedPresent": 0
+        },
+        "word swapped (sentence quote)": {
+          "n": 1218,
+          "hit": 1218,
+          "pct": 100,
+          "skippedPresent": 0
+        },
+        "sentence from another judgment": {
+          "n": 1220,
+          "hit": 1220,
+          "pct": 100,
+          "skippedPresent": 0
+        }
+      }
+    },
+    "typed": {
+      "sectionRightPasses": {
+        "n": 1184,
+        "hit": 1184,
+        "pct": 100
+      },
+      "sectionWrongRejected": {
+        "n": 1094,
+        "hit": 1094,
+        "pct": 100,
+        "skippedPresent": 90
+      },
+      "dateRightPasses": {
+        "n": 1086,
+        "hit": 1083,
+        "pct": 99.7
+      },
+      "dateWrongRejected": {
+        "n": 1071,
+        "hit": 1071,
+        "pct": 100,
+        "skippedPresent": 15
+      }
+    }
+  },
+  "sections": {
+    "provisionsWithStatuteInSentence": 789,
+    "provisionsNearestToTabledAct": 123,
+    "sectionReferences": 218,
+    "outcomes": {
+      "known maximum": {
+        "n": 218,
+        "hit": 143,
+        "pct": 65.6
+      },
+      "in tables, maximum depends on another section or fact": {
+        "n": 218,
+        "hit": 43,
+        "pct": 19.7
+      },
+      "not in tables (can't tell)": {
+        "n": 218,
+        "hit": 24,
+        "pct": 11
+      },
+      "unparsed reference (can't tell)": {
+        "n": 218,
+        "hit": 8,
+        "pct": 3.7
+      }
+    },
+    "byAct": {
+      "IPC": {
+        "n": 209,
+        "hit": 140,
+        "pct": 67
+      },
+      "POCSO": {
+        "n": 4,
+        "hit": 2,
+        "pct": 50
+      },
+      "SCST": {
+        "n": 2,
+        "hit": 1,
+        "pct": 50
+      },
+      "ARMS": {
+        "n": 2,
+        "hit": 0,
+        "pct": 0
+      },
+      "NDPS": {
+        "n": 1,
+        "hit": 0,
+        "pct": 0
+      }
+    },
+    "topUnresolvedIpc": [
+      {
+        "section": "300",
+        "count": 3
+      },
+      {
+        "section": "90",
+        "count": 2
+      },
+      {
+        "section": "102",
+        "count": 1
+      },
+      {
+        "section": "105",
+        "count": 1
+      },
+      {
+        "section": "118",
+        "count": 1
+      },
+      {
+        "section": "216",
+        "count": 1
+      },
+      {
+        "section": "23",
+        "count": 1
+      },
+      {
+        "section": "295A",
+        "count": 1
+      },
+      {
+        "section": "3",
+        "count": 1
+      },
+      {
+        "section": "375",
+        "count": 1
+      },
+      {
+        "section": "378",
+        "count": 1
+      },
+      {
+        "section": "390",
+        "count": 1
+      },
+      {
+        "section": "4",
+        "count": 1
+      },
+      {
+        "section": "415",
+        "count": 1
+      },
+      {
+        "section": "423",
+        "count": 1
+      },
+      {
+        "section": "505",
+        "count": 1
+      },
+      {
+        "section": "506B",
+        "count": 1
+      },
+      {
+        "section": "75",
+        "count": 1
+      },
+      {
+        "section": "84",
+        "count": 1
+      }
+    ],
+    "topUnparsed": [
+      {
+        "reference": "Chapter XII -> ChapterXII",
+        "count": 1
+      },
+      {
+        "reference": "Chapter XVII -> ChapterXVII",
+        "count": 1
+      },
+      {
+        "reference": "clause “Thirdly” of Section 300 -> clause“Thirdly”ofSection300",
+        "count": 1
+      },
+      {
+        "reference": "clause Thirdly of Section 300 -> clauseThirdlyofSection300",
+        "count": 1
+      },
+      {
+        "reference": "Clause Twelfth of Section 21 -> ClauseTwelfthofSection21",
+        "count": 1
+      },
+      {
+        "reference": "exception 4 of Section 300 -> exception4ofSection300",
+        "count": 1
+      },
+      {
+        "reference": "s 498­A -> 498­A",
+        "count": 1
+      },
+      {
+        "reference": "S.147IPC -> 147IPC",
+        "count": 1
+      }
+    ]
+  },
+  "examples": {
+    "dateFalsePositives": [
+      "22.7.2013 in \"...n the claimants in MACT Case No.1246 of 22.7.2013 titled as 'Ambika a...\"",
+      "29.7.2013 in \"...and others' and in MACT Case No.1262 of 29.7.2013 titled as 'Paramjit...\"",
+      "9.10.2015 in \"...PW 14 Ram Kumar 9.10.2015 PW 15 Sushila 9.10.2015, 5.11.2015 PW 17 Dr...\"",
+      "5.11.2015 in \"...umar 9.10.2015 PW 15 Sushila 9.10.2015, 5.11.2015 PW 17 Dr. Arun Tung...\"",
+      "8.3.2016 in \"...015, 5.11.2015 PW 17 Dr. Arun Tungariya 8.3.2016 PW 18 Ram Pratap 12...\"",
+      "12.5.2016 in \"...run Tungariya 8.3.2016 PW 18 Ram Pratap 12.5.2016, 20.6.2016, 14.2.20...\"",
+      "20.6.2016 in \"...ya 8.3.2016 PW 18 Ram Pratap 12.5.2016, 20.6.2016, 14.2.2017 PW 20 Sa...\"",
+      "14.2.2017 in \"... PW 18 Ram Pratap 12.5.2016, 20.6.2016, 14.2.2017 PW 20 Sahab Singh 2...\"",
+      "1.9.2016 in \"... MACT Case No.473 of 1.9.2016 filed by Baljinder ...\""
+    ],
+    "missedFullDates": [
+      "8-6-  2012",
+      "January 06, 1817"
+    ],
+    "fullDatesNotParsedCorrectly": [
+      "8-6-  2012 -> null (expected 2012-06-08)",
+      "January 06, 1817 -> null (expected 1817-01-06)"
+    ],
+    "verifierRecallFailures": [],
+    "adversarialVariantsAccepted": [],
+    "typedCheckFailures": [
+      "right date 2012-06-08 rejected: \"8-6-  2012\"",
+      "right date 2019-04-08 rejected: \"8-04-2019\"",
+      "right date 1817-01-06 rejected: \"January 06, 1817\""
+    ]
+  }
+}

@@ -13,7 +13,8 @@
     "build": "pnpm --filter web build",
     "facts": "tsx scripts/build-facts.ts",
     "eval": "tsx eval/run-eval.ts",
-    "samples:run": "tsx scripts/build-sample-runs.ts"
+    "samples:run": "tsx scripts/build-sample-runs.ts",
+    "eval:inlegalner": "python3 -I eval/inlegalner/convert.py && tsx eval/inlegalner/run.ts"
   },
   "devDependencies": {
     "tsx": "4.23.15",

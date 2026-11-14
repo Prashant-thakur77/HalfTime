@@ -31,6 +31,10 @@ describe("canonicalSection", () => {
     ["section 420", "420"],
     ["s.411", "411"],
     ["u/s 302", "302"],
+    ["Sections 452", "452"],
+    ["sections 498A", "498A"],
+    ["Secs. 147", "147"],
+    ["ss. 323", "323"],
     ["धारा 379", "379"],
     ["धारा ३०७", "307"],
     ["326(f)", "326(f)"],
@@ -58,7 +62,22 @@ describe("expandSections", () => {
     ["३२३/५०४/५०६", ["323", "504", "506"]],
     ["379 सपठित 34", ["379", "34"]],
     ["323 व 504", ["323", "504"]],
-    ["379", ["379"]]
+    ["379", ["379"]],
+    ["u/s 302", ["302"]],
+    ["U/S. 302/34", ["302", "34"]],
+    ["u/ss 147, 148", ["147", "148"]],
+    ["307 read with 149", ["307", "149"]],
+    ["302 read with Section 149", ["302", "Section 149"]],
+    ["326 Read With 34", ["326", "34"]],
+    ["302 or 304", ["302", "304"]],
+    ["147 IPC", ["147"]],
+    ["302 I.P.C. r/w 34 IPC", ["302", "34"]],
+    ["25(1B)(a) of the Arms Act", ["25(1B)(a)"]],
+    ["20 NDPS Act", ["20"]],
+    ["3(1)(r) of the Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act, 1989", ["3(1)(r)"]],
+    ["379 of the Indian Penal Code", ["379"]],
+    ["304 A", ["304 A"]],
+    ["304ख", ["304ख"]]
   ];
   for (const [raw, want] of cases) {
     it(`${raw} -> ${want.join(" + ")}`, () => {
@@ -67,6 +86,14 @@ describe("expandSections", () => {
       expect(out.every((s) => s.act === "IPC" && s.spanId === 2)).toBe(true);
     });
   }
+  it("keeps the main section and the modifier when read with 34 or 149", () => {
+    const out = expandSections([{ act: "IPC", section: "302 read with Section 149" }]).map((x) => resolveSection(x).canonical);
+    expect(out).toEqual(["302", "149"]);
+  });
+  it("keeps the Arms Act 3/25 reading", () => {
+    const res = applyReadWith(expandSections([{ act: "ARMS", section: "3/25 Arms Act" }]).map(resolveSection));
+    expect(res.map((r) => r.canonical)).toEqual(["3", "25(1B)(a)"]);
+  });
   it("drops empty fragments", () => {
     expect(expandSections([{ act: "IPC", section: "379//411/" }]).map((s) => s.section)).toEqual(["379", "411"]);
   });

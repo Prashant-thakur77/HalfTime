@@ -50,12 +50,15 @@ export interface FoundDate {
   index: number;
 }
 
+/** An English ordinal suffix, optionally after a space: "9th", "9 th". */
+const ORDINAL = "(?:\\s?(?:st|nd|rd|th))?";
+
 const MONTH_WORDS = [...Object.keys(EN_MONTHS), ...Object.keys(HI_MONTHS)].sort((a, b) => b.length - a.length).join("|");
 
 /**
  * Find every date written in a passage, in the day-first Indian formats:
  * 12.03.2021, 12/03/2021, 12-3-21, १२/०३/२०२१, 12 March 2021, 12th March, 2021,
- * March 12, 2021, 12 मार्च 2021, 2021-03-12.
+ * 9 th of May, 1972, 24th day of August, 2021, March 12, 2021, 12 मार्च 2021, 2021-03-12.
  */
 export function findDates(text: string): FoundDate[] {
   const s = normalizeText(text);
@@ -65,11 +68,13 @@ export function findDates(text: string): FoundDate[] {
   };
   const isoRe = /(?<!\d)(\d{4})-(\d{1,2})-(\d{1,2})(?!\d)/g;
   for (let m; (m = isoRe.exec(s)); ) push(m, iso(Number(m[1]), Number(m[2]), Number(m[3])));
-  const numeric = /(?<![\d.\/-])(\d{1,2})\s?[.\/-]\s?(\d{1,2})\s?[.\/-]\s?(\d{4}|\d{2})(?![\d])/g;
-  for (let m; (m = numeric.exec(s)); ) push(m, iso(fullYear(m[3]!), Number(m[2]), Number(m[1])));
-  const dayMonth = new RegExp(`(?<!\\d)(\\d{1,2})(?:st|nd|rd|th)?\\s*(?:of\\s+)?(${MONTH_WORDS})\\.?,?\\s*(\\d{4})(?!\\d)`, "giu");
+  // Not glued to a longer number on either side ("1.12.12.2020", "No.12/3/2021/5"), but a dot
+  // after letters is fine ("dt.15.9.1989"). Both separators must match, so "13-1/2004" is not a date.
+  const numeric = /(?<!\d)(?<!\d[.\/-])(\d{1,2})\s?([.\/-])\s?(\d{1,2})\s?\2\s?(\d{4}|\d{2})(?!\d|[.\/-]\d)/g;
+  for (let m; (m = numeric.exec(s)); ) push(m, iso(fullYear(m[4]!), Number(m[3]), Number(m[1])));
+  const dayMonth = new RegExp(`(?<!\\d)(\\d{1,2})${ORDINAL}\\s*(?:day\\s+of\\s+|of\\s+)?(${MONTH_WORDS})\\.?,?\\s*(\\d{4})(?!\\d)`, "giu");
   for (let m; (m = dayMonth.exec(s)); ) push(m, iso(Number(m[3]), monthNum(m[2]!), Number(m[1])));
-  const monthDay = new RegExp(`(${MONTH_WORDS})\\.?\\s+(\\d{1,2})(?:st|nd|rd|th)?,?\\s*(\\d{4})(?!\\d)`, "giu");
+  const monthDay = new RegExp(`(${MONTH_WORDS})\\.?\\s+(\\d{1,2})${ORDINAL},?\\s*(\\d{4})(?!\\d)`, "giu");
   for (let m; (m = monthDay.exec(s)); ) push(m, iso(Number(m[3]), monthNum(m[1]!), Number(m[2])));
   return out.sort((a, b) => a.index - b.index);
 }

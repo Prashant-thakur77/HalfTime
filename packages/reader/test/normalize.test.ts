@@ -50,4 +50,25 @@ describe("findDates", () => {
   it("records the matched text", () => {
     expect(findDates("arrested on 14th January, 2025")[0]!.text).toBe("14th January, 2025");
   });
+  it("reads a date written straight after an abbreviation's dot", () => {
+    expect(findDates("order dt.15.9.1989").map((d) => d.iso)).toEqual(["1989-09-15"]);
+    expect(findDates("No.3 of 2016 dt.07-02-2020").map((d) => d.iso)).toEqual(["2020-02-07"]);
+  });
+  it("still skips a date glued to a longer number", () => {
+    expect(findDates("ref 1.12.12.2020")).toEqual([]);
+  });
+  it("requires the same separator on both sides of the month", () => {
+    expect(findDates("vide F.No. 13-1/2004")).toEqual([]);
+    expect(findDates("on 13.1/2004")).toEqual([]);
+    expect(findDates("on 13-1-2004").map((d) => d.iso)).toEqual(["2004-01-13"]);
+  });
+  it("reads an ordinal with a space before it", () => {
+    expect(findDates("on 9 th of May, 1972").map((d) => d.iso)).toEqual(["1972-05-09"]);
+    expect(findDates("on 2 nd December, 1996").map((d) => d.iso)).toEqual(["1996-12-02"]);
+    expect(findDates("on May 3 rd, 2016").map((d) => d.iso)).toEqual(["2016-05-03"]);
+  });
+  it("reads \"the Nth day of Month, Year\"", () => {
+    expect(findDates("on the 24th day of August, 2021").map((d) => d.iso)).toEqual(["2021-08-24"]);
+    expect(findDates("on the 24th day of August, 2021")[0]!.text).toBe("24th day of August, 2021");
+  });
 });

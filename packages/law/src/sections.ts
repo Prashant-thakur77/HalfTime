@@ -26,7 +26,7 @@ export function asciiDigits(s: string): string {
  */
 export function canonicalSection(raw: string): string {
   let s = asciiDigits(raw.normalize("NFC")).trim();
-  s = s.replace(/^(sec(tion)?|s|u\/s|धारा)\.?\s*/i, "");
+  s = s.replace(/^(sec(tion)?s?|ss|s|u\/s|धारा)\.?\s*/i, "");
   for (const [hi, en] of HINDI_SUFFIX) s = s.split(hi).join(en);
   s = s.replace(/\s+/g, "");
   // 304-A -> 304A ; 354-d -> 354D (only directly after the main number)
@@ -41,16 +41,27 @@ export function canonicalSection(raw: string): string {
 }
 
 /**
- * Split compound references such as "3/25", "379/411", "8/20", "302 r/w 34"
- * into separate sections of the same act.
+ * An act name written after the section: "IPC", "I.P.C.", "of the Arms Act",
+ * "of the Indian Penal Code", "Scheduled Castes and ... Act, 1989".
+ * The act is already known from `ChargedSection.act`, so the name is dropped.
+ */
+const ACT_NAME =
+  /\s+(?:(?:[a-z(][\w().]*)\s+)*(?:act|code|sanhita)\b(?:,?\s*\d{4})?|\s*\b(?:I\.?P\.?C|B\.?N\.?S\.?S?|Cr\.?P\.?C|N\.?D\.?P\.?S|POCSO)\b\.?/gi;
+
+/**
+ * Split compound references such as "3/25", "379/411", "8/20", "302 r/w 34",
+ * "307 read with 149", "302 or 304" into separate sections of the same act.
+ * A "u/s" prefix and a trailing act name are dropped first.
  */
 export function expandSections(list: ChargedSection[]): ChargedSection[] {
   const out: ChargedSection[] = [];
   for (const item of list) {
     const parts = asciiDigits(item.section)
-      .replace(/r\s*\/\s*w/gi, ",")
+      .replace(ACT_NAME, "")
+      .replace(/\bu\s*\/\s*s{1,2}\b\.?/gi, " ")
+      .replace(/r\s*\/\s*w|\bread\s+with\b/gi, ",")
       .replace(/सपठित|पठित/g, ",")
-      .split(/[\/,&]|\band\b|\s+व\s+/)
+      .split(/[\/,&]|\b(?:and|or)\b|\s+व\s+/i)
       .map((p) => p.trim())
       .filter((p) => p.length > 0);
     for (const p of parts) out.push({ ...item, section: p });
