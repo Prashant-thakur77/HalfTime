@@ -4,6 +4,17 @@
 
 Live: **https://halftime.prashantthakur.dev** · Use it from Claude (MCP): **https://halftime.prashantthakur.dev/mcp**
 
+[![CI](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/ci.yml/badge.svg)](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/ci.yml)
+![unit tests](https://img.shields.io/badge/unit%20tests-1%2C265%20passing-2f6b4f)
+![law engine coverage](https://img.shields.io/badge/law%20engine%20coverage-100%25-2f6b4f)
+![unsafe calls](https://img.shields.io/badge/unsafe%20%22past%20the%20line%22-0%2F96-c2362b)
+![licence](https://img.shields.io/badge/licence-MIT-23306b)
+
+| | |
+|---|---|
+| ![Landing page: "Served half. Still inside."](docs/img/landing.jpg) | ![The register: one tile per 100 undertrials; the red ones are everyone found under Section 479 in 2024](docs/img/register.jpg) |
+| ![A case: the Hindi order with the quotes Claude read from it, the facts, and the flagged verdict](docs/img/case.jpg) | ![Playground: a planted quote, rejected by the verifier](docs/img/playground.jpg) |
+
 ---
 
 ## The problem
@@ -73,6 +84,46 @@ The regex reader is never unsafe only because it gives up on most orders (it say
 
 **Real orders.** `eval/download_iltur.py` draws a stratified sample of held-out Hindi bail orders from IL-TUR (BAIL task, UP district courts), `eval/label.py` is a terminal tool for labelling them (with a second-labeller mode for agreement), and `pnpm eval -- --set iltur` runs the identical comparison. Any count over those pre-BNSS orders means "would have qualified", not "eligible today". The dataset is gated (CC BY-NC-SA) and is never republished here.
 
+## Reproduce the numbers without a key
+
+```bash
+pnpm install
+pnpm test               # 1,265 unit tests: law engine, reader, MCP server, web routes
+pnpm eval:offline       # replays the recorded model responses (eval/cache/responses.jsonl.gz, 1,400 of them)
+                        # and checks the result equals eval/report.json: no key, no network, no cost
+pnpm eval:inlegalner    # the deterministic parts on 4,501 real judgments (needs the dataset, see below)
+```
+
+`pnpm eval:offline` also runs in CI, so the published evaluation can't drift from the code.
+
+## On real judgments, with no model
+
+The InLegalNER test split (4,501 rows from English Indian judgments, MIT licence) has human-labelled dates, provisions and statutes. `eval/inlegalner/` runs HalfTime's deterministic parts against it: the date finder, the span verifier and the section parser. No model is involved, so this measures the code that guards the model.
+
+| What | Result |
+|---|---|
+| Real quotes the verifier accepts (dates, provisions, whole sentences) | **100%** (4,632 / 4,632) |
+| Altered quotes it rejects (a digit changed, a word swapped, a sentence from another judgment) | **100%** (9,236 / 9,236) |
+| Labelled dates found | 98.0% (1,090 / 1,112); full dates 99.8% |
+| Dates found that are labelled dates (precision) | 99.2% (1,090 / 1,099) |
+| Criminal-statute section references resolved to a known maximum | 65.6% (143 / 218); the rest go to "can't tell" or need a lawyer's input |
+
+This benchmark found five parsing gaps (dates written `dt.15.9.1989`, `u/s 302`, `read with`, plural "Sections", mixed separators). They were fixed test-first and the numbers above are after the fix. Full tables: [`eval/inlegalner/report.md`](eval/inlegalner/report.md). The dataset is gated on Hugging Face: accept its terms, download the parquet files into `eval/raw/inlegalner/`, then run the command. Judgments are not bail orders and the set is English only, so this is evidence for the guard rails, not for end-to-end accuracy on bail orders.
+
+## The site
+
+| Page | What it does |
+|---|---|
+| [`/`](https://halftime.prashantthakur.dev) | The problem, the register of 3,71,440, the Ledger of Days, the twelve sample files, how it works |
+| [`/sweep`](https://halftime.prashantthakur.dev/sweep) | Sweep the sample jail or your own papers into the four lanes; CSV export; "what if today is…" slider |
+| [`/case/S01`](https://halftime.prashantthakur.dev/case/S01) | One person: the order with every quote marked, editable facts, the rule trace, the 479(3) draft (DOCX in English or Hindi, print/PDF) |
+| [`/playground`](https://halftime.prashantthakur.dev/playground) | Try the verifier on any quote, and the law engine on any facts, in the browser |
+| [`/vs-chatbot`](https://halftime.prashantthakur.dev/vs-chatbot) | The same model asked plainly, beside HalfTime, on every sample |
+| [`/results`](https://halftime.prashantthakur.dev/results) | The evaluation, every miss, and the real-judgment benchmark |
+| [`/law`](https://halftime.prashantthakur.dev/law) | Section 479 in plain words, with the tables and their sources |
+| [`/story`](https://halftime.prashantthakur.dev/story) | Why it exists: the 2011 case, the numbers, the law over time, who it is for |
+| [`/connect`](https://halftime.prashantthakur.dev/connect) | Add HalfTime to claude.ai, Claude Desktop or Claude Code |
+
 ## What's in the repo
 
 ```
@@ -81,7 +132,8 @@ packages/reader   date normaliser (Hindi + English), span verifier, extraction s
                   Claude client with content-hash cache, regex baseline, 479(3) application drafts
 packages/mcp      MCP server (stdio for Claude Desktop / Claude Code; Streamable HTTP at /mcp)
 apps/web          Next.js 15 site and API (Cloudflare Workers via OpenNext)
-eval/             constructed test set, generator, evaluation runner, report
+eval/             constructed test set, generator, evaluation runner, report, recorded responses for offline replay,
+                  the InLegalNER benchmark
 data/samples      the 12-order sample tray shown on the site (constructed, names masked)
 data/demo-jail    five of them as .txt files, for the MCP folder sweep
 scripts/          facts.json builder, sample pre-runs, checks
@@ -93,7 +145,7 @@ Every number on the site comes from `apps/web/src/data/facts.json`, which `scrip
 
 ```bash
 pnpm install
-pnpm test                                   # law engine + reader unit tests
+pnpm test                                   # law engine, reader, MCP server and web route tests
 echo "ANTHROPIC_API_KEY=..." > .env.secrets
 set -a; . ./.env.secrets; set +a
 pnpm samples:run                            # pre-run Claude on the sample tray (cached in .cache/)
@@ -128,12 +180,13 @@ Responses are cached by a hash of model, prompt version and input, so no documen
 
 ## Testing
 
-See [TESTING.md](TESTING.md). In short:
-- 1,080 unit and property tests on the law engine, with 100% branch coverage enforced in CI;
-- 126 reader tests, including 50+ planted fake quotes that the verifier must reject;
+See [TESTING.md](TESTING.md), [ARCHITECTURE.md](ARCHITECTURE.md) and [SECURITY.md](SECURITY.md). In short:
+- 1,101 unit and property tests on the law engine, with 100% statement, branch, function and line coverage enforced in CI;
+- 131 reader tests, including 50+ planted fake quotes that the verifier must reject;
 - 17 MCP tests that drive every tool through a real MCP client;
-- 25 end-to-end journeys plus axe accessibility checks in Chromium, Firefox, WebKit and mobile;
-- a recorded evaluation with three baselines.
+- 16 web route tests: input validation, rate limits, the spend cap, body-size limits and the public /mcp endpoint;
+- 49 end-to-end tests with axe accessibility checks, run in Chromium, mobile Chrome, Firefox and WebKit;
+- the evaluation replayed offline in CI, and a 4,501-row real-judgment benchmark.
 
 ## Limits
 
@@ -141,7 +194,11 @@ See [TESTING.md](TESTING.md). In short:
 - It knows only what the papers say. Days of delay caused by the accused must be entered by a person.
 - Section 479(2) is read differently by different courts, so multi-offence cases are flagged, never decided.
 - State excise laws, the UP Gangsters Act and some special-act limbs need a lawyer to enter the maximum term.
-- The published evaluation uses constructed orders; the real-order run is wired up and waiting on dataset access.
+- The headline evaluation uses constructed orders. The real-judgment benchmark covers the deterministic parts only; the end-to-end run on real Hindi bail orders is wired up and waiting on dataset access.
+
+## Licence
+
+MIT, see [LICENSE](LICENSE). The datasets used for evaluation keep their own licences and are not redistributed here.
 
 ## Legal
 

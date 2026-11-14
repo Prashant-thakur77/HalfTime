@@ -1,6 +1,7 @@
 {
   "name": "@halftime/law",
   "version": "1.0.0",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "main": "./src/index.ts",

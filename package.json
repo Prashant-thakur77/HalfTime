@@ -1,5 +1,6 @@
 {
   "name": "halftime",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.14.0",

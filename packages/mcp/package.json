@@ -1,11 +1,17 @@
 {
   "name": "@halftime/mcp",
   "version": "1.0.0",
+  "license": "MIT",
   "private": true,
   "type": "module",
-  "bin": { "halftime-mcp": "./bin/halftime-mcp.mjs" },
+  "bin": {
+    "halftime-mcp": "./bin/halftime-mcp.mjs"
+  },
   "main": "./src/index.ts",
-  "exports": { ".": "./src/index.ts", "./tools": "./src/tools.ts" },
+  "exports": {
+    ".": "./src/index.ts",
+    "./tools": "./src/tools.ts"
+  },
   "scripts": {
     "start": "tsx src/stdio.ts",
     "test": "vitest run",
