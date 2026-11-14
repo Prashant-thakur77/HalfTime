@@ -10,13 +10,8 @@ export const MAX_PAGES = 15;
 export const MAX_BYTES = 12 * 1024 * 1024;
 
 export type Progress = (msg: string) => void;
-
-async function ocrImage(base64: string, mediaType: "image/png" | "image/jpeg"): Promise<string> {
-  const r = await fetch("/api/ocr", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ image: base64, mediaType }) });
-  const j = (await r.json()) as { text?: string; error?: string };
-  if (!r.ok || !j.text) throw new Error(j.error ?? "Could not read the scanned page.");
-  return j.text;
-}
+/** Transcribes one page image (base64) to text. */
+export type Transcribe = (base64: string, mediaType: "image/png" | "image/jpeg") => Promise<string>;
 
 function blobToBase64(b: Blob): Promise<string> {
   return new Promise((res, rej) => {
@@ -35,7 +30,7 @@ export function looksGarbled(text: string): boolean {
   return odd / letters.length > 0.08;
 }
 
-export async function fileToText(file: File, progress: Progress): Promise<string> {
+export async function fileToText(file: File, progress: Progress, ocrImage: Transcribe): Promise<string> {
   if (file.size > MAX_BYTES) throw new Error(`${file.name} is larger than 12 MB.`);
   if (file.type === "text/plain" || file.name.endsWith(".txt")) return file.text();
   if (file.type === "image/png" || file.type === "image/jpeg") {

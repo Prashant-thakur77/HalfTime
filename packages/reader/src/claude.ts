@@ -25,6 +25,11 @@ export interface ClaudeReaderOptions {
   effort?: "low" | "medium" | "high";
   /** Added to cache keys so repeat eval runs call the model again instead of reading the cache. */
   cacheSalt?: string;
+  /**
+   * Call Anthropic straight from the browser with the visitor's own key, so the
+   * key never passes through our server. Only ever set with a user-supplied key.
+   */
+  browser?: boolean;
 }
 
 function cost(model: string, inTok: number, outTok: number): number {
@@ -55,7 +60,10 @@ export class ClaudeReader {
 
   constructor(opts: ClaudeReaderOptions = {}) {
     this.salt = opts.cacheSalt ?? "";
-    this.client = new Anthropic(opts.apiKey ? { apiKey: opts.apiKey } : {});
+    this.client = new Anthropic({
+      ...(opts.apiKey ? { apiKey: opts.apiKey } : {}),
+      ...(opts.browser ? { dangerouslyAllowBrowser: true, maxRetries: 1 } : {})
+    });
     this.cache = opts.cache ?? new MemoryCache();
     this.effort = opts.effort ?? "medium";
   }
@@ -69,6 +77,20 @@ export class ClaudeReader {
     const fresh = await run();
     await this.cache.set(key, JSON.stringify(fresh));
     return { value: fresh.value, meta: { ...fresh.meta, cached: false } };
+  }
+
+  /** Extraction plus the missing-section self-check, merged: what the app runs per document. */
+  async read(text: string): Promise<{ value: Extraction; added: number; meta: CallMeta[] }> {
+    const ex = await this.extract(text);
+    const check = await this.selfCheck(text, ex.value.sections);
+    const known = new Set(ex.value.sections.map((s) => `${s.act}:${s.section}`));
+    const added = check.value.filter((s) => !known.has(`${s.act}:${s.section}`));
+    return { value: { ...ex.value, sections: [...ex.value.sections, ...added] }, added: added.length, meta: [ex.meta, check.meta] };
+  }
+
+  /** A tiny call to check that a key works, on the cheapest model. */
+  async ping(): Promise<void> {
+    await this.client.messages.create({ model: MODELS.judge, max_tokens: 8, messages: [{ role: "user", content: "Reply OK" }] });
   }
 
   /** Read one document into facts with verbatim quotes. */

@@ -1,6 +1,8 @@
 "use client";
 import { useRef, useState } from "react";
-import type { Extraction } from "@halftime/reader";
+import { decide } from "@halftime/reader";
+import { KeyPanel } from "@/components/KeyPanel";
+import { browserReader, keyErrorMessage, useApiKey } from "@/lib/byok";
 import { useLang } from "@/lib/i18n";
 import { MAX_FILES, MAX_PAGES, fileToText } from "@/lib/ingest";
 import { uploads } from "@/lib/store";
@@ -17,28 +19,42 @@ export function UploadPanel({ today, onAdded }: { today: string; onAdded: () => 
   const [log, setLog] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
   const [drag, setDrag] = useState(false);
+  const key = useApiKey();
 
   async function handle(files: FileList | File[]) {
     const list = [...files].slice(0, MAX_FILES);
     if (!list.length) return;
-    setBusy(true);
     const say = (m: string) => setLog((l) => [...l.slice(-30), m]);
+    if (!key) {
+      say("Add your Anthropic API key above to read new papers.");
+      return;
+    }
+    setBusy(true);
+    const reader = await browserReader(key);
+    let spent = 0;
     for (const f of list) {
       try {
         say(`Reading ${f.name}`);
-        const text = await fileToText(f, say);
-        say(`${f.name}: asking the model for facts with quotes`);
-        const r = await fetch("/api/extract", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text, today }) });
-        const j = (await r.json()) as { extraction?: Extraction; error?: string; facts?: { rejected: unknown[] } };
-        if (!r.ok || !j.extraction) throw new Error(j.error ?? "Extraction failed");
+        const text = await fileToText(f, say, async (img, type) => {
+          const r = await reader.transcribe(img, type);
+          spent += r.meta.costUsd;
+          return r.value;
+        });
+        if (text.trim().length < 40) throw new Error("No readable text found.");
+        say(`${f.name}: Claude is reading it and quoting its sources`);
+        const r = await reader.read(text);
+        spent += r.meta.reduce((a, m) => a + m.costUsd, 0);
+        const checked = decide(text, r.value, today);
         const id = `u-${await sha(text)}`;
-        uploads.add({ id, name: f.name, text, extraction: j.extraction, addedAt: new Date().toISOString() });
-        say(`${f.name}: done${j.facts?.rejected.length ? `, ${j.facts.rejected.length} model claim(s) rejected by the verifier` : ""}`);
+        uploads.add({ id, name: f.name, text, extraction: r.value, addedAt: new Date().toISOString() });
+        const rejected = checked.facts.rejected.length;
+        say(`${f.name}: done${rejected ? `, ${rejected} model claim(s) rejected by the verifier` : ", every quote verified"}`);
         onAdded();
       } catch (e) {
-        say(`${f.name}: ${e instanceof Error ? e.message : "failed"}`);
+        say(`${f.name}: ${keyErrorMessage(e)}`);
       }
     }
+    say(`Cost on your key for this batch: about $${spent.toFixed(3)}`);
     setBusy(false);
   }
 
@@ -50,10 +66,12 @@ export function UploadPanel({ today, onAdded }: { today: string; onAdded: () => 
         </h2>
         <p className="mt-2 text-[0.92rem] text-ink-2">
           PDF, scanned image or text. Up to {MAX_FILES} files, {MAX_PAGES} pages each. Text-layer PDFs are read in your browser; scanned pages are
-          transcribed by the model. Nothing is stored on our side: results stay in this browser tab and are gone when you close it.
+          transcribed by Claude. Your papers and your key go from this browser straight to Anthropic. Nothing is stored on our server, and results
+          stay in this tab.
         </p>
       </div>
-      <div className="md:col-span-8">
+      <div className="space-y-4 md:col-span-8">
+        <KeyPanel />
         <div
           onDragOver={(e) => {
             e.preventDefault();
@@ -70,7 +88,7 @@ export function UploadPanel({ today, onAdded }: { today: string; onAdded: () => 
           <p className="font-serif text-[1.3rem]">Drop court papers here</p>
           <button
             type="button"
-            disabled={busy}
+            disabled={busy || !key}
             onClick={() => input.current?.click()}
             className="h-11 border border-ink bg-paper px-4 transition-colors duration-[var(--ui)] hover:bg-mark disabled:opacity-50"
           >

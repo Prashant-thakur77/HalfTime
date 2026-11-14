@@ -3,7 +3,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { evaluate, humanDate, parseIsoDate, type Verdict } from "@halftime/law";
 import { decide, type BaselineAnswer } from "@halftime/reader";
+import { KeyPanel } from "@/components/KeyPanel";
 import { VerdictTag } from "@/components/VerdictTag";
+import { browserReader, keyErrorMessage, useApiKey } from "@/lib/byok";
 import { RUNS, SAMPLES } from "@/lib/cases";
 import { useToday } from "@/lib/today";
 
@@ -32,6 +34,7 @@ export function VsChatbot() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
   const today = useToday();
+  const key = useApiKey();
 
   const s = SAMPLES.find((x) => x.id === id);
   const run = RUNS[id];
@@ -45,12 +48,13 @@ export function VsChatbot() {
     setBusy(true);
     setErr("");
     try {
-      const res = await fetch("/api/baseline", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text: s!.text }) });
-      const j = (await res.json()) as { answer?: BaselineAnswer; error?: string };
-      if (!res.ok || !j.answer) throw new Error(j.error ?? "Failed");
-      setLive((l) => ({ ...l, [id]: j.answer! }));
+      if (!key) throw new Error("Add your Anthropic API key above to ask the chatbot live.");
+      const reader = await browserReader(key);
+      const b = await reader.baseline(s!.text);
+      const j = await reader.judgeBaseline(b.value.text);
+      setLive((l) => ({ ...l, [id]: j.value }));
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Failed");
+      setErr(keyErrorMessage(e));
     } finally {
       setBusy(false);
     }
@@ -87,12 +91,16 @@ export function VsChatbot() {
       </div>
       <p className={`mt-2 text-[0.95rem] ${holds.ok ? "text-ok" : "text-stamp-text"}`}>Chatbot: {holds.why}</p>
 
+      <div className="mt-6 max-w-3xl">
+        <KeyPanel compact />
+      </div>
+
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <section aria-labelledby="bot-h" className="border border-ink bg-ink p-6 text-paper on-ink">
           <div className="flex items-center justify-between gap-3">
             <h2 id="bot-h" className="caps text-paper/70">Plain chatbot</h2>
             <button type="button" onClick={rerun} disabled={busy} className="border border-paper/50 px-3 py-1.5 text-[0.8rem] hover:bg-paper hover:text-ink disabled:opacity-50">
-              {busy ? "Asking…" : "Ask it live"}
+              {busy ? "Asking…" : key ? "Ask it live" : "Ask it live (needs your key)"}
             </button>
           </div>
           <p className="mt-3 font-mono text-[0.75rem] text-paper/60">Prompt: “Read this court order. Is the accused eligible for release under Section 479 of the BNSS? If yes, from what date? Answer in one paragraph.”</p>

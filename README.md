@@ -88,15 +88,18 @@ pnpm facts                                  # numbers for the site
 pnpm --filter web dev                       # http://localhost:3000
 ```
 
-Deploy (Cloudflare Workers, KV for the response cache and spend counters):
+Deploy (Cloudflare Workers):
 
 ```bash
 cd apps/web
 npx opennextjs-cloudflare build && npx opennextjs-cloudflare deploy
-npx wrangler secret put ANTHROPIC_API_KEY
 ```
 
-The API checks every request against a per-IP rate limit and a daily spend cap (`DAILY_SPEND_CAP_USD`). When the cap is reached, the sample cases keep working from cache. Uploaded papers are read in the browser where possible and are never stored on the server: results live in the user's tab only. There is no analytics or telemetry, and error logs contain no document text.
+## Your key, your papers
+
+The hosted site holds no Anthropic key. The sample tray, the sweep, every case page and the application drafts run from pre-computed results, with the law applied live in the browser. To read new papers, a visitor pastes their own Anthropic API key. It is kept in that browser tab (or in local storage if they tick "remember"), and the browser sends it, with the papers, straight to `api.anthropic.com`. Neither the key nor the papers pass through HalfTime's server. A Playwright test (`e2e/byok.spec.ts`) checks this: during an upload, the key is sent to no host except Anthropic, and the app makes no calls to its own API.
+
+The server routes under `/api` still work for a self-hosted deployment that sets `ANTHROPIC_API_KEY` as a Worker secret. They enforce a per-IP rate limit and a daily spend cap (`DAILY_SPEND_CAP_USD`) in KV. There is no analytics or telemetry, and error logs never contain document text.
 
 ## Models
 
