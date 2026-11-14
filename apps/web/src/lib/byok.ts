@@ -75,6 +75,11 @@ class SessionCache implements ResponseCache {
   }
 }
 
+/** The same per-tab response cache, for other model clients (the docket agent). */
+export function sessionCache(): ResponseCache {
+  return new SessionCache();
+}
+
 /** The Claude client, loaded on demand so the SDK isn't in the first page load. */
 export async function browserReader(key: string) {
   const { ClaudeReader } = await import("@halftime/reader/claude");

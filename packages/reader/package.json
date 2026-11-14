@@ -10,7 +10,8 @@
     ".": "./src/index.ts",
     "./claude": "./src/claude.ts",
     "./application": "./src/application.ts",
-    "./notice": "./src/notice.ts"
+    "./notice": "./src/notice.ts",
+    "./agent": "./src/agent.ts"
   },
   "scripts": {
     "test": "vitest run",
