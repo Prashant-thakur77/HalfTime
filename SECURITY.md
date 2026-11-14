@@ -15,7 +15,7 @@
 `Content-Security-Policy` (`default-src 'self'`; `connect-src 'self' https://api.anthropic.com`;
 `frame-src 'none'`; `frame-ancestors 'none'`; `object-src 'none'`), `Strict-Transport-Security`,
 `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`,
-`Permissions-Policy` (camera, microphone, geolocation off). Defined in `apps/web/next.config.ts`.
+`Permissions-Policy` (camera, microphone, geolocation off). Defined in `apps/web/src/lib/security-headers.ts` and applied in `apps/web/next.config.ts`.
 
 ## Public endpoints and their limits
 
