@@ -2,7 +2,7 @@
 
 **Reads a jail's court papers, finds every undertrial who has already served the Section 479 share of their sentence, shows its working, and drafts the application a legal-aid lawyer signs.**
 
-Live: **https://halftime.prashantthakur.dev** · Use it from Claude (MCP): **https://halftime.prashantthakur.dev/mcp**
+Live: **https://halftime.prashantthakur.dev** · Use it from Claude (MCP): **https://halftime.prashantthakur.dev/mcp** · Demo video (3:32): **https://youtu.be/d6cUSK23ZVQ**
 
 [![CI](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/ci.yml/badge.svg)](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/ci.yml)
 [![Production check](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/prod-check.yml/badge.svg)](https://github.com/Prashant-thakur77/HalfTime/actions/workflows/prod-check.yml)
@@ -82,6 +82,8 @@ Tools: `check_order`, `sweep_jail`, `draft_application`, `apply_section_479`, `l
 
 ## Results
 
+![HalfTime vs the same model asked plainly, and vs a regex reader: verdicts right 96.3% vs 44.4%; 479(2) cases called simply eligible 0% vs 73.5%; wrongly put past the line 0 vs 6 of 96](docs/img/charts/headline.png)
+
 From `eval/report.json` (`pnpm eval`), run on 160 **constructed** orders: 96 Hindi and 64 English, written in the style of Uttar Pradesh district-court bail orders, with the ground truth known by construction. They are not real cases. About a quarter contain a deliberate trap. "Today" is fixed at 2026-11-15.
 
 | | HalfTime | Regex reader, same engine | Plain chatbot, same model |
@@ -96,6 +98,10 @@ From `eval/report.json` (`pnpm eval`), run on 160 **constructed** orders: 96 Hin
 | Cost per order | $0.016 | $0 | $0.017 |
 
 The regex reader is never unsafe only because it gives up on most orders (it says "can't tell" 71.9% of the time). The plain chatbot is the same model asked the question a person would type: "Read this court order. Is the accused eligible for release under Section 479 of the BNSS? If yes, from what date?" It reads the arithmetic correctly but almost always skips 479(2).
+
+![Accuracy by field, HalfTime vs the regex reader](docs/img/charts/fields.png)
+
+![40 planted traps and how HalfTime did on each](docs/img/charts/traps.png)
 
 **Misses.** HalfTime got 6 of 160 wrong, and none was unsafe. The weakest trap is a section the order says is *not* charged (for example "Section 307 is not made out"). Here the model sometimes lists it anyway, which pushes the case to "flagged" or "outside 479" rather than to a wrong "past the line". Every miss is listed in `eval/report.md` and on [/results](https://halftime.prashantthakur.dev/results).
 
@@ -117,6 +123,8 @@ pnpm eval:inlegalner    # the deterministic parts on 4,501 real judgments (needs
 
 The InLegalNER test split (4,501 rows from English Indian judgments, MIT licence) has human-labelled dates, provisions and statutes. `eval/inlegalner/` runs HalfTime's deterministic parts against it: the date finder, the span verifier and the section parser. No model is involved, so this measures the code that guards the model.
 
+![On 4,501 rows of real Indian judgments: 100% of real quotes kept, 100% of altered quotes rejected, 98% of labelled dates found](docs/img/charts/real-judgments.png)
+
 | What | Result |
 |---|---|
 | Real quotes the verifier accepts (dates, provisions, whole sentences) | **100%** (4,632 / 4,632) |
@@ -128,6 +136,12 @@ The InLegalNER test split (4,501 rows from English Indian judgments, MIT licence
 This benchmark found five parsing gaps (dates written `dt.15.9.1989`, `u/s 302`, `read with`, plural "Sections", mixed separators). They were fixed test-first and the numbers above are after the fix. Full tables: [`eval/inlegalner/report.md`](eval/inlegalner/report.md). The dataset is gated on Hugging Face: accept its terms, download the parquet files into `eval/raw/inlegalner/`, then run the command. Judgments are not bail orders and the set is English only, so this is evidence for the guard rails, not for end-to-end accuracy on bail orders.
 
 ## The site
+
+| | |
+|---|---|
+| ![Sweep: twelve orders sorted into lanes](docs/img/gallery/02-sweep-lanes.jpg) | ![The docket agent's priority docket](docs/img/gallery/05-agent-docket.jpg) |
+| ![The chatbot says eligible; HalfTime flags 479(2)](docs/img/gallery/04-chatbot-vs-halftime.jpg) | ![Know your line notice in Hindi](docs/img/gallery/06-know-your-line-hindi.jpg) |
+| ![In claude.ai, HalfTime rejects a faked custody date](docs/img/gallery/10-claude-ai-refusal.jpg) | ![The 479(3) application in Hindi](docs/img/gallery/07-application-hindi.jpg) |
 
 | Page | What it does |
 |---|---|
