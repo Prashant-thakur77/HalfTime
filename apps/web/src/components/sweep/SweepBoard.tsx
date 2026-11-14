@@ -24,10 +24,15 @@ interface Row {
   language: string;
   caseNo: string | null;
   accused: string;
+  court: string | null;
   evaluation: Evaluation;
+  quotes: { label: string; text: string }[];
+  custodyStart: string | null;
   uploaded: boolean;
   expected?: string;
 }
+
+const quotesOf = (r: ReturnType<typeof decide>) => r.facts.spans.map((s) => ({ label: s.label, text: r.text.slice(s.start, s.end) }));
 
 function build(id: string, text: string, ex: Extraction, today: string) {
   return decide(text, ex, today, edits.get(id));
@@ -40,6 +45,7 @@ export function SweepBoard() {
   const today = useMemo(() => format(addDays(parseISO(realToday), offset), "yyyy-MM-dd"), [realToday, offset]);
   const [swept, setSwept] = useState<string[]>([]);
   const [running, setRunning] = useState(false);
+  const [packing, setPacking] = useState(false);
   const [status, setStatus] = useState("");
   const [uploaded, setUploaded] = useState<UploadedCase[]>([]);
   const board = useRef<HTMLDivElement>(null);
@@ -65,14 +71,29 @@ export function SweepBoard() {
         language: s.language,
         caseNo: run.extraction.case_no,
         accused: run.extraction.accused_name_masked,
+        court: run.extraction.court,
         evaluation: r.evaluation,
+        quotes: quotesOf(r),
+        custodyStart: { ...r.facts.input, ...edits.get(s.id) }.custodyStart ?? null,
         uploaded: false,
         expected: evaluate(s.gold, today).verdict
       });
     }
     for (const u of uploaded) {
       const r = build(u.id, u.text, u.extraction, today);
-      out.push({ id: u.id, title: u.name, gloss: u.extraction.english_gloss, language: u.extraction.language, caseNo: u.extraction.case_no, accused: u.extraction.accused_name_masked, evaluation: r.evaluation, uploaded: true });
+      out.push({
+        id: u.id,
+        title: u.name,
+        gloss: u.extraction.english_gloss,
+        language: u.extraction.language,
+        caseNo: u.extraction.case_no,
+        accused: u.extraction.accused_name_masked,
+        court: u.extraction.court,
+        evaluation: r.evaluation,
+        quotes: quotesOf(r),
+        custodyStart: { ...r.facts.input, ...edits.get(u.id) }.custodyStart ?? null,
+        uploaded: true
+      });
     }
     return out;
   }, [swept, uploaded, today]);
@@ -108,6 +129,25 @@ export function SweepBoard() {
     setRunning(false);
   }
 
+  async function downloadPack() {
+    if (packing || rows.length === 0) return;
+    setPacking(true);
+    setStatus(`Building the jail pack for ${rows.length} people in this browser…`);
+    try {
+      const { packBlob } = await import("@/lib/pack");
+      const blob = await packBlob(
+        rows.map((r) => ({ id: r.id, caseNo: r.caseNo, accused: r.accused, court: r.court, evaluation: r.evaluation, quotes: r.quotes, custodyStart: r.custodyStart, constructed: !r.uploaded })),
+        { today }
+      );
+      download(`halftime-jail-pack-${today}.zip`, blob);
+      setStatus(`Jail pack ready: docket, drafts, notices and records requests for ${rows.length} people. Nothing left this browser.`);
+    } catch {
+      setStatus("The jail pack could not be built in this browser. The CSV still works.");
+    } finally {
+      setPacking(false);
+    }
+  }
+
   const counts = useMemo(() => {
     const c: Record<string, number> = { past: 0, notyet: 0, cant: 0, excluded: 0 };
     for (const r of rows) c[VERDICT_STYLE[r.evaluation.verdict].lane]!++;
@@ -141,6 +181,15 @@ export function SweepBoard() {
             className="h-12 border border-ink px-5 transition-colors duration-[var(--ui)] hover:bg-mark disabled:opacity-40"
           >
             <span className="caps">{t("sweep.csv")}</span>
+          </button>
+          <button
+            type="button"
+            disabled={rows.length === 0 || packing}
+            aria-busy={packing}
+            onClick={() => void downloadPack()}
+            className="h-12 border border-ink px-5 transition-colors duration-[var(--ui)] enabled:hover:bg-mark disabled:opacity-40 aria-busy:cursor-progress"
+          >
+            <span className="caps">{packing ? "Building the pack…" : "Download the jail pack (.zip)"}</span>
           </button>
         </div>
       </div>

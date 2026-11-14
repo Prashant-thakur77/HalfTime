@@ -1,4 +1,6 @@
+import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
+import JSZip from "jszip";
 
 test.describe("landing", () => {
   test("shows the pitch, the national numbers and the way in", async ({ page }) => {
@@ -50,6 +52,28 @@ test.describe("sweep", () => {
     expect(file.suggestedFilename()).toMatch(/^halftime-sweep-\d{4}-\d{2}-\d{2}\.csv$/);
   });
 
+  test("downloads the jail pack with docket, drafts, notices and records requests", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/sweep");
+    const pack = page.getByRole("button", { name: /Download the jail pack/i });
+    await expect(pack).toBeDisabled();
+    await page.getByRole("button", { name: /Sweep the sample jail/i }).click();
+    await expect(page.getByRole("status").filter({ hasText: "papers read" })).toContainText("12 papers read");
+    const download = page.waitForEvent("download");
+    await pack.click();
+    const file = await download;
+    expect(file.suggestedFilename()).toMatch(/^halftime-jail-pack-\d{4}-\d{2}-\d{2}\.zip$/);
+    const zip = await JSZip.loadAsync(await readFile((await file.path())!));
+    const names = Object.keys(zip.files).filter((n) => !zip.files[n]!.dir);
+    expect(names).toEqual(expect.arrayContaining(["README.txt", "docket.csv", "docket.html", "applications/S02-en.docx", "applications/S02-hi.docx", "applications/S01-hi.docx", "notices/S04-hi.docx", "notices/S06-en.docx", "records-requests/S05.txt"]));
+    expect(names.filter((n) => n.startsWith("notices/"))).toHaveLength(24);
+    expect(names.filter((n) => n.startsWith("applications/")).length).toBeGreaterThan(0);
+    expect(names.some((n) => /applications\/S0[468]-/.test(n))).toBe(false);
+    const csv = await zip.file("docket.csv")!.async("string");
+    expect(csv.split("\n")[1]).toMatch(/^1,S\d\d,.*Past the line/);
+    expect(await zip.file("docket.html")!.async("string")).toContain("Constructed sample orders");
+  });
+
   test("the date slider moves cards between lanes", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/sweep");
@@ -99,6 +123,24 @@ test.describe("case", () => {
     await expect(page.getByText(/W\.P\.\(C\) No\. 406 of 2013/)).toBeVisible();
     await page.getByRole("button", { name: "हिन्दी में" }).click();
     await expect(page.getByText(/धारा 479\(3\)/).first()).toBeVisible();
+  });
+
+  test("know-your-line notice: buttons on the case page and a large-print Hindi view", async ({ page }) => {
+    await page.goto("/case/S02");
+    const d = page.waitForEvent("download");
+    await page.getByRole("group", { name: "Notice in Hindi" }).getByRole("button").click();
+    expect((await d).suggestedFilename()).toBe("know-your-line-S02-hi.docx");
+    await page.getByRole("link", { name: "Print Hindi notice" }).click();
+    await expect(page).toHaveURL(/\/case\/S02\/notice\?lang=hi/);
+    await expect(page.getByRole("heading", { level: 1, name: "अपनी रेखा जानिए" })).toBeVisible();
+    const article = page.locator("article[lang=hi]");
+    await expect(article).toContainText("पार कर चुके हैं");
+    await expect(article).toContainText("धारा 479(3)");
+    await expect(article).toContainText("यह कानूनी सलाह नहीं है");
+    await expect(article).not.toContainText(/eligible|will be released|पात्र/i);
+    await page.getByRole("button", { name: "In English" }).click();
+    await expect(page.getByRole("heading", { level: 1, name: "Know your line" })).toBeVisible();
+    await expect(page.getByText("This is not legal advice; a lawyer must check it.")).toBeVisible();
   });
 
   test("an unknown case says so", async ({ page }) => {

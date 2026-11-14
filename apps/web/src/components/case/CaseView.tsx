@@ -6,6 +6,7 @@ import { decide, type Extraction } from "@halftime/reader";
 import { Stamp } from "@/components/Stamp";
 import { VerdictTag } from "@/components/VerdictTag";
 import { applicationDocx } from "@halftime/reader/application";
+import { noticeDocx } from "@halftime/reader/notice";
 import { RUNS, getSample } from "@/lib/cases";
 import { download } from "@/lib/csv";
 import { edits as editStore, uploads } from "@/lib/store";
@@ -72,6 +73,10 @@ export function CaseView({ id }: { id: string }) {
   const getDocx = async (lang: "en" | "hi") => {
     const blob = await applicationDocx({ lang, court: ex.court, caseNo: ex.case_no, accused: ex.accused_name_masked, today, evaluation: e, quotes });
     download(`479-3-application-${id}-${lang}.docx`, blob);
+  };
+  const getNotice = async (lang: "en" | "hi") => {
+    const blob = await noticeDocx({ lang, court: ex.court, caseNo: ex.case_no, accused: ex.accused_name_masked, today, evaluation: e, quotes, custodyStart: cur.custodyStart });
+    download(`know-your-line-${id}-${lang}.docx`, blob);
   };
 
   return (
@@ -230,6 +235,33 @@ export function CaseView({ id }: { id: string }) {
               <Link href={`/case/${id}/application?today=${today}`} className="flex h-11 items-center border border-ink px-4 hover:bg-mark">
                 <span className="caps">PDF / print</span>
               </Link>
+            </div>
+          </section>
+
+          <section aria-labelledby="notice-h" className="border border-ink bg-paper-2 p-4">
+            <h2 id="notice-h" className="caps">Know your line · notice</h2>
+            <p className="mt-2 text-[0.88rem] text-ink-2">
+              One page in plain words, large print, for a paralegal to read aloud to the person or the family: when custody began, the line, the days inside, and what to ask for. Built by code from the facts above. Not legal advice.
+            </p>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              <div role="group" aria-label="Notice in Hindi" className="flex gap-2">
+                <button type="button" onClick={() => void getNotice("hi")} className="h-11 flex-1 border border-ink bg-ink px-3 text-paper hover:bg-stamp">
+                  <span className="caps"><span lang="hi">हिन्दी</span> · DOCX</span>
+                  <span className="sr-only"> notice</span>
+                </button>
+                <Link href={`/case/${id}/notice?lang=hi&today=${today}`} className="flex h-11 items-center border border-ink bg-paper px-3 hover:bg-mark">
+                  <span className="caps">Print<span className="sr-only"> Hindi notice</span></span>
+                </Link>
+              </div>
+              <div role="group" aria-label="Notice in English" className="flex gap-2">
+                <button type="button" onClick={() => void getNotice("en")} className="h-11 flex-1 border border-ink bg-paper px-3 hover:bg-mark">
+                  <span className="caps">English · DOCX</span>
+                  <span className="sr-only"> notice</span>
+                </button>
+                <Link href={`/case/${id}/notice?lang=en&today=${today}`} className="flex h-11 items-center border border-ink bg-paper px-3 hover:bg-mark">
+                  <span className="caps">Print<span className="sr-only"> English notice</span></span>
+                </Link>
+              </div>
             </div>
           </section>
 

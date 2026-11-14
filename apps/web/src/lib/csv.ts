@@ -7,7 +7,7 @@ export interface CsvRow {
   evaluation: Evaluation;
 }
 
-const esc = (v: unknown) => {
+export const esc = (v: unknown) => {
   const s = v === null || v === undefined ? "" : String(v);
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
