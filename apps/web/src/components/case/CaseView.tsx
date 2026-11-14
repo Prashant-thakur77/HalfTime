@@ -5,7 +5,7 @@ import { describeMonths, evaluate, humanDate, parseIsoDate, sectionLabel, type C
 import { decide, type Extraction } from "@halftime/reader";
 import { Stamp } from "@/components/Stamp";
 import { VerdictTag } from "@/components/VerdictTag";
-import { applicationDocx } from "@/lib/application";
+import { applicationDocx } from "@halftime/reader/application";
 import { RUNS, getSample } from "@/lib/cases";
 import { download } from "@/lib/csv";
 import { edits as editStore, uploads } from "@/lib/store";

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { decide, type Extraction } from "@halftime/reader";
-import { applicationParagraphs } from "@/lib/application";
+import { applicationParagraphs } from "@halftime/reader/application";
 import { RUNS, getSample } from "@/lib/cases";
 import { edits as editStore, uploads } from "@/lib/store";
 import { useTodayParam } from "@/lib/today";
@@ -66,7 +66,7 @@ export function ApplicationPrint({ id }: { id: string }) {
             ))}
           </>
         )}
-        <h2 className="mt-6 mb-2 font-[700]">{doc.t.computation}</h2>
+        <h2 className="mt-6 mb-2 font-[700]">{doc.t.computation} <span className="font-[400] text-[0.85em] text-ink-3">{doc.t.computationNote}</span></h2>
         <ol className="mb-4 border-y border-carbon-soft font-mono text-[0.78rem]">
           {doc.computation.map((c, i) => (
             <li key={i} className="border-b border-paper-3 py-1 last:border-0">{c}</li>

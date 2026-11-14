@@ -1,0 +1,28 @@
+{
+  "name": "@halftime/mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "bin": { "halftime-mcp": "./bin/halftime-mcp.mjs" },
+  "main": "./src/index.ts",
+  "exports": { ".": "./src/index.ts", "./tools": "./src/tools.ts" },
+  "scripts": {
+    "start": "tsx src/stdio.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@halftime/law": "workspace:*",
+    "@halftime/reader": "workspace:*",
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "docx": "9.15.3",
+    "pdfjs-dist": "6.5.438",
+    "tsx": "4.23.15",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "22",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
+  }
+}

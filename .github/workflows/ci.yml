@@ -25,8 +25,10 @@ jobs:
       - run: pnpm --filter web lint
       - name: Law engine (100% branch coverage enforced)
         run: pnpm --filter @halftime/law test:coverage
-      - name: Reader (normalizer, verifier, baselines)
+      - name: Reader (normalizer, verifier, baselines, drafts)
         run: pnpm --filter @halftime/reader test
+      - name: MCP server (every tool through a real MCP client)
+        run: pnpm --filter @halftime/mcp test
 
   e2e:
     name: End-to-end and accessibility
