@@ -18,6 +18,18 @@ Live: **https://halftime.prashantthakur.dev** · Use it from Claude (MCP): **htt
 
 ---
 
+## Evaluate it in 5 minutes
+
+| Minute | Open or run | What you should see |
+|---|---|---|
+| 1 | [halftime.prashantthakur.dev/sweep](https://halftime.prashantthakur.dev/sweep) → **Sweep the sample jail** | 12 orders sorted into lanes; drag the "what if today is" slider and cards move as people cross the line |
+| 2 | [/case/S01](https://halftime.prashantthakur.dev/case/S01) | The Hindi order with every quote marked, the facts, the rule trace, the flagged verdict, the 479(3) draft and the notice |
+| 3 | [/vs-chatbot](https://halftime.prashantthakur.dev/vs-chatbot) and [/playground](https://halftime.prashantthakur.dev/playground) | The same model says "eligible" where HalfTime flags 479(2); paste a planted quote and watch the verifier reject it |
+| 4 | [/agent](https://halftime.prashantthakur.dev/agent) | The docket agent's recorded run, step by step, including a rejected quote fixed on retry |
+| 5 | `pnpm install && pnpm test && pnpm eval:offline` | 1,301 unit tests pass; the 160-order evaluation replays from the committed recording and matches `eval/report.json`, with no API key |
+
+Also: the [demo video](https://youtu.be/d6cUSK23ZVQ), the MCP connector `https://halftime.prashantthakur.dev/mcp` (no key needed), and the live health self-test at [/api/health](https://halftime.prashantthakur.dev/api/health).
+
 ## The problem
 
 India held **3,71,440 undertrials in 2024, 72.6% of everyone in prison** (NCRB, Prison Statistics India 2024). Section 479 of the Bharatiya Nagarik Suraksha Sanhita says that once an undertrial has been in custody for **half the maximum sentence** for the offence (one-third for a first-time offender), they are to be released on bail, and **the jail superintendent must apply** to the court (479(3)). In all of 2024, only **968** people were identified under the section and **467** applications were filed (NCRB PSI 2024, Table 7.4).
