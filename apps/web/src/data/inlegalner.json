@@ -1,0 +1,115 @@
+{
+  "generatedBy": "scripts/build-inlegalner-summary.ts",
+  "from": "eval/inlegalner/report.json",
+  "dataset": "InLegalNER test split (English Indian judgments, MIT licence)",
+  "rows": 4501,
+  "rowsByKind": {
+    "judgement": 4060,
+    "preamble": 441
+  },
+  "goldEntities": {
+    "DATE": 1112,
+    "PROVISION": 1220,
+    "STATUTE": 975
+  },
+  "seed": 7,
+  "dates": {
+    "rows": 4060,
+    "recallAll": {
+      "n": 1112,
+      "hit": 1090,
+      "pct": 98
+    },
+    "recallFull": {
+      "n": 1086,
+      "hit": 1084,
+      "pct": 99.8
+    },
+    "precision": {
+      "n": 1099,
+      "hit": 1090,
+      "pct": 99.2
+    },
+    "parsedCorrectFull": {
+      "n": 1086,
+      "hit": 1084,
+      "pct": 99.8
+    }
+  },
+  "verifier": {
+    "recallTotal": {
+      "n": 4632,
+      "hit": 4632,
+      "pct": 100
+    },
+    "recall": {
+      "date": {
+        "n": 1111,
+        "hit": 1111,
+        "pct": 100
+      },
+      "provision": {
+        "n": 1189,
+        "hit": 1189,
+        "pct": 100
+      },
+      "sentence": {
+        "n": 2332,
+        "hit": 2332,
+        "pct": 100
+      }
+    },
+    "rejectionTotal": {
+      "n": 9236,
+      "hit": 9236,
+      "pct": 100
+    },
+    "rejectionByKind": {
+      "digit changed in entity (entity quote)": {
+        "n": 2282,
+        "hit": 2282,
+        "pct": 100
+      },
+      "digit changed in entity (sentence quote)": {
+        "n": 2296,
+        "hit": 2296,
+        "pct": 100
+      },
+      "word swapped (sentence quote)": {
+        "n": 2326,
+        "hit": 2326,
+        "pct": 100
+      },
+      "sentence from another judgment": {
+        "n": 2332,
+        "hit": 2332,
+        "pct": 100
+      }
+    }
+  },
+  "sections": {
+    "references": 218,
+    "outcomes": {
+      "known maximum": {
+        "n": 218,
+        "hit": 143,
+        "pct": 65.6
+      },
+      "in tables, maximum depends on another section or fact": {
+        "n": 218,
+        "hit": 43,
+        "pct": 19.7
+      },
+      "not in tables (can't tell)": {
+        "n": 218,
+        "hit": 24,
+        "pct": 11
+      },
+      "unparsed reference (can't tell)": {
+        "n": 218,
+        "hit": 8,
+        "pct": 3.7
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { facts } from "@/lib/facts";
+import inlegalner from "@/data/inlegalner.json";
+import { facts, inr } from "@/lib/facts";
 
 export const metadata: Metadata = {
   title: "Proof and misses",
@@ -56,6 +57,141 @@ function BarSet({ title, note, rows, lowerIsBetter }: { title: string; note: str
         ))}
       </ul>
     </figure>
+  );
+}
+
+const OUTCOME_NAMES: Record<string, string> = {
+  "known maximum": "Maximum term known",
+  "in tables, maximum depends on another section or fact": "In the tables, but the maximum depends on another section or fact",
+  "not in tables (can't tell)": "Not in the tables: says “can't tell”",
+  "unparsed reference (can't tell)": "Reference not parsed: says “can't tell”"
+};
+
+const VARIANT_NAMES: Record<string, string> = {
+  "digit changed in entity (entity quote)": "One digit changed in the date or section",
+  "digit changed in entity (sentence quote)": "One digit changed, inside the whole sentence",
+  "word swapped (sentence quote)": "One word swapped in the sentence",
+  "sentence from another judgment": "A sentence taken from another judgment"
+};
+
+type Rate = { n: number; hit: number; pct: number };
+const rate = (x: Rate) => `${x.pct}% (${inr(x.hit)}/${inr(x.n)})`;
+
+/** The deterministic reader on real judgments: no model, no network. */
+function RealJudgments() {
+  const j = inlegalner;
+  const rows: [string, string][] = [
+    ["Dates found, all labelled dates", rate(j.dates.recallAll)],
+    ["Dates found, full day-month-year dates", rate(j.dates.recallFull)],
+    ["Found spans that are labelled dates (precision)", rate(j.dates.precision)],
+    ["Full dates read to the right calendar day", rate(j.dates.parsedCorrectFull)],
+    ["Real quotes accepted by the verifier", rate(j.verifier.recallTotal)],
+    ["Altered quotes rejected by the verifier", rate(j.verifier.rejectionTotal)]
+  ];
+  return (
+    <section aria-labelledby="real-h" className="mt-16">
+      <h2 id="real-h" className="font-sans text-[length:var(--step-3)] font-[750] [font-stretch:88%]">On real judgments (no model)</h2>
+      <p className="mt-2 max-w-3xl text-ink-2">
+        The parts of HalfTime that are plain code, run on {inr(j.rows)} rows of real Indian court text with labels written by people: the{" "}
+        {j.dataset.replace(/ \(.*\)$/, "")}, English Indian judgments, MIT licence. {inr(j.rowsByKind.judgement)} judgment sentences and{" "}
+        {inr(j.rowsByKind.preamble)} preambles; {inr(j.goldEntities.DATE)} labelled dates and {inr(j.goldEntities.PROVISION)} labelled provisions.
+      </p>
+
+      <div className="mt-8 grid gap-4 md:grid-cols-3">
+        {[
+          { v: `${j.verifier.recallTotal.pct}%`, l: `of ${inr(j.verifier.recallTotal.n)} real quotes accepted`, s: "Quotes copied from the judgment are always found." },
+          { v: `${j.verifier.rejectionTotal.pct}%`, l: `of ${inr(j.verifier.rejectionTotal.n)} altered quotes rejected`, s: "A changed digit, a swapped word or a borrowed sentence never passes." },
+          { v: `${j.dates.recallFull.pct}%`, l: `of ${inr(j.dates.recallFull.n)} full dates found`, s: `Precision ${j.dates.precision.pct}% over ${inr(j.dates.precision.n)} found spans.` }
+        ].map((x) => (
+          <div key={x.l} className="border border-ink bg-paper p-5">
+            <p className="font-mono text-[clamp(2.2rem,4vw,3.2rem)] leading-none tabular">{x.v}</p>
+            <p className="mt-2 font-sans text-[1rem] font-[700]">{x.l}</p>
+            <p className="mt-1 text-[0.85rem] text-ink-3">{x.s}</p>
+          </div>
+        ))}
+      </div>
+
+      <div tabIndex={0} role="region" aria-label="Real judgments table" className="mt-6 overflow-x-auto border border-ink">
+        <table className="w-full min-w-[560px] border-collapse text-[0.9rem]">
+          <thead className="bg-ink text-left text-paper">
+            <tr>
+              <th scope="col" className="p-3 font-[600]">Measure</th>
+              <th scope="col" className="p-3 font-[600]">Result (hits / n)</th>
+            </tr>
+          </thead>
+          <tbody className="font-mono tabular">
+            {rows.map(([k, v]) => (
+              <tr key={k} className="border-t border-[var(--rule)] odd:bg-paper-2/60">
+                <th scope="row" className="p-3 text-left font-sans font-[500]">{k}</th>
+                <td className="p-3">{v}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+        <div tabIndex={0} role="region" aria-label="Altered quotes table" className="overflow-x-auto border border-ink">
+          <table className="w-full min-w-[480px] border-collapse text-[0.9rem]">
+            <thead className="bg-paper-2 text-left">
+              <tr>
+                <th scope="col" className="p-3">Altered quote (dates and provisions)</th>
+                <th scope="col" className="p-3">Rejected</th>
+              </tr>
+            </thead>
+            <tbody className="font-mono tabular">
+              {Object.entries(j.verifier.rejectionByKind).map(([k, v]) => (
+                <tr key={k} className="border-t border-[var(--rule)]">
+                  <th scope="row" className="p-3 text-left font-sans font-[500]">{VARIANT_NAMES[k] ?? k}</th>
+                  <td className="p-3">{rate(v)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div tabIndex={0} role="region" aria-label="Section parsing table" className="overflow-x-auto border border-ink">
+          <table className="w-full min-w-[480px] border-collapse text-[0.9rem]">
+            <thead className="bg-paper-2 text-left">
+              <tr>
+                <th scope="col" className="p-3">Section reference ({inr(j.sections.references)} from acts HalfTime covers)</th>
+                <th scope="col" className="p-3">Share</th>
+              </tr>
+            </thead>
+            <tbody className="font-mono tabular">
+              {Object.entries(j.sections.outcomes).map(([k, v]) => (
+                <tr key={k} className="border-t border-[var(--rule)]">
+                  <th scope="row" className="p-3 text-left font-sans font-[500]">{OUTCOME_NAMES[k] ?? k}</th>
+                  <td className="p-3">{rate(v)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="mt-8 grid max-w-5xl gap-6 font-serif text-[1.05rem] leading-relaxed md:grid-cols-2">
+        <div>
+          <p className="caps text-ok">What this shows</p>
+          <p className="mt-2">
+            On real court English, the code that finds dates, reads section numbers and checks every quote the model gives does its job. A quote
+            that is really in the papers passes; a quote with one digit or one word changed does not. Sections it cannot price are marked
+            “can&apos;t tell”, never guessed.
+          </p>
+        </div>
+        <div>
+          <p className="caps text-flag">What it does not show</p>
+          <p className="mt-2">
+            No model ran here, so it says nothing about how well the model picks the custody date or the charged sections. These are High Court and
+            Supreme Court judgments, not district-court bail orders, and they are English only: Hindi text, Devanagari dates and scan noise are not
+            tested. Labels mark that a span is a date, not which date matters.
+          </p>
+        </div>
+      </div>
+      <p className="mt-4 text-[0.85rem] text-ink-3">
+        Reproduce: <code className="font-mono">pnpm eval:inlegalner</code> writes <code className="font-mono">eval/inlegalner/report.json</code> (seed {j.seed}); the full report is{" "}
+        <code className="font-mono">eval/inlegalner/report.md</code>, and <code className="font-mono">scripts/build-inlegalner-summary.ts</code> feeds this section.
+      </p>
+    </section>
   );
 }
 
@@ -217,6 +353,8 @@ export default function ResultsPage() {
           </div>
         )}
       </section>
+
+      <RealJudgments />
 
       <section aria-labelledby="method-h" className="mt-16 grid gap-8 md:grid-cols-12">
         <h2 id="method-h" className="font-sans text-[length:var(--step-3)] font-[750] [font-stretch:88%] md:col-span-4">Method</h2>
