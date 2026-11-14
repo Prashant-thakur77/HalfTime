@@ -198,9 +198,7 @@ See [TESTING.md](TESTING.md), [ARCHITECTURE.md](ARCHITECTURE.md) and [SECURITY.m
 
 ## AI tools used
 
-I built HalfTime with Claude Code (Anthropic's coding assistant, running Claude Opus 5.5). I chose the problem, wrote the plan, decided the approach and the design, and guided the work step by step. Claude Code wrote most of the code, tests and documentation under that direction. I checked what it produced: I read the changes, ran the tests and the evaluation, verified the legal facts and every source, tried the site and the MCP server myself, and sent work back when something was wrong or didn't match the plan.
-
-The product itself also uses AI at runtime: Claude Sonnet 5.5 reads court orders and must quote the sentence behind every fact, Claude Opus 5.5 transcribes scanned pages, and Claude Haiku 5.5 scores the plain-chatbot baseline in the evaluation. Whether someone is past the line is decided by plain, tested code, not by a model.
+I directed and checked everything in HalfTime, and took help from Claude Code (Anthropic) to write the code, tests and docs. At runtime the app uses Claude to read court orders; whether someone is past the line is decided by tested code, not by a model.
 
 ## Credits
 

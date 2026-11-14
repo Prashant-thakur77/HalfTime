@@ -15,7 +15,7 @@ export function Footer() {
             orders on this site are constructed for demonstration; names are masked.
           </p>
           <p className="mt-3 max-w-md text-[0.85rem] text-paper/75">
-            Built with Claude Code and the Claude API (Anthropic); every change was guided and checked by hand.{" "}
+            Directed and checked by hand, with help from Claude Code (Anthropic).{" "}
             <a
               className="underline decoration-paper/30 underline-offset-2 hover:text-mark"
               href="https://github.com/Prashant-thakur77/HalfTime#credits"
