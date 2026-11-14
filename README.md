@@ -28,6 +28,8 @@ Live: **https://halftime.prashantthakur.dev** · Use it from Claude (MCP): **htt
 | 4 | [/agent](https://halftime.prashantthakur.dev/agent) | The docket agent's recorded run, step by step, including a rejected quote fixed on retry |
 | 5 | `pnpm install && pnpm test && pnpm eval:offline` | 1,301 unit tests pass; the 160-order evaluation replays from the committed recording and matches `eval/report.json`, with no API key |
 
+Full documentation: [halftime.prashantthakur.dev/docs](https://halftime.prashantthakur.dev/docs) (how it works, the agent, the law, API, MCP, evaluation, security, self-hosting, FAQ) · live status: [/status](https://halftime.prashantthakur.dev/status).
+
 Also: the [demo video](https://youtu.be/d6cUSK23ZVQ), the MCP connector `https://halftime.prashantthakur.dev/mcp` (no key needed), and the live health self-test at [/api/health](https://halftime.prashantthakur.dev/api/health).
 
 ## The problem
@@ -167,6 +169,8 @@ This benchmark found five parsing gaps (dates written `dt.15.9.1989`, `u/s 302`,
 | [`/law`](https://halftime.prashantthakur.dev/law) | Section 479 in plain words, with the tables and their sources |
 | [`/story`](https://halftime.prashantthakur.dev/story) | Why it exists: the 2011 case, the numbers, the law over time, who it is for |
 | [`/connect`](https://halftime.prashantthakur.dev/connect) | Add HalfTime to claude.ai, Claude Desktop or Claude Code |
+| [`/docs`](https://halftime.prashantthakur.dev/docs) | Documentation: how it works (diagrams), the agent, the law, HTTP API, MCP tools, evaluation, security, self-hosting, FAQ |
+| [`/status`](https://halftime.prashantthakur.dev/status) | Live checks: health self-test, MCP endpoint, every page |
 
 ## What's in the repo
 

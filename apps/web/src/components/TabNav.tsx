@@ -14,7 +14,9 @@ const LINKS = [
   { href: "/results", key: "nav.results" },
   { href: "/connect", key: "nav.connect" },
   { href: "/law", key: "nav.law" },
-  { href: "/story", key: "nav.story" }
+  { href: "/story", key: "nav.story" },
+  { href: "/docs", key: "nav.docs" },
+  { href: "/status", key: "nav.status" }
 ] as const;
 
 /** Folder tabs hanging from the top edge: index on the left, the main action on the right. */
