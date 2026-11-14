@@ -1,0 +1,91 @@
+/* Motion for the playground. The global reduced-motion rule flattens all of it. */
+
+@keyframes pg-mark-in {
+  from { background-size: 0% 100%; }
+  to { background-size: 100% 100%; }
+}
+.pg-mark {
+  background-image: linear-gradient(var(--mark), var(--mark));
+  background-color: transparent;
+  background-repeat: no-repeat;
+  animation: pg-mark-in 240ms var(--snap) both;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+@keyframes pg-result-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+.pg-result {
+  animation: pg-result-in 200ms var(--snap) both;
+}
+
+@keyframes pg-draw {
+  from { stroke-dashoffset: 30; }
+  to { stroke-dashoffset: 0; }
+}
+.pg-draw {
+  stroke-dasharray: 30;
+  animation: pg-draw 240ms var(--snap) 60ms both;
+}
+
+/* The stamp comes down: 420ms, slight overshoot, settles at its tilt. */
+@keyframes pg-slam {
+  0% { opacity: 0; transform: scale(1.9) rotate(-9deg); }
+  55% { opacity: 1; transform: scale(0.94) rotate(-3deg); }
+  78% { transform: scale(1.03) rotate(-4.5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-4deg); }
+}
+.pg-slam {
+  transform: rotate(-4deg);
+  animation: pg-slam 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.pg-needle {
+  transition: left var(--ui) var(--snap);
+}
+.pg-fill {
+  transition: width var(--ui) var(--snap);
+}
+
+/* Range input in the house style. */
+.pg-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+}
+.pg-range::-webkit-slider-runnable-track {
+  height: 4px;
+  background: var(--ink);
+}
+.pg-range::-moz-range-track {
+  height: 4px;
+  background: var(--ink);
+}
+.pg-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 30px;
+  margin-top: -13px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+}
+.pg-range::-moz-range-thumb {
+  width: 12px;
+  height: 28px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+}
+.pg-range:focus-visible {
+  outline: 2px solid var(--carbon);
+  outline-offset: 2px;
+}
+.pg-range:focus-visible::-webkit-slider-thumb {
+  background: var(--mark);
+}
