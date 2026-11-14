@@ -19,6 +19,22 @@ test.describe("landing", () => {
   });
 });
 
+test.describe("landing sections", () => {
+  test("the statement, the register, the tray and the how-it-works stack", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+    await expect(page.getByText("HalfTime reads them all.", { exact: false }).first()).toBeAttached();
+    await expect(page.getByRole("heading", { name: /Found under Section 479 in 2024/ })).toBeVisible();
+    const tray = page.getByRole("region", { name: /Sample case files/ });
+    await tray.scrollIntoViewIfNeeded();
+    await expect(tray.getByRole("link")).toHaveCount(12);
+    await page.getByRole("button", { name: "Next file" }).click();
+    await expect(page.getByText(/^02 \/ 12$/)).toBeVisible();
+    for (const h of ["Read", "Quote", "Check", "Apply", "Draft"]) await expect(page.getByRole("heading", { name: h, exact: true })).toBeAttached();
+    await expect(page.getByText(/planted ·/).first()).toBeAttached();
+  });
+});
+
 test.describe("sweep", () => {
   test("sorts the sample jail into lanes and exports CSV", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });

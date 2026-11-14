@@ -8,10 +8,12 @@ import { Wordmark } from "./Wordmark";
 const LINKS = [
   { href: "/", key: "nav.home" },
   { href: "/sweep", key: "nav.sweep" },
+  { href: "/playground", key: "nav.playground" },
   { href: "/vs-chatbot", key: "nav.vs" },
   { href: "/results", key: "nav.results" },
   { href: "/connect", key: "nav.connect" },
-  { href: "/law", key: "nav.law" }
+  { href: "/law", key: "nav.law" },
+  { href: "/story", key: "nav.story" }
 ] as const;
 
 /** Folder tabs hanging from the top edge: index on the left, the main action on the right. */
@@ -57,7 +59,7 @@ export function TabNav() {
             type="button"
             onClick={() => setLang(lang === "en" ? "hi" : "en")}
             className="hidden h-11 rounded-b-[10px] border border-t-0 border-ink bg-paper-2 px-3 text-[0.85rem] text-ink transition-colors duration-[var(--ui)] hover:bg-mark sm:block"
-            aria-label={lang === "en" ? "Switch to Hindi" : "Switch to English"}
+            aria-label={`${t("lang.toggle")} · ${lang === "en" ? "switch to Hindi" : "switch to English"}`}
           >
             {t("lang.toggle")}
           </button>

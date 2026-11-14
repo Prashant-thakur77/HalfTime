@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { humanDate, parseIsoDate, sectionLabel } from "@halftime/law";
-import { decide } from "@halftime/reader";
+import { DocIndex, checkQuote, decide } from "@halftime/reader";
+import { CaseTray } from "@/components/landing/CaseTray";
+import { FragmentBurst } from "@/components/landing/FragmentBurst";
+import { HowPanels } from "@/components/landing/HowPanels";
+import { Odometer } from "@/components/landing/Odometer";
+import { ScrambleStatement } from "@/components/landing/ScrambleStatement";
+import { TileRegister } from "@/components/landing/TileRegister";
 import { Hero } from "@/components/landing/Hero";
 import { LedgerOfDays } from "@/components/landing/LedgerOfDays";
 import { Stamp } from "@/components/Stamp";
@@ -27,6 +33,53 @@ interface EvalSummary {
   misses: unknown[];
 }
 
+/** The real S01 run, reduced to what the "how it works" cards show; the planted quote is checked by the verifier. */
+function howData() {
+  const { s, r } = caseOf("S01");
+  const custody = r.facts.spans.find((x) => x.field === "custody_start")!;
+  const custodyText = r.text.slice(custody.start, custody.end);
+  const planted = custodyText.replace(/(\d{4})/, (y) => String(Number(y) - 1));
+  const doc = new DocIndex(s.text);
+  const bad = checkQuote(doc, planted);
+  const lines = s.text.split("\n").map((l) => l.trim()).filter(Boolean);
+  return {
+    orderLines: lines.slice(0, 14),
+    quote: { field: "custody_start", value: r.facts.input.custodyStart!, text: custodyText },
+    checks: [
+      { text: custodyText, ok: checkQuote(doc, custodyText).ok },
+      { text: planted, ok: bad.ok, reason: bad.ok ? "" : bad.reason.replace(/\.$/, "").toLowerCase() }
+    ],
+    trace: r.evaluation.trace.slice(0, 11).map((t) => t.text),
+    draftHeading: ["जमानत प्रार्थना पत्र, धारा 479(3) भारतीय नागरिक सुरक्षा संहिता, 2023", s.text.split("\n")[0]!.trim(), `${r.extraction.accused_name_masked} · प्रारूप`]
+  };
+}
+
+function trayCases() {
+  return SAMPLES.filter((s) => RUNS[s.id]).map((s) => {
+    const r = decide(s.text, RUNS[s.id]!.extraction, TODAY);
+    const e = r.evaluation;
+    const note = e.daysPast != null ? `+${e.daysPast} days` : e.daysToGo != null ? `${e.daysToGo} days to go` : e.missing.length ? `${e.missing.length} missing` : "";
+    return {
+      id: s.id, caseNo: r.extraction.case_no ?? s.id, title: s.title, language: s.language, district: s.district ?? "",
+      accused: r.extraction.accused_name_masked, verdict: e.verdict, note,
+      excerpt: s.text.split("\n").filter((l) => l.trim().length > 60)[1] ?? ""
+    };
+  });
+}
+
+function fragments() {
+  const out: { text: string; lang: "hi" | "en" }[] = [];
+  for (const s of SAMPLES) {
+    const run = RUNS[s.id];
+    if (!run) continue;
+    const ex = run.extraction;
+    const lang = s.language === "hi" ? "hi" : "en";
+    if (ex.custody_start.quote) out.push({ text: ex.custody_start.quote, lang });
+    if (ex.sections[0]?.quote) out.push({ text: ex.sections[0].quote, lang });
+  }
+  return out.slice(0, 18);
+}
+
 export default function Home() {
   const hero = caseOf("S01");
   const ledger = caseOf("S02");
@@ -47,6 +100,8 @@ export default function Home() {
           excerpt: hero.excerpt
         }}
       />
+
+      <ScrambleStatement lines={["Every undertrial has a date", "when the law says go home.", "It is written in the papers.", "HalfTime reads them all."]} />
 
       {/* The law already says go home */}
       <section aria-labelledby="law-h" className="mx-auto max-w-[var(--max)] px-[var(--gutter)] py-24">
@@ -87,6 +142,13 @@ export default function Home() {
           ))}
         </dl>
       </section>
+
+      <TileRegister
+        undertrials={facts.undertrials_2024.value}
+        identified={facts.identified_479_2024.value}
+        sourceLabel={`${facts.sources.ncrb!.label}; ${facts.sources.table74!.label}`}
+        sourceUrl={facts.sources.table74!.url}
+      />
 
       <LedgerOfDays
         c={{
@@ -135,6 +197,8 @@ export default function Home() {
         </div>
       </section>
 
+      <CaseTray cases={trayCases()} />
+
       {/* Chatbot vs HalfTime */}
       <section aria-labelledby="vs-h" className="on-ink bg-ink py-24 text-paper">
         <div className="mx-auto max-w-[var(--max)] px-[var(--gutter)]">
@@ -167,6 +231,8 @@ export default function Home() {
         </div>
       </section>
 
+      <FragmentBurst fragments={fragments()} />
+
       {/* Proof */}
       <section aria-labelledby="proof-h" className="mx-auto max-w-[var(--max)] px-[var(--gutter)] py-24">
         <div className="grid gap-6 md:grid-cols-12">
@@ -181,6 +247,16 @@ export default function Home() {
         </div>
         {ev ? (
           <>
+            <div className="mt-12">
+              <Odometer
+                items={[
+                  { value: `${ev.halftime.verdictAcc}%`, label: "of verdicts right on the constructed set" },
+                  { value: `${ev.halftime.unsafePastCount}/${ev.halftime.notPastGold}`, label: "people wrongly put past the line", tone: "stamp" },
+                  { value: `${ev.halftime.sectionsF1}%`, label: "section F1, charged sections read" },
+                  { value: `${ev.halftime.custodyExact}%`, label: "custody start dates read exactly" }
+                ]}
+              />
+            </div>
             <div className="mt-12 grid gap-px border border-ink bg-ink md:grid-cols-3">
               {[
                 { name: "HalfTime", unsafe: ev.halftime.unsafePastRate, acc: ev.halftime.verdictAcc, strong: true },
@@ -206,37 +282,17 @@ export default function Home() {
         )}
       </section>
 
-      {/* How it works */}
-      <section aria-labelledby="how-h" className="border-y border-ink bg-paper-2 py-24">
-        <div className="mx-auto max-w-[var(--max)] px-[var(--gutter)]">
-          <h2 id="how-h" className="max-w-3xl font-sans text-[length:var(--step-4)] leading-[0.92] font-[780] tracking-[-0.02em] [font-stretch:82%]">
-            The model proposes. Code disposes.
-          </h2>
-          <ol className="mt-14 grid gap-px bg-ink md:grid-cols-4">
-            {[
-              { h: "Read", p: "Hindi or English, typed or scanned. Text-layer PDFs are read in the browser; scanned pages are transcribed by Claude." },
-              { h: "Quote", p: "Claude pulls out the charged sections, the custody date, first-time status and other cases. Each with the exact sentence it came from." },
-              { h: "Check", p: "Code looks for every quote in the papers. A quote that isn't there, or doesn't contain the date or section claimed, is thrown out." },
-              { h: "Apply", p: "A tested rules engine applies Section 479 to the checked facts and writes out every step. Then it drafts the 479(3) application for a lawyer." }
-            ].map((s, i) => (
-              <li key={s.h} className="bg-paper p-6">
-                <span className="font-mono text-[0.8rem] text-ink-3">Step {i + 1}</span>
-                <h3 className="mt-2 font-sans text-[length:var(--step-2)] font-[750] [font-stretch:88%]">{s.h}</h3>
-                <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-2">{s.p}</p>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-6 max-w-3xl text-[0.95rem] text-ink-2">
-            The model never decides who is eligible. If it is wrong about a fact, the quote check usually catches it; if it is missing a fact, the case
-            goes to “can&apos;t tell” for a person to look at.
+      <HowPanels d={howData()} />
+
+      <section aria-label="Use it from Claude" className="on-ink bg-ink py-16 text-paper">
+        <div className="mx-auto flex max-w-[var(--max)] flex-col gap-6 px-[var(--gutter)] md:flex-row md:items-center md:justify-between">
+          <p className="max-w-2xl font-serif text-[length:var(--step-1)] leading-snug">
+            The same checks run as an MCP server. Add it to claude.ai or Claude Code, and the Claude you already use reads the papers while HalfTime checks
+            every quote and applies the law. No key needed.
           </p>
-          <p className="mt-3 max-w-3xl text-[0.95rem] text-ink-2">
-            The same checks run as an MCP server, so the Claude you already use can do the reading:{" "}
-            <Link className="font-mono underline" href="/connect">
-              halftime.prashantthakur.dev/mcp
-            </Link>
-            .
-          </p>
+          <Link href="/connect" className="flex h-12 shrink-0 items-center border border-paper px-5 font-mono text-[0.95rem] hover:bg-paper hover:text-ink">
+            halftime.prashantthakur.dev/mcp →
+          </Link>
         </div>
       </section>
 
