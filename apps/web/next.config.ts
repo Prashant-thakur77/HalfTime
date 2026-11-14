@@ -10,13 +10,13 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
+      `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "font-src 'self'",
       "connect-src 'self' https://api.anthropic.com",
       "worker-src 'self' blob:",
-      "frame-src https://challenges.cloudflare.com",
+      "frame-src 'none'",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'"
@@ -27,6 +27,7 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   transpilePackages: ["@halftime/law", "@halftime/reader", "@halftime/mcp"],
   poweredByHeader: false,
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   env: { BUILD_DATE: new Date().toISOString().slice(0, 10) },
   webpack(config) {
     // Workspace packages use ESM-style ".js" specifiers for their ".ts" sources.

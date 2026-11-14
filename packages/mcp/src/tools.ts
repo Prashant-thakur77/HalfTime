@@ -17,6 +17,11 @@ import { ACTS, EXTRACTION_SYSTEM, decide, type Extraction } from "@halftime/read
 import { applicationText, type ApplicationData } from "@halftime/reader/application";
 import samplesRaw from "../../../data/samples/samples.json" with { type: "json" };
 
+/** Input limits: a long bail order is ~20k characters; these leave room and stop abuse. */
+export const LIMITS = { document: 120_000, quote: 4_000, short: 200, sweep: 50 } as const;
+const quoteText = () => z.string().max(LIMITS.quote);
+const shortText = () => z.string().max(LIMITS.short);
+
 export const SERVER_INFO = { name: "halftime", version: "1.0.0" };
 
 export const INSTRUCTIONS = `HalfTime applies Section 479 of the Bharatiya Nagarik Suraksha Sanhita (BNSS) to Indian court papers: an undertrial who has served half the maximum sentence for the offence (one-third for a first-time offender) is to be released on bail, and the jail superintendent must apply (479(3)).
@@ -36,23 +41,23 @@ const ExtractionInput = z.object({
     .array(
       z.object({
         act: z.enum(ACTS).describe("IPC, BNS, NDPS, ARMS, POCSO, SCST, DOWRY, GAMBLING, IT, EXCISE, GANGSTERS or OTHER"),
-        section: z.string().describe("Section as written, e.g. 379, 304-B, 25(1-b)(a), 3/25"),
-        quote: z.string().describe("Verbatim text from the document naming this section as charged"),
+        section: shortText().describe("Section as written, e.g. 379, 304-B, 25(1-b)(a), 3/25"),
+        quote: quoteText().describe("Verbatim text from the document naming this section as charged"),
         ndps_quantity: z.enum(["small", "intermediate", "commercial", "unknown"]).optional().describe("NDPS only")
       })
     )
     .describe("Every section the accused is charged under in THIS case"),
   custody_start: z.object({
-    date: z.string().nullable().describe("YYYY-MM-DD, only if written"),
+    date: shortText().nullable().describe("YYYY-MM-DD, only if written"),
     kind: z.enum(["arrest", "remand", "surrender", "unknown"]).optional(),
-    quote: z.string().nullable().describe("Verbatim sentence containing the date")
+    quote: quoteText().nullable().describe("Verbatim sentence containing the date")
   }),
-  first_time_offender: z.object({ value: tri, quote: z.string().nullable() }),
-  other_pending_cases: z.object({ value: tri, quote: z.string().nullable() }),
-  registered_on: z.object({ date: z.string().nullable(), quote: z.string().nullable() }).optional(),
-  accused_name_masked: z.string().optional().describe("Initials only, e.g. R— K—"),
-  case_no: z.string().nullable().optional(),
-  court: z.string().nullable().optional()
+  first_time_offender: z.object({ value: tri, quote: quoteText().nullable() }),
+  other_pending_cases: z.object({ value: tri, quote: quoteText().nullable() }),
+  registered_on: z.object({ date: shortText().nullable(), quote: quoteText().nullable() }).optional(),
+  accused_name_masked: shortText().optional().describe("Initials only, e.g. R— K—"),
+  case_no: shortText().nullable().optional(),
+  court: z.string().max(400).nullable().optional()
 });
 type ExtractionInputT = z.infer<typeof ExtractionInput>;
 
@@ -135,7 +140,7 @@ export function createHalfTimeServer(opts: { files?: FileAccess } = {}): McpServ
 
 How to extract (follow exactly):
 ${EXTRACTION_SYSTEM}`,
-      inputSchema: { document_text: z.string().min(40).describe("The full text of the order, exactly as read"), extraction: ExtractionInput, today: Today },
+      inputSchema: { document_text: z.string().min(40).max(LIMITS.document).describe("The full text of the order, exactly as read"), extraction: ExtractionInput, today: Today },
       annotations: { readOnlyHint: true, openWorldHint: false }
     },
     async ({ document_text, extraction, today }) => {
@@ -166,9 +171,9 @@ ${EXTRACTION_SYSTEM}`,
         "Run check_order on up to 50 orders at once and sort the people into lanes: past the line (jail must apply), past the line but flagged under 479(2), not yet, can't tell, outside 479. Returns a table and a CSV a District Legal Services Authority can act on. Extract each order exactly as described in check_order first.",
       inputSchema: {
         orders: z
-          .array(z.object({ id: z.string().describe("File name or case number"), document_text: z.string().min(40), extraction: ExtractionInput }))
+          .array(z.object({ id: shortText().describe("File name or case number"), document_text: z.string().min(40).max(LIMITS.document), extraction: ExtractionInput }))
           .min(1)
-          .max(50),
+          .max(LIMITS.sweep),
         today: Today
       },
       annotations: { readOnlyHint: true, openWorldHint: false }
@@ -225,7 +230,7 @@ ${EXTRACTION_SYSTEM}`,
       description:
         "For a lawyer who already knows the facts: apply Section 479 BNSS directly, without a document. Use check_order instead when you have the order's text, so every fact is verified.",
       inputSchema: {
-        sections: z.array(z.object({ act: z.enum(ACTS), section: z.string(), ndps_quantity: z.enum(["small", "intermediate", "commercial", "unknown"]).optional() })).min(1),
+        sections: z.array(z.object({ act: z.enum(ACTS), section: shortText(), ndps_quantity: z.enum(["small", "intermediate", "commercial", "unknown"]).optional() })).min(1),
         custody_start: z.string().nullable().describe("YYYY-MM-DD"),
         first_time_offender: tri,
         other_pending_cases: tri,
@@ -256,7 +261,7 @@ ${EXTRACTION_SYSTEM}`,
     {
       title: "Look up a section's maximum punishment",
       description: "Maximum punishment for a section of the IPC, BNS or a common special act, from HalfTime's statute tables (each row cites its source), plus the IPC→BNS mapping.",
-      inputSchema: { act: z.enum(ACTS), section: z.string() },
+      inputSchema: { act: z.enum(ACTS), section: shortText() },
       annotations: { readOnlyHint: true, openWorldHint: false }
     },
     async ({ act, section }) => {
@@ -291,7 +296,7 @@ ${EXTRACTION_SYSTEM}`,
       title: "Draft the Section 479(3) application",
       description: `Draft the jail superintendent's application under Section 479(3) BNSS for one order, in English or Hindi, pre-filled with the case details, the computation, the provisions and the verified quotes, with blanks for signatures and marked "Draft for lawyer review".${opts.files ? " Pass save_to (a .docx path) to also write a Word file." : ""} Extract exactly as described in check_order.`,
       inputSchema: {
-        document_text: z.string().min(40),
+        document_text: z.string().min(40).max(LIMITS.document),
         extraction: ExtractionInput,
         language: z.enum(["en", "hi"]).default("en"),
         today: Today,

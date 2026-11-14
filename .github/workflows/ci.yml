@@ -29,6 +29,8 @@ jobs:
         run: pnpm --filter @halftime/reader test
       - name: MCP server (every tool through a real MCP client)
         run: pnpm --filter @halftime/mcp test
+      - name: Web server routes (API validation, rate limits, /mcp)
+        run: pnpm --filter web test
       - name: Evaluation replays offline and matches eval/report.json
         run: pnpm eval:offline
 

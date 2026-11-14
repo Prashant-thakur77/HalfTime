@@ -28,12 +28,12 @@ export const RulesRequest = z.object({
         })
       )
       .max(40),
-    custodyStart: z.string().nullable(),
+    custodyStart: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Use YYYY-MM-DD.").nullable(),
     custodySpanId: z.number().int().optional(),
     firstTimeOffender: tri,
     otherPendingCases: tri,
     accusedDelayDays: z.number().min(0).max(10000).optional(),
-    registeredOn: z.string().nullable().optional(),
+    registeredOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Use YYYY-MM-DD.").nullable().optional(),
     maxTermOverrideMonths: z.number().positive().max(1200).nullable().optional()
   })
 });
