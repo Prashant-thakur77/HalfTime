@@ -102,3 +102,57 @@ python3 packages/mcp/scripts/transcript.py run.jsonl
 ```
 
 Claude's review of the Hindi draft found two real problems: English dates, terms and labels left in the Hindi text, and "न्यायालय" repeated in the addressee line. Both are now fixed in the shared drafter and covered by `packages/reader/test/application.test.ts`.
+
+
+# Session 2: the remote server at https://halftime.prashantthakur.dev/mcp
+
+The same Claude Code client, connected over HTTP to the deployed server (no local install, no file access), sweeping three sample orders.
+
+Model: `claude-opus-5-5` · MCP servers: halftime (connected)
+
+HalfTime tools available: `apply_section_479`, `check_order`, `draft_application`, `get_sample_order`, `list_sample_orders`, `lookup_section`, `sweep_jail`
+
+**→ ToolSearch**  {"query": "select:mcp__halftime__get_sample_order,mcp__halftime__check_order,mcp__halftime__sweep_jail", "max_results": 3}
+
+> 
+
+**→ get_sample_order**  {"id": "S01"}
+
+> S01 · Theft and stolen bike, 3½ years inside (constructed sample, not a real case)
+> न्यायालय अपर सत्र न्यायाधीश, कोर्ट संख्या 5, आगरा
+
+**→ get_sample_order**  {"id": "S03"}
+
+**→ get_sample_order**  {"id": "S08"}
+
+> S03 · Job fraud, first-time offender (constructed sample, not a real case)
+> IN THE COURT OF ADDITIONAL SESSIONS JUDGE, COURT NO. 7, LUCKNOW
+
+> S08 · Highway robbery, line years away (constructed sample, not a real case)
+> IN THE COURT OF ADDITIONAL SESSIONS JUDGE, COURT NO. 9, KANPUR NAGAR
+
+**→ sweep_jail**  3 orders: S01, S03, S08
+
+> Jail sweep as of 15 Nov 2026: 3 people.
+> Past the line: 1 (jail must apply) + 1 flagged under 479(2) · Not yet: 1 · Can't tell: 0 · Outside 479: 0
+
+I ran one sweep of all three orders as of 15 Nov 2026. HalfTime checked every quote against the order text and rejected none of them.
+
+| Lane | Order | Accused | Sections | Line | Days past / to go |
+|---|---|---|---|---|---|
+| Past the line | S03 | J— M— | IPC 1860 s.420 | 12 Jun 2026 | +156 |
+| Past the line · flagged | S01 | र— कु— | IPC 1860 s.379, s.411 | 14 Mar 2024 | +976 |
+| Not yet | S08 | M— A— | IPC 1860 s.392, s.411 | 21 Jul 2030 | 1344 to go |
+
+- **S03 · J— M— (PAST_THE_LINE):** HalfTime uses a 7-year (84-month) maximum and the one-third fraction for a first-time offender. The line was 12 Jun 2026 and they are now 156 days past it. The jail superintendent must apply under 479(3), and a lawyer reviews and signs the application.
+- **S01 · र— कु— (PAST_FLAGGED):** HalfTime uses a 3-year (36-month) maximum and the one-third fraction. The line was 14 Mar 2024 and they are now 976 days past it. HalfTime raised two flags:
+  - They have been held for the full maximum term or longer, and HalfTime says the second proviso to 479(1) bars any further detention.
+  - More than one offence is charged (s.379 and s.411), so 479(2) may apply.
+
+  A lawyer needs to decide this one.
+- **S08 · M— A— (NOT_YET):** HalfTime uses a 14-year (168-month) maximum and the one-half fraction, because the order records a criminal history of 2 cases. The line date is 21 Jul 2030, which is 1344 days away.
+
+I can run `draft_application` for S03 and S01 if you want the paperwork prepared for a lawyer to review.
+
+---
+Turns: 6 · duration 44 s · result: success
