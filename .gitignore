@@ -25,7 +25,6 @@ test-results/
 .design-refs/
 LICENSES_LEDGER.md
 eval/raw/
-video/out/
 __pycache__/
 .venv/
 *.pyc
@@ -37,3 +36,6 @@ __pycache__/
 
 # local helper scripts
 apps/web/.*.mjs
+apps/web/.next-*/
+eval/report.offline.json
+video/

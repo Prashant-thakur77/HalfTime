@@ -29,6 +29,8 @@ jobs:
         run: pnpm --filter @halftime/reader test
       - name: MCP server (every tool through a real MCP client)
         run: pnpm --filter @halftime/mcp test
+      - name: Evaluation replays offline and matches eval/report.json
+        run: pnpm eval:offline
 
   e2e:
     name: End-to-end and accessibility

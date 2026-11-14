@@ -5,6 +5,7 @@
  *   pnpm eval -- --repeats 3        # 3 HalfTime runs (2 fresh model runs), mean ± sd
  *   pnpm eval -- --set iltur        # the real held-out Hindi set, once downloaded
  *   pnpm eval -- --check            # fail if unsafe-PAST rises or field accuracy drops > 1 pt
+ *   pnpm eval -- --offline          # replay the committed recording: no key, no cost; must match report.json
  *
  * Writes eval/report.json and eval/report.md. Every number on the site comes from here.
  */
@@ -13,7 +14,7 @@ import { join } from "node:path";
 import { applyReadWith, canonicalSection, evaluate, expandSections, resolveSection, type CaseInput, type Verdict } from "../packages/law/src/index.js";
 import { ClaudeReader } from "../packages/reader/src/claude.js";
 import { decide, regexExtract, type BaselineAnswer, type Extraction } from "../packages/reader/src/index.js";
-import { FileCache, pool } from "../scripts/file-cache.js";
+import { FileCache, ReplayCache, pool } from "../scripts/file-cache.js";
 
 const args = process.argv.slice(2);
 const arg = (k: string, d: string) => {
@@ -23,6 +24,8 @@ const arg = (k: string, d: string) => {
 const SET = arg("set", "constructed");
 const REPEATS = Number(arg("repeats", "3"));
 const CHECK = args.includes("--check");
+/** Replay the committed recording (eval/cache/responses.jsonl.gz): no API key, no network, no cost. */
+const OFFLINE = args.includes("--offline");
 const TODAY = "2026-11-15";
 
 interface Order {
@@ -122,7 +125,9 @@ function score(preds: Pred[]) {
   };
 }
 
-const reader = (salt: string) => new ClaudeReader({ cache: new FileCache(), cacheSalt: salt });
+const replay = OFFLINE ? new ReplayCache() : null;
+const reader = (salt: string) =>
+  new ClaudeReader({ cache: replay ?? new FileCache(), cacheSalt: salt, ...(OFFLINE ? { apiKey: "offline-replay" } : {}) });
 
 async function runHalfTime(salt: string): Promise<Pred[]> {
   const r = reader(salt);
@@ -280,6 +285,18 @@ if (CHECK && prev && prev.set === report.set) {
     console.error("Eval regression:\n" + bad.join("\n"));
     process.exit(1);
   }
+}
+
+if (OFFLINE) {
+  // A replay must reproduce the committed report exactly, except the run date and live latency (not recorded).
+  const strip = (r: typeof report) => JSON.stringify({ ...r, ranOn: null, halftime: { ...r.halftime, latencyMsP50: null, latencyMsP95: null } });
+  if (!prev || strip(prev) !== strip(report)) {
+    writeFileSync("eval/report.offline.json", JSON.stringify(report, null, 2) + "\n");
+    console.error("Offline replay differs from eval/report.json (written to eval/report.offline.json).");
+    process.exit(1);
+  }
+  console.log(`Offline replay reproduced eval/report.json exactly: ${report.n} orders, verdict accuracy ${report.halftime.verdictAcc}%, unsafe-PAST ${report.halftime.unsafePastCount}/${report.halftime.notPastGold}.`);
+  process.exit(0);
 }
 
 writeFileSync("eval/report.json", JSON.stringify(report, null, 2) + "\n");
